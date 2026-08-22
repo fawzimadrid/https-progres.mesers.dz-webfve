@@ -248,6 +248,12 @@
             box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
         }
 
+        input:disabled, select:disabled {
+            background-color: #f1f5f9 !important;
+            cursor: not-allowed;
+            color: #94a3b8;
+        }
+
         /* Buttons */
         .btn {
             padding: 8px 16px;
@@ -262,12 +268,17 @@
             transition: background 0.2s;
         }
 
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .btn-blue {
             background-color: var(--primary-blue);
             color: white;
         }
 
-        .btn-blue:hover {
+        .btn-blue:hover:not(:disabled) {
             background-color: var(--primary-blue-hover);
         }
 
@@ -276,7 +287,7 @@
             color: var(--text-main);
         }
 
-        .btn-secondary:hover {
+        .btn-secondary:hover:not(:disabled) {
             background-color: #cbd5e1;
         }
 
@@ -290,7 +301,7 @@
             color: white;
         }
 
-        .btn-danger:hover {
+        .btn-danger:hover:not(:disabled) {
             background-color: #dc2626;
         }
 
@@ -479,6 +490,30 @@
             line-height: 1.4;
         }
 
+        .closed-badge {
+            background-color: #ef4444;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .active-badge {
+            background-color: #10b981;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         @media print {
             body * {
                 visibility: hidden;
@@ -592,9 +627,10 @@
             <section id="sec-dashboard" class="content-section">
                 <div class="page-header">
                     <h1 class="page-title">Tableau de bord Général</h1>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="btn btn-warning" onclick="closeAcademicYear2025()"><i class="fa-solid fa-lock"></i> Clôturer l'Année 2025-2026</button>
-                        <button class="btn btn-success" onclick="openAndTransferTo2026()"><i class="fa-solid fa-door-open"></i> Ouvrir & Transférer vers 2026-2027</button>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <span id="year-lock-status" class="active-badge"><i class="fa-solid fa-lock-open"></i> Année Active En Cours</span>
+                        <button class="btn btn-warning" id="btn-close-year" onclick="closeCurrentAcademicYear()"><i class="fa-solid fa-lock"></i> Clôturer & Verrouiller l'Année Actuelle</button>
+                        <button class="btn btn-success" id="btn-open-year" onclick="createNewAcademicYear()"><i class="fa-solid fa-door-open"></i> Ouvrir Nouvelle Année الجامعية</button>
                     </div>
                 </div>
                 <div class="form-grid" style="margin-bottom: 20px;">
@@ -604,28 +640,36 @@
                     </div>
                     <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
                         <div style="color: var(--text-muted); font-size: 0.8rem;">Année Universitaire Active</div>
-                        <div style="font-size: 1.8rem; font-weight: 700; color: #10b981;" id="stat-annee">2025-2026</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: #10b981;" id="stat-annee">2026-2027</div>
                     </div>
                     <div style="background: #fefce8; padding: 20px; border-radius: 8px; border-left: 4px solid #eab308;">
                         <div style="color: var(--text-muted); font-size: 0.8rem;">Spécialité Principale</div>
                         <div style="font-size: 1.2rem; font-weight: 700; color: #ca8a04; margin-top: 8px;">Linguistique Appliquée (L3)</div>
                     </div>
                 </div>
+
+                <div style="background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:20px; margin-top:20px;">
+                    <h3 style="font-size:1rem; margin-bottom:15px; color:var(--text-main);"><i class="fa-solid fa-box-archive"></i> الأرشيف والسنوات الجامعية المغلقة نهائياً</h3>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:15px;">السنوات التالية تم غلقها وتخزينها نهائياً ولا يمكن إجراء أي تعديلات عليها إطلاقاً:</p>
+                    <ul id="closed-years-list" style="list-style:none; display:flex; gap:10px; flex-wrap:wrap;">
+                        <!-- Filled dynamically -->
+                    </ul>
+                </div>
             </section>
 
             <!-- 2. BASE DE DONNEES -->
             <section id="sec-database" class="content-section" style="display: none;">
                 <div class="page-header">
-                    <h1 class="page-title">Gestion de la Base de Données</h1>
+                    <h1 class="page-title">Gestion de la Base de Données الدائمة (IndexedDB)</h1>
                 </div>
                 <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">
-                    Exportation, importation et restauration de la base de données intégrée du système PROGRES.
+                    تخزين البيانات الدائم والمؤمن نهائياً داخل المنصة لمنع الضياع مع إمكانية التصدير والاسترجاع في أي وقت.
                 </p>
                 <div style="display: flex; gap: 12px; flex-wrap: wrap;">
                     <button class="btn btn-blue" onclick="exportDatabase()"><i class="fa-solid fa-download"></i> Exporter la Base de Données</button>
                     <button class="btn btn-blue" onclick="triggerImport('db-file')"><i class="fa-solid fa-upload"></i> Importer la Base de Données</button>
                     <button class="btn btn-blue" onclick="triggerImport('excel-file')"><i class="fa-solid fa-file-excel"></i> Importer les Étudiants (Excel)</button>
-                    <button class="btn btn-danger" onclick="clearAllGrades()"><i class="fa-solid fa-eraser"></i> Vider Toutes les Notes</button>
+                    <button class="btn btn-danger" id="btn-clear-grades" onclick="clearAllGrades()"><i class="fa-solid fa-eraser"></i> Vider Toutes les Notes</button>
                     <input type="file" id="db-file" style="display: none;" accept=".json" onchange="importDatabase(event)">
                     <input type="file" id="excel-file" style="display: none;" accept=".xlsx, .xls" onchange="importExcelStudents(event)">
                 </div>
@@ -637,11 +681,10 @@
                     <h1 class="page-title">Gestion des Dossiers Étudiants</h1>
                     <div style="display: flex; gap: 10px; align-items: center;">
                         <label style="font-size: 0.8rem; font-weight: 600;">Année:</label>
-                        <select id="filter-year" style="width: 140px;" onchange="filterStudents()">
-                            <option value="2025-2026" selected>2025-2026</option>
-                            <option value="2026-2027">2026-2027</option>
+                        <select id="filter-year" style="width: 160px;" onchange="filterStudents()">
+                            <!-- Populated Dynamically -->
                         </select>
-                        <button class="btn btn-blue" onclick="openNewStudentModal()"><i class="fa-solid fa-plus"></i> Nouveau Étudiant</button>
+                        <button class="btn btn-blue" id="btn-add-student" onclick="openNewStudentModal()"><i class="fa-solid fa-plus"></i> Nouveau Étudiant</button>
                     </div>
                 </div>
 
@@ -672,7 +715,7 @@
                 </div>
             </section>
 
-            <!-- NOUEAU: DUPLICATES SECTION -->
+            <!-- 4. DUPLICATES SECTION -->
             <section id="sec-duplicates" class="content-section" style="display: none;">
                 <div class="page-header">
                     <h1 class="page-title">Détection et Gestion des Étudiants Dupliqués</h1>
@@ -702,19 +745,19 @@
                 </div>
             </section>
 
-            <!-- 4. REINSCRIPTIONS -->
+            <!-- 5. REINSCRIPTIONS -->
             <section id="sec-reinscriptions" class="content-section" style="display: none;">
                 <div class="page-header">
                     <h1 class="page-title">Réinscriptions pour l'Année Suivante</h1>
                 </div>
 
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
-                    Sélectionnez les étudiants à réinscrire pour l'année universitaire 2026-2027 :
+                    Sélectionnez les étudiants à réinscrire pour l'année universitaire active :
                 </p>
 
                 <div style="background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 15px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
                     <div style="flex: 1; min-width: 180px;">
-                        <label style="font-size: 0.75rem; font-weight: 600;">Année Suivante</label>
+                        <label style="font-size: 0.75rem; font-weight: 600;">Année Cible</label>
                         <select id="re-year"><option value="2026-2027">2026-2027</option></select>
                     </div>
                     <div style="flex: 1; min-width: 180px;">
@@ -730,7 +773,7 @@
                         </select>
                     </div>
                     <div style="align-self: flex-end;">
-                        <button class="btn btn-blue" onclick="executeBatchReinscription()"><i class="fa-solid fa-check"></i> Enregistrer la Réinscription</button>
+                        <button class="btn btn-blue" id="btn-exec-re" onclick="executeBatchReinscription()"><i class="fa-solid fa-check"></i> Enregistrer la Réinscription</button>
                     </div>
                 </div>
 
@@ -753,12 +796,12 @@
                 </div>
             </section>
 
-            <!-- 5. GROUPES -->
+            <!-- 6. GROUPES -->
             <section id="sec-groups" class="content-section" style="display: none;">
                 <div class="page-header">
                     <h1 class="page-title">Gestion des Groupes et Groupements</h1>
                     <div style="display: flex; gap: 10px;">
-                        <button class="btn btn-blue" onclick="autoAssignGroups()"><i class="fa-solid fa-shuffle"></i> Répartition Automatique Équitable</button>
+                        <button class="btn btn-blue" id="btn-auto-assign" onclick="autoAssignGroups()"><i class="fa-solid fa-shuffle"></i> Répartition Automatique Équitable</button>
                         <button class="btn btn-secondary" onclick="printGroupLists()"><i class="fa-solid fa-print"></i> Imprimer les Listes par Groupe</button>
                     </div>
                 </div>
@@ -780,7 +823,7 @@
                 </div>
             </section>
 
-            <!-- 6. NIVEAUX -->
+            <!-- 7. NIVEAUX -->
             <section id="sec-levels" class="content-section" style="display: none;">
                 <div class="page-header"><h1 class="page-title">Gestion des Niveaux D'études</h1></div>
                 <div class="table-responsive">
@@ -795,7 +838,7 @@
                 </div>
             </section>
 
-            <!-- 7. SPECIALITES -->
+            <!-- 8. SPECIALITES -->
             <section id="sec-specialties" class="content-section" style="display: none;">
                 <div class="page-header"><h1 class="page-title">Gestion des Spécialités</h1></div>
                 <div class="table-responsive">
@@ -810,7 +853,7 @@
                 </div>
             </section>
 
-            <!-- 8. MODULES -->
+            <!-- 9. MODULES -->
             <section id="sec-modules" class="content-section" style="display: none;">
                 <div class="page-header"><h1 class="page-title">Gestion des Matières et Unités d'Enseignement</h1></div>
                 
@@ -842,7 +885,7 @@
                 </div>
             </section>
 
-            <!-- 9. EMPLOI DU TEMPS -->
+            <!-- 10. EMPLOI DU TEMPS -->
             <section id="sec-timetable" class="content-section" style="display: none;">
                 <div class="page-header">
                     <h1 class="page-title">Emploi du Temps Automatique (3 Jours/Semaine)</h1>
@@ -871,12 +914,12 @@
                 </div>
             </section>
 
-            <!-- 10. SAISIE DES NOTES -->
+            <!-- 11. SAISIE DES NOTES -->
             <section id="sec-grades" class="content-section" style="display: none;">
                 <div class="page-header">
                     <h1 class="page-title">Saisie des Notes des Examens et Contrôle Continu</h1>
                     <div style="display: flex; gap: 10px;">
-                        <button class="btn btn-danger" onclick="clearAllGrades()"><i class="fa-solid fa-eraser"></i> Vider Toutes les Notes</button>
+                        <button class="btn btn-danger" id="btn-clear-grades-2" onclick="clearAllGrades()"><i class="fa-solid fa-eraser"></i> Vider Toutes les Notes</button>
                         <button class="btn btn-success" onclick="exportGradesToExcel()"><i class="fa-solid fa-file-excel"></i> Exporter vers Excel</button>
                     </div>
                 </div>
@@ -924,11 +967,11 @@
                     </table>
                 </div>
                 <div style="margin-top: 15px; text-align: right;">
-                    <button class="btn btn-blue" onclick="saveAllGrades()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les Notes</button>
+                    <button class="btn btn-blue" id="btn-save-grades" onclick="saveAllGrades()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les Notes</button>
                 </div>
             </section>
 
-            <!-- 11. DELIBERATION -->
+            <!-- 12. DELIBERATION -->
             <section id="sec-deliberation" class="content-section" style="display: none;">
                 <div class="page-header">
                     <h1 class="page-title">Délibération et Calcul des Moyennes</h1>
@@ -976,7 +1019,7 @@
                 </div>
             </section>
 
-            <!-- 12. RELEVE DE NOTES -->
+            <!-- 13. RELEVE DE NOTES -->
             <section id="sec-releve" class="content-section" style="display: none;">
                 <div class="page-header">
                     <h1 class="page-title">Relevé de Notes Annuel (S5 & S6)</h1>
@@ -1046,10 +1089,10 @@
                 <img src="https://ui-avatars.com/api/?name=Etudiant&size=128" id="fiche-photo" class="student-photo" alt="Photo Étudiant">
                 <div style="flex: 1;">
                     <h2 id="fiche-fullname-fr" style="font-size: 1.4rem;">Nom & Prénom</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Matricule: <span id="fiche-matricule" style="font-weight:600; color:var(--text-main);"></span> | Année Univ: <span id="fiche-annee">2025-2026</span></p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Matricule: <span id="fiche-matricule" style="font-weight:600; color:var(--text-main);"></span> | Année Univ: <span id="fiche-annee">2026-2027</span></p>
                 </div>
                 <div>
-                    <button class="btn btn-blue" onclick="saveStudentFicheChanges()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les Modifications</button>
+                    <button class="btn btn-blue" id="btn-save-fiche" onclick="saveStudentFicheChanges()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les Modifications</button>
                 </div>
             </div>
 
@@ -1136,7 +1179,8 @@
                         <tbody>
                             <tr><td>2023-2024</td><td>L1</td><td>12.50</td><td>13.10</td><td><span style="color:green; font-weight:bold;">Admis(e)</span></td></tr>
                             <tr><td>2024-2025</td><td>L2</td><td>11.80</td><td>12.40</td><td><span style="color:green; font-weight:bold;">Admis(e)</span></td></tr>
-                            <tr><td>2025-2026</td><td>L3</td><td>--</td><td>--</td><td>En Cours</td></tr>
+                            <tr><td>2025-2026</td><td>L3</td><td>--</td><td>--</td><td>Clôturé</td></tr>
+                            <tr><td>2026-2027</td><td>L3</td><td>--</td><td>--</td><td>En Cours</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1160,7 +1204,7 @@
 
     <!-- JavaScript Application Logic -->
     <script>
-        // Algerian First Names & Last Names (Fully converted to French/Latin)
+        // Names Pools
         const firstNamesFR = [
             "Mohamed", "Amina", "Yassine", "Meryem", "Hamza", "Sarah", "Abderrahmane", "Fatima", 
             "Oussama", "Nour El Houda", "Bilal", "Imene", "Khaled", "Houda", "Walid", "Chaimaa", 
@@ -1202,6 +1246,8 @@
 
         // Global State Database Storage
         let db = {
+            currentYear: "2026-2027",
+            closedYears: ["2025-2026"],
             students: [],
             grades: {}
         };
@@ -1209,37 +1255,93 @@
         let currentPage = 1;
         const pageSize = 20;
         let activeStudentEditing = null;
+        let indexedDBInstance = null;
 
-        // Initialize Data On Page Load
-        window.addEventListener('DOMContentLoaded', () => {
-            initDatabase();
+        // IndexedDB Permanent Engine Initialization
+        function initIndexedDB() {
+            return new Promise((resolve, reject) => {
+                const request = window.indexedDB.open("PROGRES_PERMANENT_DB", 1);
+                request.onerror = (e) => reject("Erreur IndexedDB");
+                request.onsuccess = (e) => {
+                    indexedDBInstance = e.target.result;
+                    resolve(indexedDBInstance);
+                };
+                request.onupgradeneeded = (e) => {
+                    const dbComp = e.target.result;
+                    if (!dbComp.objectStoreNames.contains("app_state")) {
+                        dbComp.createObjectStore("app_state", { keyPath: "id" });
+                    }
+                };
+            });
+        }
+
+        async function saveDatabaseToStorage() {
+            // Backup to LocalStorage
+            localStorage.setItem('progres_db_v4', JSON.stringify(db));
+            
+            // Permanent Save to IndexedDB
+            if (indexedDBInstance) {
+                const tx = indexedDBInstance.transaction(["app_state"], "readwrite");
+                const store = tx.objectStore("app_state");
+                store.put({ id: "main_data", payload: db });
+            }
+
+            updateTotalStats();
+            updateGroupCounts();
+            checkYearLockUI();
+        }
+
+        async function initDatabase() {
+            try {
+                await initIndexedDB();
+                const tx = indexedDBInstance.transaction(["app_state"], "readonly");
+                const store = tx.objectStore("app_state");
+                const getReq = store.get("main_data");
+
+                getReq.onsuccess = () => {
+                    if (getReq.result && getReq.result.payload) {
+                        db = getReq.result.payload;
+                    } else {
+                        const localSaved = localStorage.getItem('progres_db_v4');
+                        if (localSaved) {
+                            db = JSON.parse(localSaved);
+                        } else {
+                            generateSeedStudents();
+                        }
+                    }
+                    finalizeInit();
+                };
+            } catch (err) {
+                const localSaved = localStorage.getItem('progres_db_v4');
+                if (localSaved) db = JSON.parse(localSaved);
+                else generateSeedStudents();
+                finalizeInit();
+            }
+        }
+
+        function finalizeInit() {
+            if (!db.currentYear) db.currentYear = "2026-2027";
+            if (!db.closedYears) db.closedYears = ["2025-2026"];
+
+            populateYearDropdowns();
             renderModuleTables();
             updateModuleDropdown();
             renderStudentsTable();
             renderTimetable();
             updateGroupCounts();
-        });
-
-        // Generate 120 unique real-like Algerian Students (Fully unique names in French)
-        function initDatabase() {
-            const saved = localStorage.getItem('progres_db_v3');
-            if (saved) {
-                db = JSON.parse(saved);
-            } else {
-                generateSeedStudents();
-                saveDatabaseToStorage();
-            }
-            updateTotalStats();
+            checkYearLockUI();
+            saveDatabaseToStorage();
         }
 
         function generateSeedStudents() {
             db.students = [];
             db.grades = {};
+            db.currentYear = "2026-2027";
+            db.closedYears = ["2025-2026"];
             let count = 1;
 
             for (let g = 1; g <= 3; g++) {
                 for (let i = 1; i <= 40; i++) {
-                    // Distinct combinations ensuring completely unique names
                     const fnIdx = (count - 1) % firstNamesFR.length;
                     const lnIdx = Math.floor((count - 1) / firstNamesFR.length) % lastNamesFR.length;
 
@@ -1269,23 +1371,130 @@
                         bacMoyenne: (11 + (count % 7) * 0.85).toFixed(2),
                         bacLycee: "Lycée El Idrissi",
                         bacWilaya: "16 - Alger",
-                        anneeUniv: "2025-2026",
+                        anneeUniv: "2026-2027",
                         groupe: `Groupe ${g}`,
                         typeInscr: "Réinscription",
                         statut: "Régulier"
                     };
                     db.students.push(student);
-                    db.grades[student.matricule] = {}; // Clean empty grades!
+                    db.grades[student.matricule] = {};
                     count++;
                 }
             }
         }
 
-        function saveDatabaseToStorage() {
-            localStorage.setItem('progres_db_v3', JSON.stringify(db));
-            updateTotalStats();
-            updateGroupCounts();
+        function populateYearDropdowns() {
+            const filterSelect = document.getElementById('filter-year');
+            filterSelect.innerHTML = '';
+
+            const yearList = Array.from(new Set([...db.closedYears, db.currentYear])).sort().reverse();
+            
+            yearList.forEach(y => {
+                const isClosed = db.closedYears.includes(y);
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.innerText = `${y} ${isClosed ? '(المغلقة نهائياً)' : '(الحالية النشطة)'}`;
+                if (y === db.currentYear) opt.selected = true;
+                filterSelect.appendChild(opt);
+            });
+
+            renderClosedYearsListUI();
         }
+
+        function renderClosedYearsListUI() {
+            const listUl = document.getElementById('closed-years-list');
+            listUl.innerHTML = '';
+            if (db.closedYears.length === 0) {
+                listUl.innerHTML = '<li style="font-size:0.85rem; color:var(--text-muted);">لا توجد سنوات مغلقة حالياً.</li>';
+                return;
+            }
+            db.closedYears.forEach(y => {
+                listUl.innerHTML += `<li><span class="closed-badge"><i class="fa-solid fa-lock"></i> ${y} (مغلقة وتخزين دائم)</span></li>`;
+            });
+        }
+
+        function isSelectedYearClosed() {
+            const selected = document.getElementById('filter-year').value;
+            return db.closedYears.includes(selected);
+        }
+
+        function checkYearLockUI() {
+            const isClosed = isSelectedYearClosed();
+            
+            // Buttons lock condition
+            const lockableButtons = [
+                'btn-add-student', 'btn-clear-grades', 'btn-clear-grades-2',
+                'btn-exec-re', 'btn-auto-assign', 'btn-save-grades', 'btn-save-fiche'
+            ];
+
+            lockableButtons.forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.disabled = isClosed;
+            });
+
+            // Disable all grade entry fields if closed year
+            const inputs = document.querySelectorAll('#grade-entry-tbody input');
+            inputs.forEach(i => i.disabled = isClosed);
+
+            // Update top lock badge UI
+            const statusBadge = document.getElementById('year-lock-status');
+            if (isClosed) {
+                statusBadge.className = 'closed-badge';
+                statusBadge.innerHTML = `<i class="fa-solid fa-lock"></i> سنة مغلقة نهائياً (ممنوع التعديل)`;
+            } else {
+                statusBadge.className = 'active-badge';
+                statusBadge.innerHTML = `<i class="fa-solid fa-lock-open"></i> السنة الحالية النشطة (${db.currentYear})`;
+            }
+
+            document.getElementById('stat-annee').innerText = db.currentYear;
+        }
+
+        // Lock & Close Year Permanent Engine
+        function closeCurrentAcademicYear() {
+            if (db.closedYears.includes(db.currentYear)) {
+                showToast("هذه السنة مغلقة ومخزنة نهائياً بالفعل.");
+                return;
+            }
+
+            if (confirm(`هل أنت أؤكد غلق السنة الجامعية ${db.currentYear} نهائياً؟ بعد الغلق وتحديث المنصة لن يمكنك تعديلها إطلاقاً!`)) {
+                db.closedYears.push(db.currentYear);
+                saveDatabaseToStorage();
+                populateYearDropdowns();
+                checkYearLockUI();
+                showToast(`تم غلق وتخزين السنة الجامعية ${db.currentYear} نهائياً.`);
+            }
+        }
+
+        function createNewAcademicYear() {
+            const parts = db.currentYear.split('-');
+            const nextStart = parseInt(parts[0]) + 1;
+            const nextEnd = parseInt(parts[1]) + 1;
+            const nextYearStr = `${nextStart}-${nextEnd}`;
+
+            if (confirm(`هل تريد بدء وتفعيل السنة الجامعية الجديدة ${nextYearStr} وترقية/تحويل الطلاب؟`)) {
+                if (!db.closedYears.includes(db.currentYear)) {
+                    db.closedYears.push(db.currentYear);
+                }
+                
+                db.currentYear = nextYearStr;
+                
+                // Transfer students automatically to new year
+                db.students.forEach(s => {
+                    s.anneeUniv = nextYearStr;
+                });
+
+                saveDatabaseToStorage();
+                populateYearDropdowns();
+                document.getElementById('filter-year').value = nextYearStr;
+                renderStudentsTable();
+                checkYearLockUI();
+                showToast(`تمت إضافة وتفعيل السنة الجامعية الجديدة ${nextYearStr} بنجاح!`);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initDatabase();
+        });
 
         function updateTotalStats() {
             document.getElementById('stat-total').innerText = db.students.length;
@@ -1345,6 +1554,8 @@
             document.getElementById('page-info').innerText = `Page ${currentPage} sur ${totalPages} (Total: ${filtered.length} Étudiants)`;
             document.getElementById('btn-prev').disabled = currentPage === 1;
             document.getElementById('btn-next').disabled = currentPage === totalPages;
+
+            checkYearLockUI();
         }
 
         function filterStudents() {
@@ -1368,7 +1579,7 @@
             }
         }
 
-        // NEW: DUPLICATE DETECTION AND DELETION
+        // DUPLICATE DETECTION AND DELETION
         function detectDuplicates() {
             const tbody = document.getElementById('duplicates-tbody');
             tbody.innerHTML = '';
@@ -1394,6 +1605,8 @@
                 return;
             }
 
+            const isClosed = isSelectedYearClosed();
+
             duplicates.forEach(item => {
                 const s = item.student;
                 const tr = document.createElement('tr');
@@ -1404,7 +1617,7 @@
                     <td>${s.groupe}</td>
                     <td><span style="color:#ef4444; font-weight:bold;">${item.reason}</span></td>
                     <td>
-                        <button class="btn btn-danger" style="padding:4px 8px; font-size:0.75rem;" onclick="deleteDuplicateStudent('${s.matricule}')">
+                        <button class="btn btn-danger" ${isClosed ? 'disabled' : ''} style="padding:4px 8px; font-size:0.75rem;" onclick="deleteDuplicateStudent('${s.matricule}')">
                             <i class="fa-solid fa-trash"></i> Supprimer
                         </button>
                     </td>
@@ -1414,6 +1627,7 @@
         }
 
         function deleteDuplicateStudent(matricule) {
+            if (isSelectedYearClosed()) return;
             if (confirm(`Êtes-vous sûr de vouloir supprimer définitivement l'étudiant matricule ${matricule} ?`)) {
                 db.students = db.students.filter(s => s.matricule !== matricule);
                 delete db.grades[matricule];
@@ -1424,11 +1638,11 @@
             }
         }
 
-        // NEW: AUTO GROUP ASSIGNMENT EQUALLY
+        // AUTO GROUP ASSIGNMENT EQUALLY
         function autoAssignGroups() {
+            if (isSelectedYearClosed()) return;
             if (db.students.length === 0) return;
             
-            // Sort students alphabetically by last name
             db.students.sort((a, b) => a.nomFr.localeCompare(b.nomFr));
 
             const total = db.students.length;
@@ -1496,8 +1710,12 @@
             window.print();
         }
 
-        // NEW: CLEAR ALL GRADES
+        // CLEAR ALL GRADES
         function clearAllGrades() {
+            if (isSelectedYearClosed()) {
+                showToast("عفواً، لا يمكن مسح النقاط لسنة مغلقة نهائياً.");
+                return;
+            }
             if (confirm("Voulez-vous vraiment vider toutes les notes saisies dans la plateforme ? Cette action est irréversible.")) {
                 db.students.forEach(s => {
                     db.grades[s.matricule] = {};
@@ -1505,26 +1723,6 @@
                 saveDatabaseToStorage();
                 loadGradeEntryTable();
                 showToast("Toutes les notes ont été intégralement effacées.");
-            }
-        }
-
-        // NEW: CLOSE ACADEMIC YEAR 2025-2026 AND TRANSFER TO 2026-2027
-        function closeAcademicYear2025() {
-            if (confirm("Confirmez-vous le verrouillage et la clôture définitive de l'année universitaire 2025-2026 ?")) {
-                showToast("L'année universitaire 2025-2026 a été clôturée avec succès.");
-            }
-        }
-
-        function openAndTransferTo2026() {
-            if (confirm("Voulez-vous transférer l'ensemble des étudiants vers la nouvelle année universitaire 2026-2027 ?")) {
-                db.students.forEach(s => {
-                    s.anneeUniv = "2026-2027";
-                });
-                saveDatabaseToStorage();
-                document.getElementById('stat-annee').innerText = "2026-2027";
-                document.getElementById('filter-year').value = "2026-2027";
-                renderStudentsTable();
-                showToast("Ouverture de l'année 2026-2027 et transfert des étudiants accompli !");
             }
         }
 
@@ -1571,10 +1769,17 @@
             document.getElementById('f-type-inscr').value = student.typeInscr;
             document.getElementById('f-groupe-assigned').value = student.groupe;
 
+            // Lock overlay controls if closed year
+            const isClosed = isSelectedYearClosed();
+            document.querySelectorAll('#student-fiche-overlay input, #student-fiche-overlay select').forEach(elem => {
+                elem.disabled = isClosed;
+            });
+
             document.getElementById('student-fiche-overlay').style.display = 'flex';
         }
 
         function openNewStudentModal() {
+            if (isSelectedYearClosed()) return;
             const newMat = `2023350${1000 + db.students.length + 1}`;
             const newStudent = {
                 matricule: newMat,
@@ -1601,7 +1806,7 @@
                 bacMoyenne: "10.00",
                 bacLycee: "",
                 bacWilaya: "16 - Alger",
-                anneeUniv: "2025-2026",
+                anneeUniv: db.currentYear,
                 groupe: "Groupe 1",
                 typeInscr: "Nouveau",
                 statut: "Régulier"
@@ -1614,6 +1819,7 @@
         }
 
         function saveStudentFicheChanges() {
+            if (isSelectedYearClosed()) return;
             if (!activeStudentEditing) return;
 
             activeStudentEditing.nomFr = document.getElementById('f-nom-lat').value;
@@ -1704,10 +1910,12 @@
         function renderReinscriptionsTable() {
             const tbody = document.getElementById('reinscription-tbody');
             tbody.innerHTML = '';
+            const isClosed = isSelectedYearClosed();
+
             db.students.forEach(s => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td><input type="checkbox" class="re-check" value="${s.matricule}"></td>
+                    <td><input type="checkbox" class="re-check" ${isClosed ? 'disabled' : ''} value="${s.matricule}"></td>
                     <td>${s.matricule}</td>
                     <td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td>
                     <td>${s.anneeUniv}</td>
@@ -1719,10 +1927,12 @@
         }
 
         function toggleSelectAllRe(master) {
+            if (isSelectedYearClosed()) return;
             document.querySelectorAll('.re-check').forEach(cb => cb.checked = master.checked);
         }
 
         function executeBatchReinscription() {
+            if (isSelectedYearClosed()) return;
             const checked = document.querySelectorAll('.re-check:checked');
             if (checked.length === 0) {
                 showToast("Veuillez sélectionner au moins un étudiant.");
@@ -1768,6 +1978,7 @@
 
             const group = document.getElementById('grade-groupe').value;
             const moduleId = document.getElementById('grade-module').value;
+            const isClosed = isSelectedYearClosed();
 
             const groupStudents = db.students.filter(s => s.groupe === group);
 
@@ -1785,9 +1996,9 @@
                     <td>${idx + 1}</td>
                     <td style="font-weight:600;">${s.matricule}</td>
                     <td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td>
-                    <td><input type="number" step="0.25" min="0" max="20" placeholder="-- / 20" value="${g.cc}" onchange="updateLiveGrade('${s.matricule}', '${moduleId}', 'cc', this.value, this)"></td>
-                    <td><input type="number" step="0.25" min="0" max="20" placeholder="-- / 20" value="${g.exam}" onchange="updateLiveGrade('${s.matricule}', '${moduleId}', 'exam', this.value, this)"></td>
-                    <td><input type="number" step="0.25" min="0" max="20" placeholder="-- / 20" value="${g.rattrapage}" onchange="updateLiveGrade('${s.matricule}', '${moduleId}', 'rattrapage', this.value, this)"></td>
+                    <td><input type="number" ${isClosed ? 'disabled' : ''} step="0.25" min="0" max="20" placeholder="-- / 20" value="${g.cc}" onchange="updateLiveGrade('${s.matricule}', '${moduleId}', 'cc', this.value, this)"></td>
+                    <td><input type="number" ${isClosed ? 'disabled' : ''} step="0.25" min="0" max="20" placeholder="-- / 20" value="${g.exam}" onchange="updateLiveGrade('${s.matricule}', '${moduleId}', 'exam', this.value, this)"></td>
+                    <td><input type="number" ${isClosed ? 'disabled' : ''} step="0.25" min="0" max="20" placeholder="-- / 20" value="${g.rattrapage}" onchange="updateLiveGrade('${s.matricule}', '${moduleId}', 'rattrapage', this.value, this)"></td>
                     <td style="font-weight:700; color:var(--primary-blue);" id="avg-${s.matricule}">${moy !== null ? moy.toFixed(2) : '--'}</td>
                 `;
                 tbody.appendChild(tr);
@@ -1804,6 +2015,7 @@
         }
 
         function updateLiveGrade(mat, modId, type, val, inputElem) {
+            if (isSelectedYearClosed()) return;
             db.grades[mat][modId][type] = val;
             
             const g = db.grades[mat][modId];
@@ -1814,6 +2026,7 @@
         }
 
         function saveAllGrades() {
+            if (isSelectedYearClosed()) return;
             saveDatabaseToStorage();
             showToast("Toutes les notes ont été sauvegardées avec succès.");
         }
@@ -2002,7 +2215,7 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
             const dlAnchorElem = document.createElement('a');
             dlAnchorElem.setAttribute("href", dataStr);
-            dlAnchorElem.setAttribute("download", `PROGRES_DB_EXPORT_${new Date().toISOString().slice(0,10)}.json`);
+            dlAnchorElem.setAttribute("download", `PROGRES_PERMANENT_DB_${new Date().toISOString().slice(0,10)}.json`);
             dlAnchorElem.click();
             showToast("Base de données exportée avec succès (JSON) !");
         }
@@ -2019,6 +2232,7 @@
                     if (importedDb.students && importedDb.grades) {
                         db = importedDb;
                         saveDatabaseToStorage();
+                        populateYearDropdowns();
                         renderStudentsTable();
                         showToast("Base de données restaurée avec succès !");
                     } else {
