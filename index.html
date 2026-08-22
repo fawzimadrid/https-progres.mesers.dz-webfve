@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROGRES - Université d'Alger 2 Abu El Kacem Saadallah</title>
+    <!-- CSS External Libraries & Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <style>
+        :root {
+            --bg-dark-gray: #2d3748;
+            --bg-light: #f8fafc;
+            --primary-blue: #2563eb;
+            --primary-blue-hover: #1d4ed8;
+            --border-color: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --sidebar-width: 260px;
+            --sidebar-collapsed: 70px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Header */
+        .top-bar {
+            background-color: var(--bg-dark-gray);
+            color: #ffffff;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left img.logo {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .university-title {
+            margin-left: 150px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .university-title:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .uni-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff;
+            color: var(--text-main);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            min-width: 320px;
+            padding: 10px 0;
+            z-index: 200;
+            border: 1px solid var(--border-color);
+        }
+
+        .university-title:hover .uni-dropdown {
+            display: block;
+        }
+
+        .uni-dropdown .item {
+            padding: 10px 16px;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .uni-dropdown .item-faculty {
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .uni-dropdown .item-dept {
+            padding-left: 30px;
+            color: var(--text-muted);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            background: rgba(255,255,255,0.08);
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        .user-profile img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Main Container Layout */
+        .app-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            background-color: #ffffff;
+            margin: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: #ffffff;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s ease;
+            user-select: none;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed);
+        }
+
+        .sidebar-toggle {
+            padding: 12px 20px;
+            text-align: right;
+            cursor: pointer;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-list {
+            list-style: none;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: var(--text-main);
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            gap: 14px;
+            white-space: nowrap;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #eff6ff;
+            color: var(--primary-blue);
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .nav-item i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar.collapsed .nav-text {
+            display: none;
+        }
+
+        /* Main Content Window */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            background-color: #ffffff;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .page-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Forms, Inputs & Select Clean Styles */
+        input[type="text"], input[type="date"], input[type="number"], input[type="email"], select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            outline: none;
+            font-size: 0.88rem;
+            transition: border-color 0.2s;
+            background-color: #fff;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-blue) !important;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-blue {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-blue:hover {
+            background-color: var(--primary-blue-hover);
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+
+        .btn-success {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .btn-warning {
+            background-color: #f59e0b;
+            color: white;
+        }
+
+        .btn-purple {
+            background-color: #8b5cf6;
+            color: white;
+        }
+
+        /* Clean Table Style */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Tabs System */
+        .tabs-header {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 20px;
+            gap: 5px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 10px 18px;
+            border: none;
+            background: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* Toast Notifications */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background-color: #ffffff;
+            color: var(--text-main);
+            border-left: 4px solid var(--primary-blue);
+            padding: 12px 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Details View Overlay Page */
+        .full-page-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #ffffff;
+            z-index: 500;
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .student-profile-header {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .student-photo {
+            width: 110px;
+            height: 130px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            object-fit: cover;
+            background-color: #e2e8f0;
+        }
+
+        /* Relevé de notes style print design */
+        .releve-box {
+            border: 2px solid var(--text-main);
+            padding: 30px;
+            background: white;
+            max-width: 900px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .releve-header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        /* Print Specific Styling */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .printable-area, .printable-area * {
+                visibility: visible;
+            }
+            .printable-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar Navigation -->
+    <header class="top-bar">
+        <div class="header-left">
+            <img src="https://progres.mesrs.dz/webetu/images/logo.png" alt="PROGRES MESRS Logo" class="logo">
+            <div class="university-title">
+                <span>Université d'Alger 2 Abou El Kacem Saadallah</span>
+                <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem;"></i>
+                <div class="uni-dropdown">
+                    <div class="item item-faculty">Faculté de Langue Arabe, Littérature et Langues Orientales</div>
+                    <div class="item item-dept">Département des Sciences du Langage</div>
+                </div>
+            </div>
+        </div>
+        <div class="user-profile">
+            <img src="https://ui-avatars.com/api/?name=Admin+MESRS&background=2563eb&color=fff" alt="User Avatar">
+            <div>
+                <div style="font-weight: 600;">Dr. Saadi Mohamed</div>
+                <div style="font-size: 0.7rem; color: #cbd5e1;">Administrateur Système</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars" id="toggle-icon"></i>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item active" onclick="switchSection('dashboard', this)">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="nav-text">Tableau de bord</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('database', this)">
+                    <i class="fa-solid fa-database"></i>
+                    <span class="nav-text">Base de données</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('students', this)">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span class="nav-text">Dossiers Étudiants</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('reinscriptions', this)">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span class="nav-text">Réinscriptions</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('groups', this)">
+                    <i class="fa-solid fa-users-rectangle"></i>
+                    <span class="nav-text">Groupes & Groupements</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('levels', this)">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span class="nav-text">Niveaux</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('specialties', this)">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span class="nav-text">Spécialités</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('modules', this)">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span class="nav-text">Matières / Modules</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('timetable', this)">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span class="nav-text">Emploi du Temps</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('grades', this)">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <span class="nav-text">Saisie des Notes</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('deliberation', this)">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span class="nav-text">Délibération</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('releve', this)">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <span class="nav-text">Relevé de Notes (S5+S6)</span>
+                </li>
+                <li class="nav-item" onclick="switchSection('licence-cert', this)">
+                    <i class="fa-solid fa-certificate"></i>
+                    <span class="nav-text">Attestation de Licence</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Dynamic Main Content Window -->
+        <main class="main-content" id="main-content">
+
+            <!-- 1. DASHBOARD -->
+            <section id="sec-dashboard" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Tableau de bord Général</h1>
+                </div>
+                <div class="form-grid" style="margin-bottom: 20px;">
+                    <div style="background: #eff6ff; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary-blue);">
+                        <div style="color: var(--text-muted); font-size: 0.8rem;">Total Étudiants Inscrits</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--primary-blue);" id="stat-total">120</div>
+                    </div>
+                    <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
+                        <div style="color: var(--text-muted); font-size: 0.8rem;">Année Universitaire Active</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: #10b981;">2025-2026</div>
+                    </div>
+                    <div style="background: #fefce8; padding: 20px; border-radius: 8px; border-left: 4px solid #eab308;">
+                        <div style="color: var(--text-muted); font-size: 0.8rem;">Spécialité Principale</div>
+                        <div style="font-size: 1.2rem; font-weight: 700; color: #ca8a04; margin-top: 8px;">Linguistique Appliquée (L3)</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. BASE DE DONNEES -->
+            <section id="sec-database" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">Gestion de la Base de Données</h1>
+                </div>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">
+                    Exportation, importation et restauration de la base de données intégrée du système PROGRES.
+                </p>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <button class="btn btn-blue" onclick="exportDatabase()"><i class="fa-solid fa-download"></i> Exporter la Base de Données</button>
+                    <button class="btn btn-blue" onclick="triggerImport('db-file')"><i class="fa-solid fa-upload"></i> Importer la Base de Données</button>
+                    <button class="btn btn-blue" onclick="triggerImport('excel-file')"><i class="fa-solid fa-file-excel"></i> Importer les Étudiants (Excel)</button>
+                    <input type="file" id="db-file" style="display: none;" accept=".json" onchange="importDatabase(event)">
+                    <input type="file" id="excel-file" style="display: none;" accept=".xlsx, .xls" onchange="importExcelStudents(event)">
+                </div>
+            </section>
+
+            <!-- 3. DOSSIERS ETUDIANTS -->
+            <section id="sec-students" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">Gestion des Dossiers Étudiants</h1>
+                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <label style="font-size: 0.8rem; font-weight: 600;">Année:</label>
+                        <select id="filter-year" style="width: 130px;" onchange="filterStudents()">
+                            <option value="2025-2026" selected>2025-2026</option>
+                            <option value="2026-2027">2026-2027</option>
+                        </select>
+                        <button class="btn btn-warning" onclick="autoDispatchGroups()"><i class="fa-solid fa-shuffle"></i> التفويج الآلي للطلبة</button>
+                        <button class="btn btn-blue" onclick="openNewStudentModal()"><i class="fa-solid fa-plus"></i> Nouveau Étudiant</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="students-table">
+                        <thead>
+                            <tr>
+                                <th>Matricule</th>
+                                <th>Nom & Prénom (FR)</th>
+                                <th>اللقب والاسم (AR)</th>
+                                <th>Date Naiss.</th>
+                                <th>Groupe</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="students-tbody">
+                            <!-- Filled dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination-container">
+                    <span id="page-info">Page 1 sur 1 (Total: 120)</span>
+                    <div style="display: flex; gap: 5px;">
+                        <button class="btn btn-secondary" id="btn-prev" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> Précédent</button>
+                        <button class="btn btn-secondary" id="btn-next" onclick="nextPage()">Suivant <i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. REINSCRIPTIONS -->
+            <section id="sec-reinscriptions" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">Réinscriptions pour l'Année Suivante</h1>
+                </div>
+
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                    Sélectionnez les étudiants à réinscrire pour l'année universitaire 2026-2027 :
+                </p>
+
+                <div style="background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 15px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 180px;">
+                        <label style="font-size: 0.75rem; font-weight: 600;">Année Suivante</label>
+                        <select id="re-year"><option value="2026-2027">2026-2027</option></select>
+                    </div>
+                    <div style="flex: 1; min-width: 180px;">
+                        <label style="font-size: 0.75rem; font-weight: 600;">Niveau</label>
+                        <select id="re-level"><option value="L3">Troisième Année Licence (L3)</option></select>
+                    </div>
+                    <div style="flex: 1; min-width: 180px;">
+                        <label style="font-size: 0.75rem; font-weight: 600;">Groupe Affecté</label>
+                        <select id="re-group">
+                            <option value="Groupe 1">Groupe 1</option>
+                            <option value="Groupe 2">Groupe 2</option>
+                            <option value="Groupe 3">Groupe 3</option>
+                        </select>
+                    </div>
+                    <div style="align-self: flex-end;">
+                        <button class="btn btn-blue" onclick="executeBatchReinscription()"><i class="fa-solid fa-check"></i> Enregistrer la Réinscription</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all-re" onclick="toggleSelectAllRe(this)"></th>
+                                <th>Matricule</th>
+                                <th>Nom & Prénom</th>
+                                <th>Année Actuelle</th>
+                                <th>Niveau Actuel</th>
+                                <th>Groupe Actuel</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reinscription-tbody">
+                            <!-- Filled dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 5. GROUPES (WITH PRINT & AUTO-DISPATCH) -->
+            <section id="sec-groups" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">Gestion des Groupes et Groupements</h1>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-warning" onclick="autoDispatchGroups()"><i class="fa-solid fa-shuffle"></i> التفويج الآلي للطلبة (عدل)</button>
+                        <button class="btn btn-blue" onclick="printSelectedGroupList()"><i class="fa-solid fa-print"></i> طباعة قائمة الفوج المحدد</button>
+                    </div>
+                </div>
+
+                <div style="background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 15px; display: flex; gap: 15px; align-items: center;">
+                    <label style="font-size: 0.85rem; font-weight: 600;">اختر الفوج للمعاينة والطباعة:</label>
+                    <select id="group-print-select" style="width: 220px;" onchange="renderGroupListTable()">
+                        <option value="Groupe 1">Groupe 1</option>
+                        <option value="Groupe 2">Groupe 2</option>
+                        <option value="Groupe 3">Groupe 3</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive" id="group-list-container">
+                    <table id="group-list-table">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Matricule</th>
+                                <th>Nom & Prénom (Latin)</th>
+                                <th>اللقب والاسم (العربية)</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody id="group-list-tbody">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 6. NIVEAUX -->
+            <section id="sec-levels" class="content-section" style="display: none;">
+                <div class="page-header"><h1 class="page-title">Gestion des Niveaux D'études</h1></div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr><th>Code Niveau</th><th>Intitulé du Niveau</th><th>Cycle</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>L3</td><td>Troisième Année Licence (L3)</td><td>Licence LMD</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 7. SPECIALITES -->
+            <section id="sec-specialties" class="content-section" style="display: none;">
+                <div class="page-header"><h1 class="page-title">Gestion des Spécialités</h1></div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr><th>Code</th><th>Spécialité</th><th>Département</th><th>Faculté</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>LING-APP</td><td>Linguistique Appliquée</td><td>Sciences du Langage</td><td>Faculté de Langue Arabe, Littérature et Langues Orientales</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 8. MODULES -->
+            <section id="sec-modules" class="content-section" style="display: none;">
+                <div class="page-header"><h1 class="page-title">Gestion des Matières et Unités d'Enseignement</h1></div>
+                
+                <div class="tabs-header">
+                    <button class="tab-btn active" onclick="switchModuleTab('s5', this)">Semestre 5 (S5)</button>
+                    <button class="tab-btn" onclick="switchModuleTab('s6', this)">Semestre 6 (S6)</button>
+                </div>
+
+                <div id="mod-s5" class="tab-content active">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr><th>Matière (Module)</th><th>المادة</th><th>Coeff</th><th>Crédit</th></tr>
+                            </thead>
+                            <tbody id="s5-modules-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="mod-s6" class="tab-content">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr><th>Matière (Module)</th><th>المادة</th><th>Coeff</th><th>Crédit</th></tr>
+                            </thead>
+                            <tbody id="s6-modules-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. EMPLOI DU TEMPS -->
+            <section id="sec-timetable" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">Emploi du Temps Automatique (3 Jours/Semaine)</h1>
+                    <select id="tt-group-select" style="width: 180px;" onchange="renderTimetable()">
+                        <option value="1">Groupe 1</option>
+                        <option value="2">Groupe 2</option>
+                        <option value="3">Groupe 3</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Jour / Horaire</th>
+                                <th>08h00 - 09h30</th>
+                                <th>09h30 - 11h00</th>
+                                <th>11h00 - 12h30</th>
+                                <th>13h00 - 14h30</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tt-tbody">
+                            <!-- Filled dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 10. SAISIE DES NOTES -->
+            <section id="sec-grades" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">Saisie des Notes des Examens et Contrôle Continu</h1>
+                    <button class="btn btn-success" onclick="exportGradesToExcel()"><i class="fa-solid fa-file-excel"></i> Exporter vers Excel</button>
+                </div>
+
+                <div style="background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 15px; display: flex; gap: 12px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 140px;">
+                        <label style="font-size: 0.75rem; font-weight: 600;">Semestre</label>
+                        <select id="grade-semestre" onchange="updateModuleDropdown(); loadGradeEntryTable();">
+                            <option value="S5">Semestre 5</option>
+                            <option value="S6">Semestre 6</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1; min-width: 140px;">
+                        <label style="font-size: 0.75rem; font-weight: 600;">Groupe</label>
+                        <select id="grade-groupe" onchange="loadGradeEntryTable()">
+                            <option value="Groupe 1">Groupe 1</option>
+                            <option value="Groupe 2">Groupe 2</option>
+                            <option value="Groupe 3">Groupe 3</option>
+                        </select>
+                    </div>
+                    <div style="flex: 2; min-width: 220px;">
+                        <label style="font-size: 0.75rem; font-weight: 600;">Matière (Module)</label>
+                        <select id="grade-module" onchange="loadGradeEntryTable()">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Matricule</th>
+                                <th>Nom & Prénom</th>
+                                <th>Note CC (تطبيق)</th>
+                                <th>Note Examen (محاضرة)</th>
+                                <th>Rattrapage (استدراك)</th>
+                                <th>Moyenne Module</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grade-entry-tbody">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 15px; text-align: right;">
+                    <button class="btn btn-blue" onclick="saveAllGrades()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les Notes</button>
+                </div>
+            </section>
+
+            <!-- 11. DELIBERATION (WITH S5+S6 UNIFIED PRINT) -->
+            <section id="sec-deliberation" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">Délibération et Calcul des Moyennes</h1>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-purple" onclick="printUnifiedS5S6Deliberation()"><i class="fa-solid fa-print"></i> طباعة كشف السداسي 5 و6 في كشف واحد</button>
+                        <button class="btn btn-blue" onclick="calculateDeliberation()"><i class="fa-solid fa-arrows-rotate"></i> Mettre à jour (Recalculer)</button>
+                    </div>
+                </div>
+
+                <div style="background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 15px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    <div>
+                        <label style="font-size: 0.75rem; font-weight: 600;">Moyenne d'Admission (Passage)</label>
+                        <input type="number" id="delib-pass" value="10.00" step="0.01" style="width: 100px;">
+                    </div>
+                    <div>
+                        <label style="font-size: 0.75rem; font-weight: 600;">Seuil de Rachat (الانقاذ)</label>
+                        <input type="number" id="delib-rachat" value="09.50" step="0.01" style="width: 100px;">
+                    </div>
+                    <div>
+                        <label style="font-size: 0.75rem; font-weight: 600;">Groupe</label>
+                        <select id="delib-group" style="width: 150px;" onchange="renderDeliberationTable()">
+                            <option value="Groupe 1">Groupe 1</option>
+                            <option value="Groupe 2">Groupe 2</option>
+                            <option value="Groupe 3">Groupe 3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Matricule</th>
+                                <th>Nom & Prénom</th>
+                                <th>Moy S5</th>
+                                <th>Moy S6</th>
+                                <th>Moyenne Annuelle</th>
+                                <th>Décision / Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="delib-tbody">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 12. RELEVE DE NOTES -->
+            <section id="sec-releve" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">Relevé de Notes الموحد (S5 + S6)</h1>
+                    <div style="display: flex; gap: 10px;">
+                        <select id="releve-student-select" style="width: 280px;" onchange="renderStudentReleve()">
+                            <!-- Dynamic list -->
+                        </select>
+                        <button class="btn btn-blue" onclick="printReleveDocument()"><i class="fa-solid fa-print"></i> Imprimer Relevé</button>
+                    </div>
+                </div>
+
+                <div class="releve-box printable-area" id="releve-container">
+                    <div class="releve-header">
+                        RÉPUBLIQUE ALGÉRIENNE DÉMOCRATIQUE ET POPULAIRE<br>
+                        MINISTÈRE DE L'ENSEIGNEMENT SUPÉRIEUR ET DE LA RECHERCHE SCIENTIFIQUE<br>
+                        Université d'Alger 2 Abou El Kacem Saadallah<br>
+                        Faculté de Langue Arabe, Littérature et Langues Orientales - Département des Sciences du Langage
+                    </div>
+
+                    <div style="text-align: center; font-weight: bold; font-size: 1.1rem; margin: 15px 0; text-decoration: underline;">
+                        RELEVÉ DE NOTES UNIFIÉ (SEMESTRES S5 & S6) - L3 LINGUISTIQUE APPLIQUÉE
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 15px;" id="releve-student-info">
+                        <!-- Dynamic Student Details -->
+                    </div>
+
+                    <table style="font-size: 0.8rem; border: 1px solid #000; width: 100%;">
+                        <thead>
+                            <tr style="background: #f1f5f9;">
+                                <th style="border: 1px solid #000;">Intitulé du Module</th>
+                                <th style="border: 1px solid #000;">Coeff</th>
+                                <th style="border: 1px solid #000;">Crédit</th>
+                                <th style="border: 1px solid #000;">Note S5</th>
+                                <th style="border: 1px solid #000;">Note S6</th>
+                                <th style="border: 1px solid #000;">Moyenne Module</th>
+                            </tr>
+                        </thead>
+                        <tbody id="releve-tbody">
+                            <!-- Dynamic Modules & Grades -->
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top: 20px; font-size: 0.88rem; display: flex; justify-content: space-between;" id="releve-summary">
+                        <!-- Dynamic Summary -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 13. CERTIFICAT DE LICENCE (NEW SECTION) -->
+            <section id="sec-licence-cert" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">طباعة شهادة الليسانس (Attestation de Licence)</h1>
+                    <div style="display: flex; gap: 10px;">
+                        <select id="cert-student-select" style="width: 280px;" onchange="renderLicenceCertificate()">
+                            <!-- Dynamic -->
+                        </select>
+                        <button class="btn btn-blue" onclick="window.print()"><i class="fa-solid fa-print"></i> طباعة الشهادة</button>
+                    </div>
+                </div>
+
+                <div class="releve-box printable-area" style="text-align: right; direction: rtl; line-height: 1.8; padding: 40px;" id="licence-cert-container">
+                    <!-- Certificate Output Dynamic -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- FULL PAGE OVERLAY: FICHE DETAILLEE DE L'ETUDIANT (EDIT / VIEW) -->
+    <div class="full-page-overlay" id="student-fiche-overlay">
+        <header class="top-bar">
+            <div class="header-left">
+                <img src="https://progres.mesrs.dz/webetu/images/logo.png" alt="Logo" class="logo">
+                <div class="university-title" style="margin-left: 20px;">
+                    Université d'Alger 2 - Fiche Détaillée de l'Étudiant
+                </div>
+            </div>
+            <button class="btn btn-secondary" onclick="closeStudentFiche()"><i class="fa-solid fa-xmark"></i> Fermer / Retour</button>
+        </header>
+
+        <div style="padding: 30px; max-width: 1200px; margin: 0 auto; width: 100%;">
+            <div class="student-profile-header">
+                <img src="https://ui-avatars.com/api/?name=Etudiant&size=128" id="fiche-photo" class="student-photo" alt="Photo Étudiant">
+                <div style="flex: 1;">
+                    <h2 id="fiche-fullname-fr" style="font-size: 1.4rem;">Nom & Prénom</h2>
+                    <h3 id="fiche-fullname-ar" style="font-size: 1.2rem; color: var(--primary-blue); margin-top: 4px;">اللقب والاسم</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Matricule: <span id="fiche-matricule" style="font-weight:600; color:var(--text-main);"></span> | Année Univ: <span id="fiche-annee">2025-2026</span></p>
+                </div>
+                <div>
+                    <button class="btn btn-blue" onclick="saveStudentFicheChanges()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les Modifications</button>
+                </div>
+            </div>
+
+            <!-- Fiche Tabs Navigation -->
+            <div class="tabs-header">
+                <button class="tab-btn active" onclick="switchFicheTab(1, this)">1. Informations Personnelles</button>
+                <button class="tab-btn" onclick="switchFicheTab(2, this)">2. Informations d'Identité</button>
+                <button class="tab-btn" onclick="switchFicheTab(3, this)">3. Contact</button>
+                <button class="tab-btn" onclick="switchFicheTab(4, this)">4. Baccalauréat</button>
+                <button class="tab-btn" onclick="switchFicheTab(5, this)">5. Inscription Universitaire</button>
+                <button class="tab-btn" onclick="switchFicheTab(6, this)">6. Parcours Pédagogique</button>
+                <button class="tab-btn" onclick="switchFicheTab(7, this)">7. Social & Administratif</button>
+            </div>
+
+            <!-- Fiche Tab 1 -->
+            <div id="ftab-1" class="tab-content active">
+                <div class="form-grid">
+                    <div class="form-group"><label>Nom (Latin)</label><input type="text" id="f-nom-lat"></div>
+                    <div class="form-group"><label>Prénom (Latin)</label><input type="text" id="f-prenom-lat"></div>
+                    <div class="form-group"><label>اللقب (بالعربية)</label><input type="text" id="f-nom-ar" dir="rtl"></div>
+                    <div class="form-group"><label>الاسم (بالعربية)</label><input type="text" id="f-prenom-ar" dir="rtl"></div>
+                    <div class="form-group"><label>Date de Naissance</label><input type="date" id="f-date-naiss"></div>
+                    <div class="form-group"><label>Lieu de Naissance</label><input type="text" id="f-lieu-naiss"></div>
+                    <div class="form-group"><label>Sexe</label><select id="f-sexe"><option value="M">Masculin</option><option value="F">Féminin</option></select></div>
+                    <div class="form-group"><label>Nationalité</label><input type="text" id="f-nationalite" value="Algérienne"></div>
+                    <div class="form-group"><label>Situation Familiale</label><select id="f-situation"><option value="Célibataire">Célibataire</option><option value="Marié(e)">Marié(e)</option></select></div>
+                    <div class="form-group"><label>N° Acte de Naissance</label><input type="text" id="f-acte-naiss"></div>
+                    <div class="form-group"><label>Wilaya / Commune Naissance</label><input type="text" id="f-wilaya-naiss" value="16 - Alger"></div>
+                </div>
+            </div>
+
+            <!-- Fiche Tab 2 -->
+            <div id="ftab-2" class="tab-content">
+                <div class="form-grid">
+                    <div class="form-group"><label>Numéro d'Identification National (NIN)</label><input type="text" id="f-nin"></div>
+                    <div class="form-group"><label>N° CNI / Passeport</label><input type="text" id="f-cni"></div>
+                    <div class="form-group"><label>Date & Lieu Délivrance Document</label><input type="text" id="f-cni-date"></div>
+                    <div class="form-group"><label>Matricule Interne Systèmes</label><input type="text" id="f-mat-interne" readonly></div>
+                </div>
+            </div>
+
+            <!-- Fiche Tab 3 -->
+            <div id="ftab-3" class="tab-content">
+                <div class="form-grid">
+                    <div class="form-group"><label>Adresse Personnelle</label><input type="text" id="f-adresse"></div>
+                    <div class="form-group"><label>Wilaya</label><input type="text" id="f-wilaya-contact" value="16 - Alger"></div>
+                    <div class="form-group"><label>Commune</label><input type="text" id="f-commune-contact" value="Bouzaréah"></div>
+                    <div class="form-group"><label>Numéro de Téléphone</label><input type="text" id="f-phone"></div>
+                    <div class="form-group"><label>Adresse Email</label><input type="email" id="f-email"></div>
+                </div>
+            </div>
+
+            <!-- Fiche Tab 4 -->
+            <div id="ftab-4" class="tab-content">
+                <div class="form-grid">
+                    <div class="form-group"><label>N° Inscription Baccalauréat</label><input type="text" id="f-bac-num"></div>
+                    <div class="form-group"><label>Année d'Obtention du Bac</label><input type="text" id="f-bac-year" value="2023"></div>
+                    <div class="form-group"><label>Série du Baccalauréat</label><input type="text" id="f-bac-serie" value="Lettres et Philosophie"></div>
+                    <div class="form-group"><label>Moyenne Générale Bac</label><input type="text" id="f-bac-moyenne" value="14.25"></div>
+                    <div class="form-group"><label>Lycée d'Origine</label><input type="text" id="f-bac-lycee"></div>
+                    <div class="form-group"><label>Wilaya du Lycée</label><input type="text" id="f-bac-wilaya" value="16 - Alger"></div>
+                </div>
+            </div>
+
+            <!-- Fiche Tab 5 -->
+            <div id="ftab-5" class="tab-content">
+                <div class="form-grid">
+                    <div class="form-group"><label>Établissement</label><input type="text" value="Université d'Alger 2 Abou El Kacem Saadallah" readonly></div>
+                    <div class="form-group"><label>Faculté</label><input type="text" value="Faculté de Langue Arabe, Littérature et Langues Orientales" readonly></div>
+                    <div class="form-group"><label>Département</label><input type="text" value="Sciences du Langage" readonly></div>
+                    <div class="form-group"><label>Spécialité</label><input type="text" value="Linguistique Appliquée" readonly></div>
+                    <div class="form-group"><label>Régime d'Étude / Domaine</label><input type="text" value="LMD / Langue et Littérature Arabes" readonly></div>
+                    <div class="form-group"><label>Cycle / Niveau</label><input type="text" value="Licence / L3" readonly></div>
+                    <div class="form-group"><label>Type d'Inscription</label><select id="f-type-inscr"><option value="Nouveau">Nouveau</option><option value="Réinscription">Réinscription</option></select></div>
+                    <div class="form-group"><label>Groupe Pédagogique</label><select id="f-groupe-assigned"><option value="Groupe 1">Groupe 1</option><option value="Groupe 2">Groupe 2</option><option value="Groupe 3">Groupe 3</option></select></div>
+                </div>
+            </div>
+
+            <!-- Fiche Tab 6 -->
+            <div id="ftab-6" class="tab-content">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr><th>Année Univ.</th><th>Niveau</th><th>Moyenne S1/S5</th><th>Moyenne S2/S6</th><th>Résultat</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2023-2024</td><td>L1</td><td>12.50</td><td>13.10</td><td><span style="color:green; font-weight:bold;">Admis(e)</span></td></tr>
+                            <tr><td>2024-2025</td><td>L2</td><td>11.80</td><td>12.40</td><td><span style="color:green; font-weight:bold;">Admis(e)</span></td></tr>
+                            <tr><td>2025-2026</td><td>L3</td><td>--</td><td>--</td><td>En Cours</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Fiche Tab 7 -->
+            <div id="ftab-7" class="tab-content">
+                <div class="form-grid">
+                    <div class="form-group"><label>Situation Professionnelle</label><input type="text" id="f-prof" value="Non-employé"></div>
+                    <div class="form-group"><label>Bourse Universitaire</label><select id="f-bourse"><option value="Oui">Boursier(ère)</option><option value="Non">Non boursier</option></select></div>
+                    <div class="form-group"><label>Hébergement / Résidence</label><select id="f-residence"><option value="Non">Non résident</option><option value="Oui">Résident Universitaire</option></select></div>
+                    <div class="form-group"><label>Transport Universitaire</label><select id="f-transport"><option value="Oui">Abonné</option><option value="Non">Non abonné</option></select></div>
+                    <div class="form-group"><label>Statut Pédagogique</label><select id="f-statut-pedag"><option value="Régulier">Régulier</option><option value="En Conge">En Congé Académique</option></select></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toasts Holder -->
+    <div id="toast-container"></div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Algerian First Names & Last Names Collections (Rich unique combinations)
+        const firstNamesAR_M = ["محمد", "أمين", "ياسين", "حمزة", "عبد الرحمان", "أسامة", "بلال", "خالد", "وليد", "رياض", "عمر", "إسلام", "أنور", "أيمن", "حميد", "عبد القادر", "طه", "يوسف", "عادل", "مهدي", "صلاح", "سامي", "سفيان", "أحمد"];
+        const firstNamesAR_F = ["مريم", "سارة", "فاطمة", "نور الهدى", "إيمان", "هدى", "شيماء", "سمية", "كوثر", "حنان", "سميرة", "منال", "نوال", "زينب", "أمينة", "لبنى", "وفاء", "نسرين", "يسرى", "إلهام", "رباب", "أسماء"];
+        
+        const lastNamesAR = ["بن علي", "سعدي", "براهيمي", "بوحفص", "منصوري", "زروقي", "عثماني", "بلحاج", "شنافي", "قاسمي", "بوعزة", "علوي", "حداد", "طاهري", "رحماني", "حمداني", "مزاهية", "علاوي", "بن موسى", "شريف", "داودي", "عياشي", "مرابط", "ساحلي", "تومي", "خليفي", "حساني", "عياد", "مداني", "بوعبد الله"];
+
+        const firstNamesFR_M = ["Mohamed", "Amine", "Yassine", "Hamza", "Abderrahmane", "Oussama", "Bilal", "Khaled", "Walid", "Riad", "Omar", "Islam", "Anwar", "Aymen", "Hamid", "Abdelkader", "Taha", "Youssef", "Adel", "Mahdi", "Salah", "Sami", "Sofiane", "Ahmed"];
+        const firstNamesFR_F = ["Meryem", "Sarah", "Fatima", "Nour El Houda", "Imene", "Houda", "Chaimaa", "Soumia", "Kawtar", "Hanan", "Samira", "Manel", "Nawel", "Zineb", "Amina", "Loubna", "Wafaa", "Nesrine", "Yousra", "Ilham", "Rabab", "Asmaa"];
+        
+        const lastNamesFR = ["Benali", "Saadi", "Brahimi", "Bouhafs", "Mansouri", "Zerrouki", "Osmani", "Belhadj", "Chennafi", "Kasmi", "Bouazza", "Alaoui", "Haddad", "Taheri", "Rahmani", "Hamdani", "Mzahia", "Allaoui", "Benmoussa", "Cherif", "Daoudi", "Ayachi", "Merabet", "Saahli", "Toumi", "Khelifi", "Hassani", "Ayyad", "Medani", "Bouabdallah"];
+
+        // Modules Data Structures
+        const modulesS5 = [
+            { id: "m5_1", nameFr: "Linguistique Appliquée", nameAr: "علم اللغة التطبيقي", coeff: 3, credit: 6 },
+            { id: "m5_2", nameFr: "Didactique de la langue Arabe", nameAr: "تعليمية اللغة العربية", coeff: 3, credit: 5 },
+            { id: "m5_3", nameFr: "Psycholinguistique", nameAr: "علم النفس اللغوي", coeff: 2, credit: 4 },
+            { id: "m5_4", nameFr: "Sociolinguistique", nameAr: "علم الاجتماع اللغوي", coeff: 2, credit: 4 },
+            { id: "m5_5", nameFr: "Acquisition du Langage", nameAr: "اكتساب اللغة", coeff: 2, credit: 3 },
+            { id: "m5_6", nameFr: "Analyse du Discours", nameAr: "تحليل الخطاب", coeff: 2, credit: 3 },
+            { id: "m5_7", nameFr: "Traduction", nameAr: "الترجمة", coeff: 1, credit: 2 },
+            { id: "m5_8", nameFr: "Méthodologie de la Recherche", nameAr: "مناهج البحث العلمي", coeff: 1, credit: 2 },
+            { id: "m5_9", nameFr: "Langue Étrangère", nameAr: "اللغة الأجنبية", coeff: 1, credit: 1 },
+            { id: "m5_10", nameFr: "TIC et Communication", nameAr: "تقنيات الإعلام والاتصال", coeff: 1, credit: 1 }
+        ];
+
+        const modulesS6 = [
+            { id: "m6_1", nameFr: "Linguistique Appliquée S6", nameAr: "اللسانيات التطبيقية", coeff: 3, credit: 6 },
+            { id: "m6_2", nameFr: "Didactique de la Langue Arabe S6", nameAr: "تعليمية اللغة العربية", coeff: 3, credit: 5 },
+            { id: "m6_3", nameFr: "Didactique des Langues", nameAr: "تعليمية اللغات", coeff: 2, credit: 4 },
+            { id: "m6_4", nameFr: "Évaluation et Mesure Linguistique", nameAr: "التقويم والقياس اللغوي", coeff: 2, credit: 4 },
+            { id: "m6_5", nameFr: "Psycholinguistique S6", nameAr: "علم النفس اللغوي", coeff: 2, credit: 3 },
+            { id: "m6_6", nameFr: "Sociolinguistique S6", nameAr: "علم الاجتماع اللغوي", coeff: 2, credit: 3 },
+            { id: "m6_7", nameFr: "Traduction S6", nameAr: "الترجمة", coeff: 1, credit: 2 },
+            { id: "m6_8", nameFr: "Analyse du Discours S6", nameAr: "تحليل الخطاب", coeff: 1, credit: 1 },
+            { id: "m6_9", nameFr: "Méthodes et Techniques de Recherche", nameAr: "مناهج وتقنيات البحث العلمي", coeff: 1, credit: 1 },
+            { id: "m6_10", nameFr: "Langue Étrangère S6", nameAr: "اللغة الأجنبية", coeff: 1, credit: 1 }
+        ];
+
+        // Global Database Object
+        let db = {
+            students: [],
+            grades: {}
+        };
+
+        let currentPage = 1;
+        const pageSize = 20;
+        let activeStudentEditing = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initDatabase();
+            renderModuleTables();
+            updateModuleDropdown();
+            renderStudentsTable();
+            renderTimetable();
+        });
+
+        // Unique Seed Student Generation (Solves identical names problem)
+        function initDatabase() {
+            const saved = localStorage.getItem('progres_db_v3');
+            if (saved) {
+                db = JSON.parse(saved);
+            } else {
+                generateUniqueSeedStudents();
+                saveDatabaseToStorage();
+            }
+            updateTotalStats();
+        }
+
+        function generateUniqueSeedStudents() {
+            db.students = [];
+            db.grades = {};
+
+            let count = 1;
+            for (let g = 1; g <= 3; g++) {
+                for (let i = 1; i <= 40; i++) {
+                    const isFemale = (count % 2 === 0);
+                    
+                    const fnArrayAR = isFemale ? firstNamesAR_F : firstNamesAR_M;
+                    const fnArrayFR = isFemale ? firstNamesFR_F : firstNamesFR_M;
+
+                    const fnIdx = (count - 1) % fnArrayAR.length;
+                    const lnIdx = ((count - 1) * 7 + i) % lastNamesAR.length;
+
+                    const mat = `2023350${(1000 + count).toString()}`;
+                    const student = {
+                        matricule: mat,
+                        nomFr: lastNamesFR[lnIdx],
+                        prenomFr: fnArrayFR[fnIdx],
+                        nomAr: lastNamesAR[lnIdx],
+                        prenomAr: fnArrayAR[fnIdx],
+                        dateNaiss: `2003-0${(count % 9) + 1}-${10 + (count % 18)}`,
+                        lieuNaiss: "Alger",
+                        sexe: isFemale ? "F" : "M",
+                        nationalite: "Algérienne",
+                        situation: "Célibataire",
+                        acteNaiss: `${100 + count}`,
+                        wilayaNaiss: "16 - Alger",
+                        nin: `1000200398700${count}`,
+                        cni: `987654${count}`,
+                        cniDate: "2020-05-12 / DGSN Alger",
+                        adresse: "Cité 1000 Logements, Bouzaréah",
+                        wilayaContact: "16 - Alger",
+                        communeContact: "Bouzaréah",
+                        phone: `0661${100000 + count}`,
+                        email: `${fnArrayFR[fnIdx].toLowerCase().replace(/\s+/g, '')}.${lastNamesFR[lnIdx].toLowerCase()}@univ-alger2.dz`,
+                        bacNum: `350${2000 + count}`,
+                        bacYear: "2023",
+                        bacSerie: "Lettres et Philosophie",
+                        bacMoyenne: (10.5 + (count % 9) * 0.95).toFixed(2),
+                        bacLycee: "Lycée El Idrissi",
+                        bacWilaya: "16 - Alger",
+                        anneeUniv: "2025-2026",
+                        groupe: `Groupe ${g}`,
+                        typeInscr: "Réinscription",
+                        statut: "Régulier"
+                    };
+
+                    db.students.push(student);
+                    
+                    // Generate marks
+                    db.grades[mat] = {};
+                    [...modulesS5, ...modulesS6].forEach(m => {
+                        const baseMark = 9 + ((count * 3 + m.coeff) % 10);
+                        db.grades[mat][m.id] = {
+                            cc: Math.min(20, baseMark + 1.5),
+                            exam: Math.min(20, baseMark + 0.5),
+                            rattrapage: 0
+                        };
+                    });
+
+                    count++;
+                }
+            }
+        }
+
+        function saveDatabaseToStorage() {
+            localStorage.setItem('progres_db_v3', JSON.stringify(db));
+            updateTotalStats();
+        }
+
+        function updateTotalStats() {
+            document.getElementById('stat-total').innerText = db.students.length;
+        }
+
+        // AUTO DISPATCH GROUPS EQUALLY (التفويج الآلي)
+        function autoDispatchGroups() {
+            if (db.students.length === 0) return;
+
+            const groupNames = ["Groupe 1", "Groupe 2", "Groupe 3"];
+            db.students.forEach((student, index) => {
+                const assignedGroup = groupNames[index % groupNames.length];
+                student.groupe = assignedGroup;
+            });
+
+            saveDatabaseToStorage();
+            renderStudentsTable();
+            renderGroupListTable();
+            showToast("تم تقسيم وتفويج جميع الطلبة على المجموعات بالتساوي بنجاح!");
+        }
+
+        // Navigation Switching
+        function switchSection(secId, elem) {
+            document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            
+            document.getElementById(`sec-${secId}`).style.display = 'block';
+            if (elem) elem.classList.add('active');
+
+            if (secId === 'students') renderStudentsTable();
+            if (secId === 'reinscriptions') renderReinscriptionsTable();
+            if (secId === 'groups') renderGroupListTable();
+            if (secId === 'grades') loadGradeEntryTable();
+            if (secId === 'deliberation') renderDeliberationTable();
+            if (secId === 'releve') populateReleveStudentDropdown();
+            if (secId === 'licence-cert') populateLicenceStudentDropdown();
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        // Students Table Render
+        function renderStudentsTable() {
+            const tbody = document.getElementById('students-tbody');
+            tbody.innerHTML = '';
+            
+            const selectedYear = document.getElementById('filter-year').value;
+            const filtered = db.students.filter(s => s.anneeUniv === selectedYear);
+
+            const startIdx = (currentPage - 1) * pageSize;
+            const pageData = filtered.slice(startIdx, startIdx + pageSize);
+
+            pageData.forEach(s => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:600;">${s.matricule}</td>
+                    <td>${s.nomFr} ${s.prenomFr}</td>
+                    <td dir="rtl" style="text-align:right; font-weight:600;">${s.nomAr} ${s.prenomAr}</td>
+                    <td>${s.dateNaiss}</td>
+                    <td><span style="background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:4px; font-weight:600;">${s.groupe}</span></td>
+                    <td><span style="color:#10b981; font-weight:600;">${s.statut}</span></td>
+                    <td>
+                        <button class="btn btn-secondary" style="padding:4px 8px; font-size:0.75rem;" onclick="openStudentFiche('${s.matricule}')">
+                            <i class="fa-solid fa-pen-to-square"></i> Modifier / Fiche
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+            document.getElementById('page-info').innerText = `Page ${currentPage} sur ${totalPages} (Total: ${filtered.length} Étudiants)`;
+            document.getElementById('btn-prev').disabled = currentPage === 1;
+            document.getElementById('btn-next').disabled = currentPage === totalPages;
+        }
+
+        function filterStudents() {
+            currentPage = 1;
+            renderStudentsTable();
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderStudentsTable();
+            }
+        }
+
+        function nextPage() {
+            const selectedYear = document.getElementById('filter-year').value;
+            const filtered = db.students.filter(s => s.anneeUniv === selectedYear);
+            if (currentPage * pageSize < filtered.length) {
+                currentPage++;
+                renderStudentsTable();
+            }
+        }
+
+        // Group Render and Print List
+        function renderGroupListTable() {
+            const selectedGroup = document.getElementById('group-print-select').value;
+            const groupStudents = db.students.filter(s => s.groupe === selectedGroup);
+            const tbody = document.getElementById('group-list-tbody');
+            tbody.innerHTML = '';
+
+            groupStudents.forEach((s, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${idx + 1}</td>
+                    <td style="font-weight:600;">${s.matricule}</td>
+                    <td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td>
+                    <td dir="rtl" style="font-weight:600;">${s.nomAr} ${s.prenomAr}</td>
+                    <td><span style="color:green; font-weight:bold;">${s.statut}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function printSelectedGroupList() {
+            const grp = document.getElementById('group-print-select').value;
+            const container = document.getElementById('group-list-container');
+            container.classList.add('printable-area');
+            window.print();
+            container.classList.remove('printable-area');
+        }
+
+        // Student Fiche Modal
+        function openStudentFiche(matricule) {
+            const student = db.students.find(s => s.matricule === matricule);
+            if (!student) return;
+
+            activeStudentEditing = student;
+
+            document.getElementById('fiche-fullname-fr').innerText = `${student.nomFr.toUpperCase()} ${student.prenomFr}`;
+            document.getElementById('fiche-fullname-ar').innerText = `${student.nomAr} ${student.prenomAr}`;
+            document.getElementById('fiche-matricule').innerText = student.matricule;
+            document.getElementById('fiche-annee').innerText = student.anneeUniv;
+            document.getElementById('fiche-photo').src = `https://ui-avatars.com/api/?name=${student.prenomFr}+${student.nomFr}&background=2563eb&color=fff&size=128`;
+
+            document.getElementById('f-nom-lat').value = student.nomFr;
+            document.getElementById('f-prenom-lat').value = student.prenomFr;
+            document.getElementById('f-nom-ar').value = student.nomAr;
+            document.getElementById('f-prenom-ar').value = student.prenomAr;
+            document.getElementById('f-date-naiss').value = student.dateNaiss;
+            document.getElementById('f-lieu-naiss').value = student.lieuNaiss;
+            document.getElementById('f-sexe').value = student.sexe;
+            document.getElementById('f-nationalite').value = student.nationalite;
+            document.getElementById('f-situation').value = student.situation;
+            document.getElementById('f-acte-naiss').value = student.acteNaiss;
+            document.getElementById('f-wilaya-naiss').value = student.wilayaNaiss;
+
+            document.getElementById('f-nin').value = student.nin;
+            document.getElementById('f-cni').value = student.cni;
+            document.getElementById('f-cni-date').value = student.cniDate;
+            document.getElementById('f-mat-interne').value = `INT-${student.matricule}`;
+
+            document.getElementById('f-adresse').value = student.adresse;
+            document.getElementById('f-wilaya-contact').value = student.wilayaContact;
+            document.getElementById('f-commune-contact').value = student.communeContact;
+            document.getElementById('f-phone').value = student.phone;
+            document.getElementById('f-email').value = student.email;
+
+            document.getElementById('f-bac-num').value = student.bacNum;
+            document.getElementById('f-bac-year').value = student.bacYear;
+            document.getElementById('f-bac-serie').value = student.bacSerie;
+            document.getElementById('f-bac-moyenne').value = student.bacMoyenne;
+            document.getElementById('f-bac-lycee').value = student.bacLycee;
+            document.getElementById('f-bac-wilaya').value = student.bacWilaya;
+
+            document.getElementById('f-type-inscr').value = student.typeInscr;
+            document.getElementById('f-groupe-assigned').value = student.groupe;
+
+            document.getElementById('student-fiche-overlay').style.display = 'flex';
+        }
+
+        function openNewStudentModal() {
+            const newMat = `2023350${1000 + db.students.length + 1}`;
+            const isFemale = db.students.length % 2 === 0;
+            const newStudent = {
+                matricule: newMat,
+                nomFr: "Benali",
+                prenomFr: isFemale ? "Amina" : "Karim",
+                nomAr: "بن علي",
+                prenomAr: isFemale ? "أمينة" : "كريم",
+                dateNaiss: "2003-05-20",
+                lieuNaiss: "Alger",
+                sexe: isFemale ? "F" : "M",
+                nationalite: "Algérienne",
+                situation: "Célibataire",
+                acteNaiss: "150",
+                wilayaNaiss: "16 - Alger",
+                nin: `1000200398700${db.students.length + 1}`,
+                cni: `987654${db.students.length + 1}`,
+                cniDate: "2020-05-12",
+                adresse: "Alger",
+                wilayaContact: "16 - Alger",
+                communeContact: "Alger",
+                phone: "0661000000",
+                email: "etudiant@univ-alger2.dz",
+                bacNum: `350${2000 + db.students.length + 1}`,
+                bacYear: "2023",
+                bacSerie: "Lettres",
+                bacMoyenne: "11.50",
+                bacLycee: "El Idrissi",
+                bacWilaya: "16 - Alger",
+                anneeUniv: "2025-2026",
+                groupe: "Groupe 1",
+                typeInscr: "Nouveau",
+                statut: "Régulier"
+            };
+            db.students.push(newStudent);
+            db.grades[newMat] = {};
+            [...modulesS5, ...modulesS6].forEach(m => {
+                db.grades[newMat][m.id] = { cc: 10, exam: 10, rattrapage: 0 };
+            });
+            saveDatabaseToStorage();
+            openStudentFiche(newMat);
+            showToast("Nouveau dossier étudiant créé.");
+        }
+
+        function saveStudentFicheChanges() {
+            if (!activeStudentEditing) return;
+
+            activeStudentEditing.nomFr = document.getElementById('f-nom-lat').value;
+            activeStudentEditing.prenomFr = document.getElementById('f-prenom-lat').value;
+            activeStudentEditing.nomAr = document.getElementById('f-nom-ar').value;
+            activeStudentEditing.prenomAr = document.getElementById('f-prenom-ar').value;
+            activeStudentEditing.dateNaiss = document.getElementById('f-date-naiss').value;
+            activeStudentEditing.lieuNaiss = document.getElementById('f-lieu-naiss').value;
+            activeStudentEditing.sexe = document.getElementById('f-sexe').value;
+            activeStudentEditing.situation = document.getElementById('f-situation').value;
+
+            activeStudentEditing.nin = document.getElementById('f-nin').value;
+            activeStudentEditing.cni = document.getElementById('f-cni').value;
+            activeStudentEditing.adresse = document.getElementById('f-adresse').value;
+            activeStudentEditing.phone = document.getElementById('f-phone').value;
+            activeStudentEditing.email = document.getElementById('f-email').value;
+
+            activeStudentEditing.typeInscr = document.getElementById('f-type-inscr').value;
+            activeStudentEditing.groupe = document.getElementById('f-groupe-assigned').value;
+
+            saveDatabaseToStorage();
+            renderStudentsTable();
+            showToast("Modifications enregistrées avec succès !");
+            closeStudentFiche();
+        }
+
+        function closeStudentFiche() {
+            document.getElementById('student-fiche-overlay').style.display = 'none';
+        }
+
+        function switchFicheTab(tabIdx, elem) {
+            document.querySelectorAll('#student-fiche-overlay .tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('#student-fiche-overlay .tab-content').forEach(c => c.classList.remove('active'));
+
+            elem.classList.add('active');
+            document.getElementById(`ftab-${tabIdx}`).classList.add('active');
+        }
+
+        // Modules Table Render
+        function renderModuleTables() {
+            const tbody5 = document.getElementById('s5-modules-tbody');
+            tbody5.innerHTML = '';
+            modulesS5.forEach(m => {
+                tbody5.innerHTML += `<tr><td style="font-weight:600;">${m.nameFr}</td><td dir="rtl">${m.nameAr}</td><td>${m.coeff}</td><td>${m.credit}</td></tr>`;
+            });
+
+            const tbody6 = document.getElementById('s6-modules-tbody');
+            tbody6.innerHTML = '';
+            modulesS6.forEach(m => {
+                tbody6.innerHTML += `<tr><td style="font-weight:600;">${m.nameFr}</td><td dir="rtl">${m.nameAr}</td><td>${m.coeff}</td><td>${m.credit}</td></tr>`;
+            });
+        }
+
+        function switchModuleTab(sem, elem) {
+            document.querySelectorAll('#sec-modules .tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('#sec-modules .tab-content').forEach(c => c.classList.remove('active'));
+            elem.classList.add('active');
+            document.getElementById(`mod-${sem}`).classList.add('active');
+        }
+
+        // Timetable Section
+        function renderTimetable() {
+            const tbody = document.getElementById('tt-tbody');
+            tbody.innerHTML = `
+                <tr>
+                    <td><strong>Samedi</strong></td>
+                    <td>علم اللغة التطبيقي (Amphi 1)</td>
+                    <td>تعليمية اللغة العربية (Salle 12)</td>
+                    <td>علم النفس اللغوي (Salle 12)</td>
+                    <td>---</td>
+                </tr>
+                <tr>
+                    <td><strong>Lundi</strong></td>
+                    <td>علم الاجتماع اللغوي (Salle 14)</td>
+                    <td>اكتساب اللغة (Salle 14)</td>
+                    <td>تحليل الخطاب (Amphi 2)</td>
+                    <td>الترجمة (Salle 05)</td>
+                </tr>
+                <tr>
+                    <td><strong>Mercredi</strong></td>
+                    <td>مناهج البحث العلمي (Salle 08)</td>
+                    <td>اللغة الأجنبية (Salle 08)</td>
+                    <td>تقنيات الإعلام والاتصال (Labo 02)</td>
+                    <td>---</td>
+                </tr>
+            `;
+        }
+
+        // Reinscriptions Logic
+        function renderReinscriptionsTable() {
+            const tbody = document.getElementById('reinscription-tbody');
+            tbody.innerHTML = '';
+            db.students.forEach(s => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><input type="checkbox" class="re-check" value="${s.matricule}"></td>
+                    <td>${s.matricule}</td>
+                    <td>${s.nomFr} ${s.prenomFr}</td>
+                    <td>${s.anneeUniv}</td>
+                    <td>L3</td>
+                    <td>${s.groupe}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function toggleSelectAllRe(master) {
+            document.querySelectorAll('.re-check').forEach(cb => cb.checked = master.checked);
+        }
+
+        function executeBatchReinscription() {
+            const checked = document.querySelectorAll('.re-check:checked');
+            if (checked.length === 0) {
+                showToast("Veuillez sélectionner au moins un étudiant.");
+                return;
+            }
+
+            const targetYear = document.getElementById('re-year').value;
+            const targetGroup = document.getElementById('re-group').value;
+
+            checked.forEach(cb => {
+                const mat = cb.value;
+                const student = db.students.find(s => s.matricule === mat);
+                if (student) {
+                    student.anneeUniv = targetYear;
+                    student.groupe = targetGroup;
+                    student.typeInscr = "Réinscription";
+                }
+            });
+
+            saveDatabaseToStorage();
+            showToast(`${checked.length} Étudiants réinscrits avec succès pour ${targetYear} (${targetGroup}) !`);
+            renderReinscriptionsTable();
+        }
+
+        // Grade Entry Logic
+        function updateModuleDropdown() {
+            const sem = document.getElementById('grade-semestre').value;
+            const select = document.getElementById('grade-module');
+            select.innerHTML = '';
+
+            const list = (sem === 'S5') ? modulesS5 : modulesS6;
+            list.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.id;
+                opt.innerText = `${m.nameFr} (${m.nameAr})`;
+                select.appendChild(opt);
+            });
+        }
+
+        function loadGradeEntryTable() {
+            const tbody = document.getElementById('grade-entry-tbody');
+            tbody.innerHTML = '';
+
+            const group = document.getElementById('grade-groupe').value;
+            const moduleId = document.getElementById('grade-module').value;
+
+            const groupStudents = db.students.filter(s => s.groupe === group);
+
+            groupStudents.forEach((s, idx) => {
+                if (!db.grades[s.matricule]) db.grades[s.matricule] = {};
+                if (!db.grades[s.matricule][moduleId]) {
+                    db.grades[s.matricule][moduleId] = { cc: 0, exam: 0, rattrapage: 0 };
+                }
+
+                const g = db.grades[s.matricule][moduleId];
+                const moy = calculateModuleAvg(g.cc, g.exam, g.rattrapage);
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${idx + 1}</td>
+                    <td style="font-weight:600;">${s.matricule}</td>
+                    <td>${s.nomFr} ${s.prenomFr}</td>
+                    <td><input type="number" step="0.25" min="0" max="20" value="${g.cc}" onchange="updateLiveGrade('${s.matricule}', '${moduleId}', 'cc', this.value, this)"></td>
+                    <td><input type="number" step="0.25" min="0" max="20" value="${g.exam}" onchange="updateLiveGrade('${s.matricule}', '${moduleId}', 'exam', this.value, this)"></td>
+                    <td><input type="number" step="0.25" min="0" max="20" value="${g.rattrapage}" onchange="updateLiveGrade('${s.matricule}', '${moduleId}', 'rattrapage', this.value, this)"></td>
+                    <td style="font-weight:700; color:var(--primary-blue);" id="avg-${s.matricule}">${moy.toFixed(2)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function calculateModuleAvg(cc, exam, rat) {
+            let effExam = parseFloat(exam) || 0;
+            if (parseFloat(rat) > effExam) {
+                effExam = parseFloat(rat);
+            }
+            return ((parseFloat(cc) || 0) * 0.4) + (effExam * 0.6);
+        }
+
+        function updateLiveGrade(mat, modId, type, val, inputElem) {
+            const num = parseFloat(val) || 0;
+            db.grades[mat][modId][type] = num;
+            
+            const g = db.grades[mat][modId];
+            const newMoy = calculateModuleAvg(g.cc, g.exam, g.rattrapage);
+            
+            const tdMoy = document.getElementById(`avg-${mat}`);
+            if (tdMoy) tdMoy.innerText = newMoy.toFixed(2);
+        }
+
+        function saveAllGrades() {
+            saveDatabaseToStorage();
+            showToast("Toutes les notes ont été sauvegardées avec succès.");
+        }
+
+        function exportGradesToExcel() {
+            const group = document.getElementById('grade-groupe').value;
+            const moduleId = document.getElementById('grade-module').value;
+            const groupStudents = db.students.filter(s => s.groupe === group);
+
+            const exportData = groupStudents.map(s => {
+                const g = db.grades[s.matricule][moduleId] || { cc: 0, exam: 0, rattrapage: 0 };
+                return {
+                    "Matricule": s.matricule,
+                    "Nom": s.nomFr,
+                    "Prénom": s.prenomFr,
+                    "Note CC": g.cc,
+                    "Note Examen": g.exam,
+                    "Rattrapage": g.rattrapage,
+                    "Moyenne": calculateModuleAvg(g.cc, g.exam, g.rattrapage).toFixed(2)
+                };
+            });
+
+            const ws = XLSX.utils.json_to_sheet(exportData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Notes");
+            XLSX.writeFile(wb, `Notes_${group}_${moduleId}.xlsx`);
+            showToast("Fichier Excel généré avec succès !");
+        }
+
+        // Deliberation Logic
+        function renderDeliberationTable() {
+            const tbody = document.getElementById('delib-tbody');
+            tbody.innerHTML = '';
+
+            const group = document.getElementById('delib-group').value;
+            const passMoy = parseFloat(document.getElementById('delib-pass').value) || 10.0;
+            const rachatMoy = parseFloat(document.getElementById('delib-rachat').value) || 9.5;
+
+            const groupStudents = db.students.filter(s => s.groupe === group);
+
+            groupStudents.forEach(s => {
+                const moyS5 = computeSemesterAvg(s.matricule, modulesS5);
+                const moyS6 = computeSemesterAvg(s.matricule, modulesS6);
+                const moyAnnuel = (moyS5 + moyS6) / 2;
+
+                let statusHtml = '';
+                if (moyAnnuel >= passMoy) {
+                    statusHtml = '<span style="color:green; font-weight:bold;"><i class="fa-solid fa-check"></i> Admis(e)</span>';
+                } else if (moyAnnuel >= rachatMoy) {
+                    statusHtml = '<span style="color:#d97706; font-weight:bold;"><i class="fa-solid fa-hand-holding-heart"></i> Admis par Rachat (إنقاذ)</span>';
+                } else {
+                    statusHtml = '<span style="color:red; font-weight:bold;"><i class="fa-solid fa-xmark"></i> Ajourné(e)</span>';
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:600;">${s.matricule}</td>
+                    <td>${s.nomFr} ${s.prenomFr}</td>
+                    <td>${moyS5.toFixed(2)}</td>
+                    <td>${moyS6.toFixed(2)}</td>
+                    <td style="font-weight:700; font-size:0.95rem;">${moyAnnuel.toFixed(2)}</td>
+                    <td>${statusHtml}</td>
+                    <td>
+                        <button class="btn btn-purple" style="padding:3px 8px; font-size:0.75rem;" onclick="openSingleStudentReleveS5S6('${s.matricule}')">
+                            <i class="fa-solid fa-file-invoice"></i> كشف S5+S6
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function computeSemesterAvg(mat, moduleList) {
+            let totalWeighted = 0;
+            let totalCoeff = 0;
+
+            moduleList.forEach(m => {
+                const g = db.grades[mat] ? db.grades[mat][m.id] : null;
+                const moy = g ? calculateModuleAvg(g.cc, g.exam, g.rattrapage) : 0;
+                totalWeighted += moy * m.coeff;
+                totalCoeff += m.coeff;
+            });
+
+            return totalCoeff > 0 ? (totalWeighted / totalCoeff) : 0;
+        }
+
+        function calculateDeliberation() {
+            renderDeliberationTable();
+            showToast("Délibérations calculées et mises à jour !");
+        }
+
+        function openSingleStudentReleveS5S6(matricule) {
+            switchSection('releve');
+            document.getElementById('releve-student-select').value = matricule;
+            renderStudentReleve();
+        }
+
+        function printUnifiedS5S6Deliberation() {
+            switchSection('releve');
+            window.print();
+        }
+
+        // Relevé de Notes S5 + S6
+        function populateReleveStudentDropdown() {
+            const select = document.getElementById('releve-student-select');
+            select.innerHTML = '';
+            db.students.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.matricule;
+                opt.innerText = `${s.matricule} - ${s.nomFr} ${s.prenomFr} (${s.nomAr} ${s.prenomAr})`;
+                select.appendChild(opt);
+            });
+            renderStudentReleve();
+        }
+
+        function renderStudentReleve() {
+            const mat = document.getElementById('releve-student-select').value;
+            const student = db.students.find(s => s.matricule === mat);
+            if (!student) return;
+
+            document.getElementById('releve-student-info').innerHTML = `
+                <div>
+                    <strong>Nom & Prénom:</strong> ${student.nomFr.toUpperCase()} ${student.prenomFr}<br>
+                    <strong>الاسم واللقب:</strong> ${student.nomAr} ${student.prenomAr}<br>
+                    <strong>Date & Lieu Naiss:</strong> ${student.dateNaiss} à ${student.lieuNaiss}<br>
+                    <strong>Matricule:</strong> ${student.matricule}
+                </div>
+                <div style="text-align:right;">
+                    <strong>Domaine:</strong> Langue et Littérature Arabes<br>
+                    <strong>Filière:</strong> Etudes Linguistiques<br>
+                    <strong>Spécialité:</strong> Linguistique Appliquée (L3)<br>
+                    <strong>Année Univ:</strong> 2025-2026
+                </div>
+            `;
+
+            const tbody = document.getElementById('releve-tbody');
+            tbody.innerHTML = '';
+
+            for (let i = 0; i < modulesS5.length; i++) {
+                const m5 = modulesS5[i];
+                const m6 = modulesS6[i];
+
+                const g5 = db.grades[mat] ? db.grades[mat][m5.id] : null;
+                const g6 = db.grades[mat] ? db.grades[mat][m6.id] : null;
+
+                const moy5 = g5 ? calculateModuleAvg(g5.cc, g5.exam, g5.rattrapage) : 0;
+                const moy6 = g6 ? calculateModuleAvg(g6.cc, g6.exam, g6.rattrapage) : 0;
+                const moyMod = (moy5 + moy6) / 2;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="border: 1px solid #000;">${m5.nameFr} / ${m6.nameFr}</td>
+                    <td style="border: 1px solid #000; text-align:center;">${m5.coeff}</td>
+                    <td style="border: 1px solid #000; text-align:center;">${m5.credit}</td>
+                    <td style="border: 1px solid #000; text-align:center;">${moy5.toFixed(2)}</td>
+                    <td style="border: 1px solid #000; text-align:center;">${moy6.toFixed(2)}</td>
+                    <td style="border: 1px solid #000; text-align:center; font-weight:bold;">${moyMod.toFixed(2)}</td>
+                `;
+                tbody.appendChild(tr);
+            }
+
+            const moyS5 = computeSemesterAvg(mat, modulesS5);
+            const moyS6 = computeSemesterAvg(mat, modulesS6);
+            const moyAnnuel = (moyS5 + moyS6) / 2;
+
+            document.getElementById('releve-summary').innerHTML = `
+                <div>
+                    Moyenne S5: <strong>${moyS5.toFixed(2)}</strong> | Moyenne S6: <strong>${moyS6.toFixed(2)}</strong><br>
+                    <strong>Moyenne Générale Annuelle (S5+S6): ${moyAnnuel.toFixed(2)} / 20</strong>
+                </div>
+                <div style="text-align:right;">
+                    Décision: <strong>${moyAnnuel >= 10.0 ? 'ADMIS(E)' : (moyAnnuel >= 9.5 ? 'ADMIS PAR RACHAT' : 'AJOURNÉ(E)')}</strong><br>
+                    Fait à Alger, le ${new Date().toLocaleDateString('fr-FR')}
+                </div>
+            `;
+        }
+
+        function printReleveDocument() {
+            window.print();
+        }
+
+        // ATTESTATION DE LICENCE (طباعة شهادة الليسانس)
+        function populateLicenceStudentDropdown() {
+            const select = document.getElementById('cert-student-select');
+            select.innerHTML = '';
+            db.students.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.matricule;
+                opt.innerText = `${s.matricule} - ${s.nomAr} ${s.prenomAr} (${s.nomFr} ${s.prenomFr})`;
+                select.appendChild(opt);
+            });
+            renderLicenceCertificate();
+        }
+
+        function renderLicenceCertificate() {
+            const mat = document.getElementById('cert-student-select').value;
+            const student = db.students.find(s => s.matricule === mat);
+            if (!student) return;
+
+            const moyS5 = computeSemesterAvg(mat, modulesS5);
+            const moyS6 = computeSemesterAvg(mat, modulesS6);
+            const moyAnnuel = (moyS5 + moyS6) / 2;
+
+            const container = document.getElementById('licence-cert-container');
+            container.innerHTML = `
+                <div style="text-align: center; font-weight: bold; font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px;">
+                    الجمهورية الجزائرية الديمقراطية الشعبية<br>
+                    وزارة التعليم العالي والبحث العلمي<br>
+                    جامعة الجزائر 2 أبو القاسم سعد الله<br>
+                    كلية اللغة العربية وآدابها واللغات الشرقية - قسم علوم اللسان
+                </div>
+
+                <div style="text-align: center; font-size: 1.6rem; font-weight: 800; margin: 25px 0; text-decoration: underline;">
+                    شهادة النجاح في الليسانس
+                </div>
+
+                <p style="font-size: 1.1rem; margin-top: 20px;">
+                    يشهد عميد كلية اللغة العربية وآدابها واللغات الشرقية بجامعة الجزائر 2 بأن الطالب(ة): 
+                    <strong style="font-size: 1.2rem; color: #1e293b;">${student.nomAr} ${student.prenomAr}</strong>
+                </p>
+
+                <p style="font-size: 1.05rem; margin-top: 10px;">
+                    المولود(ة) بتاريخ: <strong>${student.dateNaiss}</strong> بـ: <strong>${student.lieuNaiss}</strong><br>
+                    صاحب(ة) رقم التسجيل: <strong>${student.matricule}</strong>
+                </p>
+
+                <p style="font-size: 1.1rem; margin-top: 20px; text-align: justify;">
+                    قد نجح(ت) في امتحانات السنة الثالثة ليسانس وحصل(ت) على <strong>شهادة الليسانس</strong> في ميدان: <strong>اللغة والأدب العربي</strong><br>
+                    شعبة: <strong>الدراسات اللسانية</strong> | تخصص: <strong>لسانيات تطبيقية</strong><br>
+                    بمعدل سنوي قدره: <strong>${moyAnnuel.toFixed(2)} / 20</strong> وذلك خلال السنة الجامعية: <strong>2025-2026</strong>.
+                </p>
+
+                <div style="margin-top: 50px; display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div>
+                        حرر بالجزائر في: <strong>${new Date().toLocaleDateString('ar-DZ')}</strong>
+                    </div>
+                    <div style="text-align: center; margin-left: 50px;">
+                        <strong>عميد الكلية / رئيس القسم</strong><br><br><br>
+                        <span>(الختم والإمضاء)</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Database Export / Import Logic
+        function exportDatabase() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", `PROGRES_DB_EXPORT_${new Date().toISOString().slice(0,10)}.json`);
+            dlAnchorElem.click();
+            showToast("Base de données exportée avec succès (JSON) !");
+        }
+
+        function triggerImport(elementId) {
+            document.getElementById(elementId).click();
+        }
+
+        function importDatabase(event) {
+            const fileReader = new FileReader();
+            fileReader.onload = function(e) {
+                try {
+                    const importedDb = JSON.parse(e.target.result);
+                    if (importedDb.students && importedDb.grades) {
+                        db = importedDb;
+                        saveDatabaseToStorage();
+                        renderStudentsTable();
+                        showToast("Base de données restaurée avec succès !");
+                    } else {
+                        showToast("Structure du fichier JSON invalide.");
+                    }
+                } catch(err) {
+                    showToast("Erreur lors de la lecture du fichier.");
+                }
+            };
+            fileReader.readAsText(event.target.files[0]);
+        }
+
+        function importExcelStudents(event) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+                
+                if (jsonData.length > 0) {
+                    showToast(`${jsonData.length} étudiants chargés depuis Excel !`);
+                }
+            };
+            reader.readAsArrayBuffer(event.target.files[0]);
+        }
+
+        // Notification Helper
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--primary-blue);"></i> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
