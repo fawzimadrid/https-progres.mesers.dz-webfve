@@ -16,120 +16,114 @@
             --border-color: #e2e8f0;
             --text-main: #1e293b;
             --text-muted: #64748b;
-            --sidebar-width: 260px;
+            --sidebar-width: 270px;
             --sidebar-collapsed: 70px;
-            --green-dark: #047857;
-            --red-dark: #b91c1c;
+            --green-dark: #166534;
+            --red-dark: #991b1b;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
         body { background-color: var(--bg-light); color: var(--text-main); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
         .top-bar { background-color: var(--bg-dark-gray); color: #ffffff; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .header-left { display: flex; align-items: center; gap: 15px; }
         .header-left img.logo { height: 42px; width: auto; object-fit: contain; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3)); }
-        .university-title { margin-left: 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; position: relative; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 4px; transition: background 0.2s; }
+        .university-title { margin-left: 15px; font-size: 0.95rem; font-weight: 600; cursor: pointer; position: relative; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 4px; transition: background 0.2s; }
         .university-title:hover { background-color: rgba(255,255,255,0.1); }
-        .uni-dropdown { display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; color: var(--text-main); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-radius: 6px; min-width: 320px; padding: 10px 0; z-index: 200; border: 1px solid var(--border-color); }
+        .uni-dropdown { display: none; position: absolute; top: 100%; left: 0; background: #fff; color: var(--text-main); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-radius: 6px; min-width: 340px; padding: 10px 0; z-index: 200; border: 1px solid var(--border-color); }
         .university-title:hover .uni-dropdown { display: block; }
         .uni-dropdown .item { padding: 10px 16px; font-size: 0.85rem; border-bottom: 1px solid #f1f5f9; }
         .uni-dropdown .item-faculty { font-weight: 700; color: var(--primary-blue); }
         .uni-dropdown .item-dept { padding-left: 30px; color: var(--text-muted); }
-        .user-profile { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 20px; }
+        .user-profile { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; background: rgba(255,255,255,0.1); padding: 6px 14px; border-radius: 20px; }
         .user-profile img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
-        .app-container { display: flex; flex: 1; overflow: hidden; background-color: #ffffff; margin: 12px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .sidebar { width: var(--sidebar-width); background-color: #ffffff; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; transition: width 0.3s ease; user-select: none; }
+        .update-banner { background: #fef3c7; color: #92400e; padding: 10px 20px; font-size: 0.85rem; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #fde68a; }
+        .update-banner i { font-size: 1.1rem; }
+        .app-container { display: flex; flex: 1; overflow: hidden; background: #fff; margin: 12px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .sidebar { width: var(--sidebar-width); background: #fff; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; transition: width 0.3s ease; user-select: none; }
         .sidebar.collapsed { width: var(--sidebar-collapsed); }
         .sidebar-toggle { padding: 12px 20px; text-align: right; cursor: pointer; color: var(--text-muted); border-bottom: 1px solid var(--border-color); }
         .nav-list { list-style: none; overflow-y: auto; flex: 1; }
-        .nav-item { display: flex; align-items: center; padding: 12px 20px; color: var(--text-main); font-size: 0.88rem; cursor: pointer; transition: all 0.2s; gap: 14px; white-space: nowrap; }
-        .nav-item:hover, .nav-item.active { background-color: #eff6ff; color: var(--primary-blue); border-left: 4px solid var(--primary-blue); }
+        .nav-item { display: flex; align-items: center; padding: 12px 20px; color: var(--text-main); font-size: 0.87rem; cursor: pointer; transition: all 0.2s; gap: 14px; white-space: nowrap; }
+        .nav-item:hover, .nav-item.active { background: #eff6ff; color: var(--primary-blue); border-left: 4px solid var(--primary-blue); }
         .nav-item i { font-size: 1.1rem; width: 20px; text-align: center; }
         .sidebar.collapsed .nav-text { display: none; }
-        .main-content { flex: 1; overflow-y: auto; padding: 24px; background-color: #ffffff; }
+        .main-content { flex: 1; overflow-y: auto; padding: 24px; background: #fff; }
         .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 10px; }
-        .page-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); }
+        .page-title { font-size: 1.25rem; font-weight: 700; }
         input[type="text"], input[type="date"], input[type="number"], input[type="email"], select, textarea {
-            width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 4px; outline: none; font-size: 0.88rem; transition: border-color 0.2s; background-color: #fff;
+            width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 4px; outline: none; font-size: 0.88rem; background: #fff;
         }
         input:focus, select:focus, textarea:focus { border-color: var(--primary-blue) !important; box-shadow: 0 0 0 2px rgba(37,99,235,0.1); }
-        input:disabled, select:disabled { background-color: #f1f5f9 !important; cursor: not-allowed; color: #94a3b8; }
+        input:disabled, select:disabled { background: #f1f5f9 !important; cursor: not-allowed; color: #94a3b8; }
         .btn { padding: 8px 16px; border-radius: 4px; font-size: 0.85rem; font-weight: 500; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s; }
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        .btn-blue { background-color: var(--primary-blue); color: white; }
-        .btn-blue:hover:not(:disabled) { background-color: var(--primary-blue-hover); }
-        .btn-secondary { background-color: #e2e8f0; color: var(--text-main); }
-        .btn-secondary:hover:not(:disabled) { background-color: #cbd5e1; }
-        .btn-success { background-color: #10b981; color: white; }
-        .btn-danger { background-color: #ef4444; color: white; }
-        .btn-danger:hover:not(:disabled) { background-color: #dc2626; }
-        .btn-warning { background-color: #f59e0b; color: white; }
+        .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+        .btn-blue { background: var(--primary-blue); color: white; }
+        .btn-blue:hover:not(:disabled) { background: var(--primary-blue-hover); }
+        .btn-secondary { background: #e2e8f0; color: var(--text-main); }
+        .btn-secondary:hover:not(:disabled) { background: #cbd5e1; }
+        .btn-success { background: #10b981; color: white; }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-danger:hover:not(:disabled) { background: #dc2626; }
+        .btn-warning { background: #f59e0b; color: white; }
+        .btn-sm { padding: 4px 10px; font-size: 0.78rem; }
         .table-responsive { width: 100%; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 6px; margin-top: 15px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; }
-        th, td { padding: 10px 14px; border-bottom: 1px solid var(--border-color); color: var(--text-main); }
-        th { background-color: #f8fafc; font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
-        tr:hover { background-color: #f1f5f9; }
+        th, td { padding: 10px 14px; border-bottom: 1px solid var(--border-color); }
+        th { background: #f8fafc; font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.4px; }
+        tr:hover { background: #f1f5f9; }
+        .grade-green { color: var(--green-dark) !important; font-weight: 700; }
+        .grade-red { color: var(--red-dark) !important; font-weight: 700; }
         .pagination-container { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; font-size: 0.85rem; color: var(--text-muted); }
         .tabs-header { display: flex; border-bottom: 2px solid var(--border-color); margin-bottom: 20px; gap: 5px; overflow-x: auto; }
         .tab-btn { padding: 10px 18px; border: none; background: none; font-weight: 500; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; }
         .tab-btn.active { color: var(--primary-blue); border-bottom-color: var(--primary-blue); font-weight: 600; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
         #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
-        .toast { background-color: #ffffff; color: var(--text-main); border-left: 4px solid var(--primary-blue); padding: 12px 20px; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.85rem; display: flex; align-items: center; gap: 10px; animation: slideIn 0.3s ease; }
+        .toast { background: #fff; color: var(--text-main); border-left: 4px solid var(--primary-blue); padding: 12px 20px; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.85rem; display: flex; align-items: center; gap: 10px; animation: slideIn 0.3s ease; }
         @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
-        .full-page-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #ffffff; z-index: 500; display: none; flex-direction: column; overflow-y: auto; }
+        .full-page-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #fff; z-index: 500; display: none; flex-direction: column; overflow-y: auto; }
         .student-profile-header { display: flex; gap: 20px; align-items: center; background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 20px; }
-        .student-photo { width: 110px; height: 130px; border-radius: 6px; border: 1px solid var(--border-color); object-fit: cover; background-color: #e2e8f0; }
+        .student-photo { width: 110px; height: 130px; border-radius: 6px; border: 1px solid var(--border-color); object-fit: cover; background: #e2e8f0; }
         .releve-box { border: 2px solid var(--text-main); padding: 30px; background: white; max-width: 900px; margin: 0 auto; font-family: Arial, sans-serif; }
         .releve-header { text-align: center; font-weight: bold; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.4; }
-        .closed-badge { background-color: #ef4444; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
-        .active-badge { background-color: #10b981; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
-        .grade-good { color: var(--green-dark); font-weight: 700; }
-        .grade-bad { color: var(--red-dark); font-weight: 700; }
-        .update-banner { background: #fef3c7; border-bottom: 1px solid #f59e0b; color: #92400e; padding: 10px 20px; font-size: 0.85rem; display: flex; align-items: center; gap: 10px; justify-content: space-between; }
-        .update-banner button { background: none; border: none; color: #92400e; cursor: pointer; font-size: 1.1rem; }
-        .search-box { display: flex; gap: 8px; align-items: center; }
-        .search-box input { width: 240px; }
-        .cert-page { width: 210mm; min-height: 297mm; padding: 15mm; margin: 0 auto; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); position: relative; font-family: Arial, sans-serif; }
-        .cert-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-        .cert-logo { height: 80px; }
-        .cert-titles { text-align: center; flex: 1; }
-        .cert-titles h1 { font-size: 14px; margin-bottom: 4px; }
-        .cert-titles h2 { font-size: 13px; margin-bottom: 4px; }
-        .cert-titles h3 { font-size: 12px; color: #333; }
-        .cert-body { margin-top: 30px; font-size: 13px; line-height: 1.6; }
+        .closed-badge { background: #ef4444; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
+        .active-badge { background: #10b981; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
+        .search-box { position: relative; max-width: 320px; }
+        .search-box input { padding-left: 36px; }
+        .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .certificat-box { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 25mm 20mm; border: 3px double #1e293b; background: white; font-family: 'Times New Roman', serif; position: relative; }
+        .cert-header { text-align: center; margin-bottom: 25px; }
+        .cert-logo { height: 80px; margin-bottom: 10px; }
+        .cert-title { font-size: 1.4rem; font-weight: bold; text-decoration: underline; margin: 20px 0; text-align: center; }
+        .cert-body { font-size: 1.05rem; line-height: 1.8; text-align: justify; }
         .cert-footer { margin-top: 40px; display: flex; justify-content: space-between; }
-        .msg-box { border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #f8fafc; }
-        .msg-box.admin { border-left: 4px solid var(--primary-blue); }
-        .msg-box.prof { border-left: 4px solid #10b981; }
+        .note-cell { font-weight: 700; }
         @media print {
             body * { visibility: hidden; }
             .printable-area, .printable-area * { visibility: visible; }
             .printable-area { position: absolute; left: 0; top: 0; width: 100%; }
             .no-print { display: none !important; }
-            .cert-page { box-shadow: none; margin: 0; }
+            .certificat-box { border: none; box-shadow: none; }
         }
     </style>
 </head>
 <body>
-    <!-- Bannière d'alerte de mise à jour -->
-    <div class="update-banner" id="update-banner">
-        <div>
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <strong>Alerte système :</strong> Une mise à jour est en cours. Elle peut temporairement perturber certains services. Merci de votre compréhension.
-        </div>
-        <button onclick="document.getElementById('update-banner').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+    <!-- Bannière de mise à jour -->
+    <div class="update-banner no-print">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span><strong>Avertissement système :</strong> Une mise à jour importante est en cours de déploiement. Certains services (saisie des notes, délibérations, exports) peuvent être temporairement instables. Merci de votre compréhension.</span>
+        <button class="btn btn-sm btn-secondary" style="margin-left:auto;" onclick="this.parentElement.style.display='none'">Fermer</button>
     </div>
 
-    <!-- Top Bar -->
-    <header class="top-bar">
+    <header class="top-bar no-print">
         <div class="header-left">
             <img src="https://progres.mesrs.dz/webfve/images/logo2.png" alt="PROGRES Logo" class="logo" onerror="this.src='https://progres.mesrs.dz/webetu/images/logo.png'">
             <div class="university-title">
                 <span>Université d'Alger 2 Abou El Kacem Saadallah</span>
-                <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem;"></i>
+                <i class="fa-solid fa-chevron-down" style="font-size:0.75rem;"></i>
                 <div class="uni-dropdown">
                     <div class="item item-faculty">Faculté de Langue Arabe, Littérature et Langues Orientales</div>
                     <div class="item item-dept">Département des Sciences du Langage</div>
@@ -137,31 +131,28 @@
             </div>
         </div>
         <div class="user-profile">
-            <img src="https://ui-avatars.com/api/?name=Mezemaze+Fawzi&background=2563eb&color=fff" alt="User Avatar">
+            <img src="https://ui-avatars.com/api/?name=Mezemaze+Fawzi&background=2563eb&color=fff" alt="Avatar">
             <div>
-                <div style="font-weight: 600;">Dr. Mezemaze Fawzi</div>
-                <div style="font-size: 0.7rem; color: #cbd5e1;">Administrateur Système</div>
+                <div style="font-weight:600;">Dr. Mezemaze Fawzi</div>
+                <div style="font-size:0.7rem; color:#cbd5e1;">Administrateur Système</div>
             </div>
         </div>
     </header>
 
     <div class="app-container">
-        <!-- Sidebar -->
-        <nav class="sidebar" id="sidebar">
-            <div class="sidebar-toggle" onclick="toggleSidebar()">
-                <i class="fa-solid fa-bars" id="toggle-icon"></i>
-            </div>
+        <nav class="sidebar no-print" id="sidebar">
+            <div class="sidebar-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></div>
             <ul class="nav-list">
                 <li class="nav-item active" onclick="switchSection('dashboard', this)"><i class="fa-solid fa-chart-line"></i><span class="nav-text">Tableau de bord</span></li>
                 <li class="nav-item" onclick="switchSection('database', this)"><i class="fa-solid fa-database"></i><span class="nav-text">Base de données</span></li>
                 <li class="nav-item" onclick="switchSection('students', this)"><i class="fa-solid fa-user-graduate"></i><span class="nav-text">Dossiers Étudiants</span></li>
                 <li class="nav-item" onclick="switchSection('search', this)"><i class="fa-solid fa-magnifying-glass"></i><span class="nav-text">Recherche Étudiants</span></li>
-                <li class="nav-item" onclick="switchSection('duplicates', this)"><i class="fa-solid fa-clone"></i><span class="nav-text">Étudiants Dupliqués</span></li>
                 <li class="nav-item" onclick="switchSection('transfers', this)"><i class="fa-solid fa-right-left"></i><span class="nav-text">Transferts Universitaires</span></li>
+                <li class="nav-item" onclick="switchSection('teachers', this)"><i class="fa-solid fa-chalkboard-user"></i><span class="nav-text">Enseignants</span></li>
+                <li class="nav-item" onclick="switchSection('messages', this)"><i class="fa-solid fa-envelope"></i><span class="nav-text">Messagerie</span></li>
+                <li class="nav-item" onclick="switchSection('duplicates', this)"><i class="fa-solid fa-clone"></i><span class="nav-text">Étudiants Dupliqués</span></li>
                 <li class="nav-item" onclick="switchSection('reinscriptions', this)"><i class="fa-solid fa-rotate-right"></i><span class="nav-text">Réinscriptions</span></li>
-                <li class="nav-item" onclick="switchSection('groups', this)"><i class="fa-solid fa-users-rectangle"></i><span class="nav-text">Groupes & Groupements</span></li>
-                <li class="nav-item" onclick="switchSection('professors', this)"><i class="fa-solid fa-chalkboard-user"></i><span class="nav-text">Enseignants</span></li>
-                <li class="nav-item" onclick="switchSection('messaging', this)"><i class="fa-solid fa-envelope"></i><span class="nav-text">Messagerie</span></li>
+                <li class="nav-item" onclick="switchSection('groups', this)"><i class="fa-solid fa-users-rectangle"></i><span class="nav-text">Groupes</span></li>
                 <li class="nav-item" onclick="switchSection('levels', this)"><i class="fa-solid fa-layer-group"></i><span class="nav-text">Niveaux</span></li>
                 <li class="nav-item" onclick="switchSection('specialties', this)"><i class="fa-solid fa-graduation-cap"></i><span class="nav-text">Spécialités</span></li>
                 <li class="nav-item" onclick="switchSection('modules', this)"><i class="fa-solid fa-book-open"></i><span class="nav-text">Matières / Modules</span></li>
@@ -169,7 +160,7 @@
                 <li class="nav-item" onclick="switchSection('grades', this)"><i class="fa-solid fa-pen-to-square"></i><span class="nav-text">Saisie des Notes</span></li>
                 <li class="nav-item" onclick="switchSection('deliberation', this)"><i class="fa-solid fa-calculator"></i><span class="nav-text">Délibération</span></li>
                 <li class="nav-item" onclick="switchSection('releve', this)"><i class="fa-solid fa-file-invoice"></i><span class="nav-text">Relevé de Notes</span></li>
-                <li class="nav-item" onclick="switchSection('certificate', this)"><i class="fa-solid fa-certificate"></i><span class="nav-text">Certificat de Scolarité</span></li>
+                <li class="nav-item" onclick="switchSection('certificate', this)"><i class="fa-solid fa-certificate"></i><span class="nav-text">Certificat d'Inscription</span></li>
             </ul>
         </nav>
 
@@ -178,38 +169,42 @@
             <section id="sec-dashboard" class="content-section">
                 <div class="page-header">
                     <h1 class="page-title">Tableau de bord Général</h1>
-                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                        <span id="year-lock-status" class="active-badge"><i class="fa-solid fa-lock-open"></i> Année Active En Cours</span>
-                        <button class="btn btn-warning" id="btn-close-year" onclick="closeCurrentAcademicYear()"><i class="fa-solid fa-lock"></i> Clôturer l'Année Actuelle</button>
+                    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                        <span id="year-lock-status" class="active-badge"><i class="fa-solid fa-lock-open"></i> Année Active</span>
+                        <button class="btn btn-warning" id="btn-close-year" onclick="closeCurrentAcademicYear()"><i class="fa-solid fa-lock"></i> Clôturer l'Année</button>
                         <button class="btn btn-success" id="btn-open-year" onclick="createNewAcademicYear()"><i class="fa-solid fa-door-open"></i> Ouvrir Nouvelle Année</button>
                         <button class="btn btn-secondary" onclick="reopenPreviousYear()"><i class="fa-solid fa-unlock"></i> Rouvrir Année Précédente</button>
                     </div>
                 </div>
-                <div class="form-grid" style="margin-bottom: 20px;">
-                    <div style="background: #eff6ff; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary-blue);">
-                        <div style="color: var(--text-muted); font-size: 0.8rem;">Total Étudiants Inscrits</div>
-                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--primary-blue);" id="stat-total">0</div>
+                <div class="form-grid" style="margin-bottom:20px;">
+                    <div style="background:#eff6ff;padding:20px;border-radius:8px;border-left:4px solid var(--primary-blue);">
+                        <div style="color:var(--text-muted);font-size:0.8rem;">Total Étudiants</div>
+                        <div style="font-size:1.8rem;font-weight:700;color:var(--primary-blue);" id="stat-total">0</div>
                     </div>
-                    <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
-                        <div style="color: var(--text-muted); font-size: 0.8rem;">Année Universitaire Active</div>
-                        <div style="font-size: 1.8rem; font-weight: 700; color: #10b981;" id="stat-annee">2026-2027</div>
+                    <div style="background:#f0fdf4;padding:20px;border-radius:8px;border-left:4px solid #10b981;">
+                        <div style="color:var(--text-muted);font-size:0.8rem;">Année Universitaire Active</div>
+                        <div style="font-size:1.8rem;font-weight:700;color:#10b981;" id="stat-annee">2026-2027</div>
                     </div>
-                    <div style="background: #fefce8; padding: 20px; border-radius: 8px; border-left: 4px solid #eab308;">
-                        <div style="color: var(--text-muted); font-size: 0.8rem;">Spécialité Principale</div>
-                        <div style="font-size: 1.2rem; font-weight: 700; color: #ca8a04; margin-top: 8px;">Linguistique Appliquée</div>
+                    <div style="background:#fefce8;padding:20px;border-radius:8px;border-left:4px solid #eab308;">
+                        <div style="color:var(--text-muted);font-size:0.8rem;">Spécialité Principale</div>
+                        <div style="font-size:1.15rem;font-weight:700;color:#ca8a04;margin-top:8px;">Linguistique Appliquée</div>
+                    </div>
+                    <div style="background:#fce7f3;padding:20px;border-radius:8px;border-left:4px solid #db2777;">
+                        <div style="color:var(--text-muted);font-size:0.8rem;">Demandes de Transfert</div>
+                        <div style="font-size:1.8rem;font-weight:700;color:#db2777;" id="stat-transfers">0</div>
                     </div>
                 </div>
-                <div style="background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:20px; margin-top:20px;">
-                    <h3 style="font-size:1rem; margin-bottom:15px;"><i class="fa-solid fa-box-archive"></i> Années Universitaires Clôturées</h3>
-                    <ul id="closed-years-list" style="list-style:none; display:flex; gap:10px; flex-wrap:wrap;"></ul>
+                <div style="background:#fff;border:1px solid var(--border-color);border-radius:8px;padding:20px;margin-top:20px;">
+                    <h3 style="font-size:1rem;margin-bottom:15px;"><i class="fa-solid fa-box-archive"></i> Années Universitaires Clôturées</h3>
+                    <ul id="closed-years-list" style="list-style:none;display:flex;gap:10px;flex-wrap:wrap;"></ul>
                 </div>
             </section>
 
             <!-- BASE DE DONNÉES -->
             <section id="sec-database" class="content-section" style="display:none;">
                 <div class="page-header"><h1 class="page-title">Gestion de la Base de Données Permanente</h1></div>
-                <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:20px;">Stockage permanent et sécurisé des données. Export / Import possible à tout moment.</p>
-                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:20px;">Stockage permanent (IndexedDB + LocalStorage). Export / Import disponibles.</p>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;">
                     <button class="btn btn-blue" onclick="exportDatabase()"><i class="fa-solid fa-download"></i> Exporter la Base</button>
                     <button class="btn btn-blue" onclick="triggerImport('db-file')"><i class="fa-solid fa-upload"></i> Importer la Base</button>
                     <button class="btn btn-blue" onclick="triggerImport('excel-file')"><i class="fa-solid fa-file-excel"></i> Importer Étudiants (Excel)</button>
@@ -223,21 +218,21 @@
             <section id="sec-students" class="content-section" style="display:none;">
                 <div class="page-header">
                     <h1 class="page-title">Gestion des Dossiers Étudiants</h1>
-                    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-                        <label style="font-size:0.8rem; font-weight:600;">Année :</label>
+                    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                        <label style="font-size:0.8rem;font-weight:600;">Année :</label>
                         <select id="filter-year" style="width:180px;" onchange="filterStudents()"></select>
-                        <button class="btn btn-blue" id="btn-add-student" onclick="openNewStudentModal()"><i class="fa-solid fa-plus"></i> Nouveau Étudiant</button>
+                        <button class="btn btn-blue" id="btn-add-student" onclick="openNewStudentModal()"><i class="fa-solid fa-plus"></i> Nouvel Étudiant</button>
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table id="students-table">
-                        <thead><tr><th>Matricule</th><th>Nom & Prénom</th><th>Date Naiss.</th><th>Groupe</th><th>Statut Compte</th><th>Actions</th></tr></thead>
+                    <table>
+                        <thead><tr><th>Matricule</th><th>Nom & Prénom</th><th>Date Naiss.</th><th>Groupe</th><th>Niveau</th><th>Compte</th><th>Statut</th><th>Actions</th></tr></thead>
                         <tbody id="students-tbody"></tbody>
                     </table>
                 </div>
                 <div class="pagination-container">
                     <span id="page-info">Page 1 sur 1</span>
-                    <div style="display:flex; gap:5px;">
+                    <div style="display:flex;gap:5px;">
                         <button class="btn btn-secondary" id="btn-prev" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> Précédent</button>
                         <button class="btn btn-secondary" id="btn-next" onclick="nextPage()">Suivant <i class="fa-solid fa-chevron-right"></i></button>
                     </div>
@@ -246,16 +241,64 @@
 
             <!-- RECHERCHE -->
             <section id="sec-search" class="content-section" style="display:none;">
-                <div class="page-header"><h1 class="page-title">Recherche d'Étudiants</h1></div>
+                <div class="page-header"><h1 class="page-title">Recherche Avancée d'Étudiants</h1></div>
                 <div class="search-box" style="margin-bottom:20px;">
-                    <input type="text" id="search-input" placeholder="Nom, prénom ou matricule..." onkeyup="performSearch()">
-                    <button class="btn btn-blue" onclick="performSearch()"><i class="fa-solid fa-magnifying-glass"></i> Rechercher</button>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search-input" placeholder="Matricule, Nom, Prénom..." oninput="performSearch()">
                 </div>
                 <div class="table-responsive">
                     <table>
-                        <thead><tr><th>Matricule</th><th>Nom & Prénom</th><th>Groupe</th><th>Année</th><th>Actions</th></tr></thead>
+                        <thead><tr><th>Matricule</th><th>Nom & Prénom</th><th>Année</th><th>Groupe</th><th>Niveau</th><th>Actions</th></tr></thead>
                         <tbody id="search-tbody"></tbody>
                     </table>
+                </div>
+            </section>
+
+            <!-- TRANSFERTS -->
+            <section id="sec-transfers" class="content-section" style="display:none;">
+                <div class="page-header">
+                    <h1 class="page-title">Demandes de Transferts Universitaires</h1>
+                    <button class="btn btn-blue" onclick="openNewTransferModal()"><i class="fa-solid fa-plus"></i> Nouvelle Demande</button>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>N°</th><th>Nom & Prénom</th><th>Type</th><th>Établissement d'origine</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
+                        <tbody id="transfers-tbody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ENSEIGNANTS -->
+            <section id="sec-teachers" class="content-section" style="display:none;">
+                <div class="page-header">
+                    <h1 class="page-title">Gestion des Enseignants (20 permanents)</h1>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>N°</th><th>Nom & Prénom</th><th>Grade</th><th>Modules Assignés</th><th>Groupes</th><th>Actions</th></tr></thead>
+                        <tbody id="teachers-tbody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- MESSAGERIE -->
+            <section id="sec-messages" class="content-section" style="display:none;">
+                <div class="page-header"><h1 class="page-title">Messagerie Administrateur ↔ Enseignants</h1></div>
+                <div style="display:grid;grid-template-columns:1fr 2fr;gap:20px;">
+                    <div>
+                        <label>Destinataire</label>
+                        <select id="msg-teacher" style="margin-bottom:10px;"></select>
+                        <label>Sujet</label>
+                        <input type="text" id="msg-subject" placeholder="Sujet du message" style="margin-bottom:10px;">
+                        <label>Message</label>
+                        <textarea id="msg-body" rows="5" placeholder="Contenu..."></textarea>
+                        <button class="btn btn-blue" style="margin-top:10px;" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i> Envoyer</button>
+                        <button class="btn btn-secondary" style="margin-top:10px;" onclick="sendGradeSheet()"><i class="fa-solid fa-file-export"></i> Envoyer Fiche de Notes</button>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom:10px;">Historique des messages</h3>
+                        <div id="messages-list" style="max-height:400px;overflow-y:auto;border:1px solid var(--border-color);border-radius:6px;padding:10px;"></div>
+                    </div>
                 </div>
             </section>
 
@@ -273,33 +316,18 @@
                 </div>
             </section>
 
-            <!-- TRANSFERTS -->
-            <section id="sec-transfers" class="content-section" style="display:none;">
-                <div class="page-header">
-                    <h1 class="page-title">Gestion des Transferts Universitaires</h1>
-                    <button class="btn btn-blue" onclick="addSampleTransfer()"><i class="fa-solid fa-plus"></i> Simuler Demande</button>
-                </div>
-                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:15px;">Demandes de transfert (nouveaux et anciens étudiants). Aucun doublon de nom/prénom autorisé.</p>
-                <div class="table-responsive">
-                    <table>
-                        <thead><tr><th>Nom & Prénom</th><th>Type</th><th>Origine</th><th>Destination</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
-                        <tbody id="transfers-tbody"></tbody>
-                    </table>
-                </div>
-            </section>
-
             <!-- RÉINSCRIPTIONS -->
             <section id="sec-reinscriptions" class="content-section" style="display:none;">
                 <div class="page-header"><h1 class="page-title">Réinscriptions pour l'Année Suivante</h1></div>
-                <div style="background:#f8fafc; padding:15px; border-radius:6px; border:1px solid var(--border-color); margin-bottom:15px; display:flex; gap:15px; flex-wrap:wrap;">
-                    <div style="flex:1; min-width:160px;"><label style="font-size:0.75rem; font-weight:600;">Année Cible</label><select id="re-year"><option value="2026-2027">2026-2027</option></select></div>
-                    <div style="flex:1; min-width:160px;"><label style="font-size:0.75rem; font-weight:600;">Niveau</label><select id="re-level"><option value="L3">Troisième Année Licence (L3)</option></select></div>
-                    <div style="flex:1; min-width:160px;"><label style="font-size:0.75rem; font-weight:600;">Groupe</label><select id="re-group"><option value="Groupe 1">Groupe 1</option><option value="Groupe 2">Groupe 2</option><option value="Groupe 3">Groupe 3</option></select></div>
+                <div style="background:#f8fafc;padding:15px;border-radius:6px;border:1px solid var(--border-color);margin-bottom:15px;display:flex;gap:15px;flex-wrap:wrap;">
+                    <div style="flex:1;min-width:160px;"><label style="font-size:0.75rem;font-weight:600;">Année Cible</label><select id="re-year"></select></div>
+                    <div style="flex:1;min-width:160px;"><label style="font-size:0.75rem;font-weight:600;">Niveau</label><select id="re-level"><option value="L3">L3</option><option value="L2">L2</option></select></div>
+                    <div style="flex:1;min-width:160px;"><label style="font-size:0.75rem;font-weight:600;">Groupe</label><select id="re-group"><option>Groupe 1</option><option>Groupe 2</option><option>Groupe 3</option></select></div>
                     <div style="align-self:flex-end;"><button class="btn btn-blue" id="btn-exec-re" onclick="executeBatchReinscription()"><i class="fa-solid fa-check"></i> Enregistrer</button></div>
                 </div>
                 <div class="table-responsive">
                     <table>
-                        <thead><tr><th><input type="checkbox" id="select-all-re" onclick="toggleSelectAllRe(this)"></th><th>Matricule</th><th>Nom & Prénom</th><th>Année Actuelle</th><th>Niveau</th><th>Groupe</th></tr></thead>
+                        <thead><tr><th><input type="checkbox" id="select-all-re" onclick="toggleSelectAllRe(this)"></th><th>Matricule</th><th>Nom & Prénom</th><th>Année</th><th>Niveau</th><th>Groupe</th></tr></thead>
                         <tbody id="reinscription-tbody"></tbody>
                     </table>
                 </div>
@@ -309,7 +337,7 @@
             <section id="sec-groups" class="content-section" style="display:none;">
                 <div class="page-header">
                     <h1 class="page-title">Gestion des Groupes</h1>
-                    <div style="display:flex; gap:10px;">
+                    <div style="display:flex;gap:10px;">
                         <button class="btn btn-blue" id="btn-auto-assign" onclick="autoAssignGroups()"><i class="fa-solid fa-shuffle"></i> Répartition Équitable</button>
                         <button class="btn btn-secondary" onclick="printGroupLists()"><i class="fa-solid fa-print"></i> Imprimer Listes</button>
                     </div>
@@ -327,40 +355,9 @@
                 </div>
             </section>
 
-            <!-- ENSEIGNANTS -->
-            <section id="sec-professors" class="content-section" style="display:none;">
-                <div class="page-header">
-                    <h1 class="page-title">Gestion des Enseignants (20 professeurs permanents)</h1>
-                </div>
-                <div class="table-responsive">
-                    <table>
-                        <thead><tr><th>N°</th><th>Nom & Prénom</th><th>Grade</th><th>Modules Assignés</th><th>Groupes</th><th>Actions</th></tr></thead>
-                        <tbody id="professors-tbody"></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- MESSAGERIE -->
-            <section id="sec-messaging" class="content-section" style="display:none;">
-                <div class="page-header"><h1 class="page-title">Messagerie Admin ↔ Enseignants</h1></div>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
-                    <div>
-                        <h3 style="margin-bottom:10px;">Envoyer un message / Document de saisie</h3>
-                        <div class="form-group"><label>Destinataire</label><select id="msg-to"></select></div>
-                        <div class="form-group"><label>Objet</label><input type="text" id="msg-subject" placeholder="Ex: Ouverture saisie notes S5"></div>
-                        <div class="form-group"><label>Message</label><textarea id="msg-body" rows="4"></textarea></div>
-                        <button class="btn btn-blue" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i> Envoyer</button>
-                    </div>
-                    <div>
-                        <h3 style="margin-bottom:10px;">Messages récents</h3>
-                        <div id="messages-list" style="max-height:400px; overflow-y:auto;"></div>
-                    </div>
-                </div>
-            </section>
-
             <!-- NIVEAUX -->
             <section id="sec-levels" class="content-section" style="display:none;">
-                <div class="page-header"><h1 class="page-title">Gestion des Niveaux d'Études</h1></div>
+                <div class="page-header"><h1 class="page-title">Niveaux d'Études</h1></div>
                 <div class="table-responsive">
                     <table>
                         <thead><tr><th>Code</th><th>Intitulé</th><th>Cycle</th></tr></thead>
@@ -374,7 +371,7 @@
 
             <!-- SPÉCIALITÉS -->
             <section id="sec-specialties" class="content-section" style="display:none;">
-                <div class="page-header"><h1 class="page-title">Gestion des Spécialités</h1></div>
+                <div class="page-header"><h1 class="page-title">Spécialités</h1></div>
                 <div class="table-responsive">
                     <table>
                         <thead><tr><th>Code</th><th>Spécialité</th><th>Département</th><th>Faculté</th></tr></thead>
@@ -387,23 +384,23 @@
 
             <!-- MODULES -->
             <section id="sec-modules" class="content-section" style="display:none;">
-                <div class="page-header"><h1 class="page-title">Gestion des Matières et Unités d'Enseignement</h1></div>
+                <div class="page-header"><h1 class="page-title">Matières et Unités d'Enseignement</h1></div>
                 <div class="tabs-header">
-                    <button class="tab-btn active" onclick="switchModuleTab('s3', this)">Semestre 3 (L2)</button>
-                    <button class="tab-btn" onclick="switchModuleTab('s4', this)">Semestre 4 (L2)</button>
-                    <button class="tab-btn" onclick="switchModuleTab('s5', this)">Semestre 5 (L3)</button>
-                    <button class="tab-btn" onclick="switchModuleTab('s6', this)">Semestre 6 (L3)</button>
+                    <button class="tab-btn active" onclick="switchModuleTab('s3',this)">Semestre 3 (L2)</button>
+                    <button class="tab-btn" onclick="switchModuleTab('s4',this)">Semestre 4 (L2)</button>
+                    <button class="tab-btn" onclick="switchModuleTab('s5',this)">Semestre 5 (L3)</button>
+                    <button class="tab-btn" onclick="switchModuleTab('s6',this)">Semestre 6 (L3)</button>
                 </div>
-                <div id="mod-s3" class="tab-content active"><div class="table-responsive"><table><thead><tr><th>Matière (FR)</th><th>Matière (AR)</th><th>Coeff</th><th>Crédit</th></tr></thead><tbody id="s3-modules-tbody"></tbody></table></div></div>
-                <div id="mod-s4" class="tab-content"><div class="table-responsive"><table><thead><tr><th>Matière (FR)</th><th>Matière (AR)</th><th>Coeff</th><th>Crédit</th></tr></thead><tbody id="s4-modules-tbody"></tbody></table></div></div>
-                <div id="mod-s5" class="tab-content"><div class="table-responsive"><table><thead><tr><th>Matière (FR)</th><th>Matière (AR)</th><th>Coeff</th><th>Crédit</th></tr></thead><tbody id="s5-modules-tbody"></tbody></table></div></div>
-                <div id="mod-s6" class="tab-content"><div class="table-responsive"><table><thead><tr><th>Matière (FR)</th><th>Matière (AR)</th><th>Coeff</th><th>Crédit</th></tr></thead><tbody id="s6-modules-tbody"></tbody></table></div></div>
+                <div id="mod-s3" class="tab-content active"><div class="table-responsive"><table><thead><tr><th>Matière</th><th>Arabe</th><th>Coeff</th><th>Crédit</th></tr></thead><tbody id="s3-modules-tbody"></tbody></table></div></div>
+                <div id="mod-s4" class="tab-content"><div class="table-responsive"><table><thead><tr><th>Matière</th><th>Arabe</th><th>Coeff</th><th>Crédit</th></tr></thead><tbody id="s4-modules-tbody"></tbody></table></div></div>
+                <div id="mod-s5" class="tab-content"><div class="table-responsive"><table><thead><tr><th>Matière</th><th>Arabe</th><th>Coeff</th><th>Crédit</th></tr></thead><tbody id="s5-modules-tbody"></tbody></table></div></div>
+                <div id="mod-s6" class="tab-content"><div class="table-responsive"><table><thead><tr><th>Matière</th><th>Arabe</th><th>Coeff</th><th>Crédit</th></tr></thead><tbody id="s6-modules-tbody"></tbody></table></div></div>
             </section>
 
             <!-- EMPLOI DU TEMPS -->
             <section id="sec-timetable" class="content-section" style="display:none;">
                 <div class="page-header">
-                    <h1 class="page-title">Emploi du Temps (3 Jours / Semaine)</h1>
+                    <h1 class="page-title">Emploi du Temps (3 jours/semaine)</h1>
                     <select id="tt-group-select" style="width:180px;" onchange="renderTimetable()">
                         <option value="1">Groupe 1</option><option value="2">Groupe 2</option><option value="3">Groupe 3</option>
                     </select>
@@ -416,56 +413,67 @@
                 </div>
             </section>
 
-            <!-- SAISIE DES NOTES -->
+            <!-- SAISIE DES NOTES (refonte) -->
             <section id="sec-grades" class="content-section" style="display:none;">
                 <div class="page-header">
                     <h1 class="page-title">Saisie des Notes des Examens et Contrôle Continu</h1>
-                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="btn btn-warning" id="btn-lock-grades" onclick="toggleGradeLock()"><i class="fa-solid fa-lock"></i> Verrouiller / Déverrouiller Saisie</button>
                         <button class="btn btn-danger" id="btn-clear-grades-2" onclick="clearAllGrades()"><i class="fa-solid fa-eraser"></i> Vider Notes</button>
                         <button class="btn btn-success" onclick="exportGradesToExcel()"><i class="fa-solid fa-file-excel"></i> Exporter Excel</button>
-                        <button class="btn btn-warning" id="btn-lock-grades" onclick="toggleGradeLock()"><i class="fa-solid fa-lock"></i> Verrouiller / Déverrouiller Saisie</button>
                     </div>
                 </div>
-                <div style="background:#f8fafc; padding:15px; border-radius:6px; border:1px solid var(--border-color); margin-bottom:15px; display:flex; gap:12px; flex-wrap:wrap;">
-                    <div style="flex:1; min-width:160px;">
-                        <label style="font-size:0.75rem; font-weight:600;">Année Universitaire</label>
+
+                <div style="background:#f8fafc;padding:15px;border-radius:6px;border:1px solid var(--border-color);margin-bottom:15px;display:flex;gap:12px;flex-wrap:wrap;">
+                    <div style="flex:1;min-width:160px;">
+                        <label style="font-size:0.75rem;font-weight:600;">Année Universitaire</label>
                         <select id="grade-year" onchange="onGradeYearChange()">
-                            <option value="">-- Choisissez --</option>
+                            <option value="">-- Choisir --</option>
+                            <option value="2026-2027">2026-2027</option>
                             <option value="2025-2026">2025-2026</option>
-                            <option value="2026-2027" selected>2026-2027</option>
                         </select>
                     </div>
-                    <div style="flex:1; min-width:140px;">
-                        <label style="font-size:0.75rem; font-weight:600;">Semestre</label>
-                        <select id="grade-semestre" onchange="updateModuleDropdown(); loadGradeEntryTable();">
+                    <div style="flex:1;min-width:140px;">
+                        <label style="font-size:0.75rem;font-weight:600;">Semestre</label>
+                        <select id="grade-semestre" onchange="updateModuleDropdown(); loadGradeModulesTable();">
                             <option value="S5">Semestre 5</option>
                             <option value="S6">Semestre 6</option>
                             <option value="S3">Semestre 3</option>
                             <option value="S4">Semestre 4</option>
                         </select>
                     </div>
-                    <div style="flex:1; min-width:140px;">
-                        <label style="font-size:0.75rem; font-weight:600;">Groupe</label>
-                        <select id="grade-groupe" onchange="loadGradeEntryTable()">
+                    <div style="flex:1;min-width:140px;">
+                        <label style="font-size:0.75rem;font-weight:600;">Groupe</label>
+                        <select id="grade-groupe" onchange="loadGradeModulesTable()">
                             <option value="Groupe 1">Groupe 1</option>
                             <option value="Groupe 2">Groupe 2</option>
                             <option value="Groupe 3">Groupe 3</option>
                         </select>
                     </div>
-                    <div style="flex:2; min-width:220px;">
-                        <label style="font-size:0.75rem; font-weight:600;">Matière (Module)</label>
-                        <select id="grade-module" onchange="loadGradeEntryTable()"></select>
-                    </div>
                 </div>
-                <div id="grade-lock-status" style="margin-bottom:10px; font-size:0.85rem;"></div>
-                <div class="table-responsive">
+
+                <div id="grade-lock-status" style="margin-bottom:12px;font-size:0.85rem;"></div>
+
+                <!-- Tableau des modules + bouton Introduire les notes -->
+                <div class="table-responsive" id="grade-modules-table-container">
                     <table>
-                        <thead><tr><th>N°</th><th>Matricule</th><th>Nom & Prénom</th><th>Note CC</th><th>Note Examen</th><th>Rattrapage</th><th>Moyenne Module</th></tr></thead>
-                        <tbody id="grade-entry-tbody"></tbody>
+                        <thead><tr><th>Matière</th><th>Période</th><th>Groupe</th><th>Opérations</th></tr></thead>
+                        <tbody id="grade-modules-tbody"></tbody>
                     </table>
                 </div>
-                <div style="margin-top:15px; text-align:right;">
-                    <button class="btn btn-blue" id="btn-save-grades" onclick="saveAllGrades()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les Notes</button>
+
+                <!-- Tableau de saisie (caché jusqu'au clic) -->
+                <div id="grade-entry-container" style="display:none;margin-top:25px;">
+                    <h3 style="margin-bottom:12px;" id="grade-entry-title">Saisie des notes</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>N°</th><th>Matricule</th><th>Nom & Prénom</th><th>Note CC</th><th>Note Examen</th><th>Rattrapage</th><th>Moyenne Module</th></tr></thead>
+                            <tbody id="grade-entry-tbody"></tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top:15px;text-align:right;">
+                        <button class="btn btn-blue" id="btn-save-grades" onclick="saveAllGrades()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les Notes</button>
+                    </div>
                 </div>
             </section>
 
@@ -473,30 +481,30 @@
             <section id="sec-deliberation" class="content-section" style="display:none;">
                 <div class="page-header">
                     <h1 class="page-title">Délibération et Calcul des Moyennes</h1>
-                    <div style="display:flex; gap:10px;">
+                    <div style="display:flex;gap:10px;">
                         <button class="btn btn-blue" onclick="calculateDeliberation()"><i class="fa-solid fa-arrows-rotate"></i> Recalculer</button>
-                        <button class="btn btn-secondary" onclick="printCombinedReleve()"><i class="fa-solid fa-print"></i> Imprimer Relevé S5+S6</button>
+                        <button class="btn btn-secondary" onclick="printCombinedReleve()"><i class="fa-solid fa-print"></i> Imprimer Relevé</button>
                     </div>
                 </div>
-                <div style="background:#f8fafc; padding:15px; border-radius:6px; border:1px solid var(--border-color); margin-bottom:15px; display:flex; gap:15px; flex-wrap:wrap;">
-                    <div><label style="font-size:0.75rem; font-weight:600;">Moyenne d'Admission</label><input type="number" id="delib-pass" value="10.00" step="0.01" style="width:100px;"></div>
-                    <div><label style="font-size:0.75rem; font-weight:600;">Seuil de Rachat</label><input type="number" id="delib-rachat" value="09.50" step="0.01" style="width:100px;"></div>
-                    <div><label style="font-size:0.75rem; font-weight:600;">Groupe</label><select id="delib-group" style="width:150px;" onchange="renderDeliberationTable()"><option value="Groupe 1">Groupe 1</option><option value="Groupe 2">Groupe 2</option><option value="Groupe 3">Groupe 3</option></select></div>
+                <div style="background:#f8fafc;padding:15px;border-radius:6px;border:1px solid var(--border-color);margin-bottom:15px;display:flex;gap:15px;flex-wrap:wrap;">
+                    <div><label style="font-size:0.75rem;font-weight:600;">Moyenne d'Admission</label><input type="number" id="delib-pass" value="10.00" step="0.01" style="width:100px;"></div>
+                    <div><label style="font-size:0.75rem;font-weight:600;">Seuil de Rachat</label><input type="number" id="delib-rachat" value="09.50" step="0.01" style="width:100px;"></div>
+                    <div><label style="font-size:0.75rem;font-weight:600;">Groupe</label><select id="delib-group" style="width:150px;" onchange="renderDeliberationTable()"><option>Groupe 1</option><option>Groupe 2</option><option>Groupe 3</option></select></div>
+                    <div><label style="font-size:0.75rem;font-weight:600;">Année</label><select id="delib-year" style="width:140px;" onchange="renderDeliberationTable()"><option value="2026-2027">2026-2027</option><option value="2025-2026">2025-2026</option></select></div>
                 </div>
-                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px;"><i class="fa-solid fa-info-circle"></i> Cliquez sur une ligne étudiant pour ouvrir le relevé électronique et effectuer un rachat.</p>
                 <div class="table-responsive">
                     <table>
-                        <thead><tr><th>Matricule</th><th>Nom & Prénom</th><th>Moy S5</th><th>Moy S6</th><th>Moyenne Annuelle</th><th>Décision</th></tr></thead>
+                        <thead><tr><th>Matricule</th><th>Nom & Prénom</th><th>Moy S5/S3</th><th>Moy S6/S4</th><th>Moyenne Annuelle</th><th>Décision</th></tr></thead>
                         <tbody id="delib-tbody"></tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- RELEVÉ DE NOTES -->
+            <!-- RELEVÉ -->
             <section id="sec-releve" class="content-section" style="display:none;">
                 <div class="page-header">
-                    <h1 class="page-title">Relevé de Notes Annuel (S5 & S6)</h1>
-                    <div style="display:flex; gap:10px;">
+                    <h1 class="page-title">Relevé de Notes Annuel</h1>
+                    <div style="display:flex;gap:10px;">
                         <select id="releve-student-select" style="width:280px;" onchange="renderStudentReleve()"></select>
                         <button class="btn btn-blue" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimer</button>
                     </div>
@@ -508,27 +516,27 @@
                         Université d'Alger 2 Abou El Kacem Saadallah<br>
                         Faculté de Langue Arabe, Littérature et Langues Orientales - Département des Sciences du Langage
                     </div>
-                    <div style="text-align:center; font-weight:bold; font-size:1.1rem; margin:15px 0; text-decoration:underline;">RELEVÉ DE NOTES ANNUEL COMBINÉ (SEMESTRES 5 & 6) - L3 LINGUISTIQUE APPLIQUÉE</div>
-                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:15px;" id="releve-student-info"></div>
-                    <table style="font-size:0.8rem; border:1px solid #000; width:100%;">
-                        <thead><tr style="background:#f1f5f9;"><th style="border:1px solid #000;">Intitulé du Module</th><th style="border:1px solid #000;">Coeff</th><th style="border:1px solid #000;">Crédit</th><th style="border:1px solid #000;">Note S5</th><th style="border:1px solid #000;">Note S6</th><th style="border:1px solid #000;">Moyenne</th></tr></thead>
+                    <div style="text-align:center;font-weight:bold;font-size:1.1rem;margin:15px 0;text-decoration:underline;" id="releve-title">RELEVÉ DE NOTES ANNUEL</div>
+                    <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:15px;" id="releve-student-info"></div>
+                    <table style="font-size:0.8rem;border:1px solid #000;width:100%;">
+                        <thead><tr style="background:#f1f5f9;"><th style="border:1px solid #000;">Module</th><th style="border:1px solid #000;">Coeff</th><th style="border:1px solid #000;">Crédit</th><th style="border:1px solid #000;">Note S1</th><th style="border:1px solid #000;">Note S2</th><th style="border:1px solid #000;">Moyenne</th></tr></thead>
                         <tbody id="releve-tbody"></tbody>
                     </table>
-                    <div style="margin-top:20px; font-size:0.88rem; display:flex; justify-content:space-between;" id="releve-summary"></div>
+                    <div style="margin-top:20px;font-size:0.88rem;display:flex;justify-content:space-between;" id="releve-summary"></div>
                 </div>
             </section>
 
-            <!-- CERTIFICAT DE SCOLARITÉ -->
+            <!-- CERTIFICAT D'INSCRIPTION -->
             <section id="sec-certificate" class="content-section" style="display:none;">
                 <div class="page-header">
-                    <h1 class="page-title">Certificat de Scolarité / Inscription 2026-2027</h1>
-                    <div style="display:flex; gap:10px;">
+                    <h1 class="page-title">Certificat d'Inscription 2026-2027</h1>
+                    <div style="display:flex;gap:10px;">
                         <select id="cert-student-select" style="width:280px;" onchange="renderCertificate()"></select>
                         <button class="btn btn-blue" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimer A4</button>
                     </div>
                 </div>
-                <div class="cert-page printable-area" id="cert-container">
-                    <!-- Rempli dynamiquement -->
+                <div class="certificat-box printable-area" id="certificat-container">
+                    <!-- Contenu généré dynamiquement -->
                 </div>
             </section>
         </main>
@@ -539,27 +547,29 @@
         <header class="top-bar">
             <div class="header-left">
                 <img src="https://progres.mesrs.dz/webfve/images/logo2.png" alt="Logo" class="logo" onerror="this.src='https://progres.mesrs.dz/webetu/images/logo.png'">
-                <div class="university-title" style="margin-left:20px;">Université d'Alger 2 - Fiche Détaillée de l'Étudiant</div>
+                <div class="university-title" style="margin-left:20px;">Fiche Détaillée de l'Étudiant</div>
             </div>
             <button class="btn btn-secondary" onclick="closeStudentFiche()"><i class="fa-solid fa-xmark"></i> Fermer</button>
         </header>
-        <div style="padding:30px; max-width:1200px; margin:0 auto; width:100%;">
+        <div style="padding:30px;max-width:1200px;margin:0 auto;width:100%;">
             <div class="student-profile-header">
                 <img src="https://ui-avatars.com/api/?name=Etudiant&size=128" id="fiche-photo" class="student-photo" alt="Photo">
                 <div style="flex:1;">
                     <h2 id="fiche-fullname-fr" style="font-size:1.4rem;">Nom & Prénom</h2>
-                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:6px;">Matricule: <span id="fiche-matricule" style="font-weight:600;"></span> | Année: <span id="fiche-annee">2026-2027</span></p>
+                    <p style="font-size:0.85rem;color:var(--text-muted);margin-top:6px;">Matricule: <span id="fiche-matricule" style="font-weight:600;"></span> | Année: <span id="fiche-annee"></span></p>
                 </div>
-                <div><button class="btn btn-blue" id="btn-save-fiche" onclick="saveStudentFicheChanges()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer</button></div>
+                <div>
+                    <button class="btn btn-blue" id="btn-save-fiche" onclick="saveStudentFicheChanges()"><i class="fa-solid fa-floppy-disk"></i> Enregistrer</button>
+                </div>
             </div>
             <div class="tabs-header">
-                <button class="tab-btn active" onclick="switchFicheTab(1, this)">1. Informations Personnelles</button>
-                <button class="tab-btn" onclick="switchFicheTab(2, this)">2. Identité</button>
-                <button class="tab-btn" onclick="switchFicheTab(3, this)">3. Contact</button>
-                <button class="tab-btn" onclick="switchFicheTab(4, this)">4. Baccalauréat</button>
-                <button class="tab-btn" onclick="switchFicheTab(5, this)">5. Inscription</button>
-                <button class="tab-btn" onclick="switchFicheTab(6, this)">6. Parcours</button>
-                <button class="tab-btn" onclick="switchFicheTab(7, this)">7. Social</button>
+                <button class="tab-btn active" onclick="switchFicheTab(1,this)">1. Infos Personnelles</button>
+                <button class="tab-btn" onclick="switchFicheTab(2,this)">2. Identité</button>
+                <button class="tab-btn" onclick="switchFicheTab(3,this)">3. Contact</button>
+                <button class="tab-btn" onclick="switchFicheTab(4,this)">4. Baccalauréat</button>
+                <button class="tab-btn" onclick="switchFicheTab(5,this)">5. Inscription</button>
+                <button class="tab-btn" onclick="switchFicheTab(6,this)">6. Parcours</button>
+                <button class="tab-btn" onclick="switchFicheTab(7,this)">7. Social</button>
             </div>
             <div id="ftab-1" class="tab-content active"><div class="form-grid">
                 <div class="form-group"><label>Nom</label><input type="text" id="f-nom-lat"></div>
@@ -568,7 +578,7 @@
                 <div class="form-group"><label>Lieu de Naissance</label><input type="text" id="f-lieu-naiss"></div>
                 <div class="form-group"><label>Sexe</label><select id="f-sexe"><option value="M">Masculin</option><option value="F">Féminin</option></select></div>
                 <div class="form-group"><label>Nationalité</label><input type="text" id="f-nationalite" value="Algérienne"></div>
-                <div class="form-group"><label>Situation Familiale</label><select id="f-situation"><option value="Célibataire">Célibataire</option><option value="Marié(e)">Marié(e)</option></select></div>
+                <div class="form-group"><label>Situation Familiale</label><select id="f-situation"><option>Célibataire</option><option>Marié(e)</option></select></div>
                 <div class="form-group"><label>N° Acte de Naissance</label><input type="text" id="f-acte-naiss"></div>
                 <div class="form-group"><label>Wilaya / Commune Naissance</label><input type="text" id="f-wilaya-naiss" value="16 - Alger"></div>
             </div></div>
@@ -588,9 +598,9 @@
             <div id="ftab-4" class="tab-content"><div class="form-grid">
                 <div class="form-group"><label>N° Inscription Bac</label><input type="text" id="f-bac-num"></div>
                 <div class="form-group"><label>Année Bac</label><input type="text" id="f-bac-year" value="2023"></div>
-                <div class="form-group"><label>Série Bac</label><input type="text" id="f-bac-serie" value="Lettres et Philosophie"></div>
+                <div class="form-group"><label>Série</label><input type="text" id="f-bac-serie" value="Lettres et Philosophie"></div>
                 <div class="form-group"><label>Moyenne Bac</label><input type="text" id="f-bac-moyenne" value="14.25"></div>
-                <div class="form-group"><label>Lycée d'Origine</label><input type="text" id="f-bac-lycee"></div>
+                <div class="form-group"><label>Lycée</label><input type="text" id="f-bac-lycee"></div>
                 <div class="form-group"><label>Wilaya Lycée</label><input type="text" id="f-bac-wilaya" value="16 - Alger"></div>
             </div></div>
             <div id="ftab-5" class="tab-content"><div class="form-grid">
@@ -598,131 +608,144 @@
                 <div class="form-group"><label>Faculté</label><input type="text" value="Faculté de Langue Arabe, Littérature et Langues Orientales" readonly></div>
                 <div class="form-group"><label>Département</label><input type="text" value="Sciences du Langage" readonly></div>
                 <div class="form-group"><label>Spécialité</label><input type="text" value="Linguistique Appliquée" readonly></div>
-                <div class="form-group"><label>Cycle / Niveau</label><input type="text" value="Licence / L3" readonly></div>
-                <div class="form-group"><label>Type d'Inscription</label><select id="f-type-inscr"><option value="Nouveau">Nouveau</option><option value="Réinscription">Réinscription</option></select></div>
-                <div class="form-group"><label>Groupe</label><select id="f-groupe-assigned"><option value="Groupe 1">Groupe 1</option><option value="Groupe 2">Groupe 2</option><option value="Groupe 3">Groupe 3</option></select></div>
-                <div class="form-group"><label>Compte Actif</label><select id="f-compte-actif"><option value="Oui">Oui - Activé</option><option value="Non">Non - Désactivé</option></select></div>
+                <div class="form-group"><label>Cycle / Niveau</label><select id="f-niveau"><option value="L3">L3</option><option value="L2">L2</option></select></div>
+                <div class="form-group"><label>Type d'Inscription</label><select id="f-type-inscr"><option>Nouveau</option><option>Réinscription</option><option>Transfert</option></select></div>
+                <div class="form-group"><label>Groupe</label><select id="f-groupe-assigned"><option>Groupe 1</option><option>Groupe 2</option><option>Groupe 3</option></select></div>
+                <div class="form-group"><label>Compte Actif</label><select id="f-compte-actif"><option value="true">Activé</option><option value="false">Désactivé</option></select></div>
             </div></div>
             <div id="ftab-6" class="tab-content">
-                <div class="table-responsive"><table><thead><tr><th>Année Univ.</th><th>Niveau</th><th>Moy S1/S5</th><th>Moy S2/S6</th><th>Résultat</th></tr></thead>
-                <tbody>
-                    <tr><td>2023-2024</td><td>L1</td><td>12.50</td><td>13.10</td><td><span style="color:green;font-weight:bold;">Admis(e)</span></td></tr>
-                    <tr><td>2024-2025</td><td>L2</td><td>11.80</td><td>12.40</td><td><span style="color:green;font-weight:bold;">Admis(e)</span></td></tr>
-                    <tr><td>2025-2026</td><td>L3</td><td>--</td><td>--</td><td>Clôturé</td></tr>
-                    <tr><td>2026-2027</td><td>L3</td><td>--</td><td>--</td><td>En Cours</td></tr>
-                </tbody></table></div>
+                <div class="table-responsive">
+                    <table><thead><tr><th>Année</th><th>Niveau</th><th>Moy S1</th><th>Moy S2</th><th>Résultat</th></tr></thead>
+                    <tbody id="fiche-parcours-tbody"></tbody></table>
+                </div>
             </div>
             <div id="ftab-7" class="tab-content"><div class="form-grid">
                 <div class="form-group"><label>Situation Professionnelle</label><input type="text" id="f-prof" value="Non-employé"></div>
-                <div class="form-group"><label>Bourse</label><select id="f-bourse"><option value="Oui">Boursier(ère)</option><option value="Non">Non boursier</option></select></div>
-                <div class="form-group"><label>Hébergement</label><select id="f-residence"><option value="Non">Non résident</option><option value="Oui">Résident Universitaire</option></select></div>
-                <div class="form-group"><label>Transport</label><select id="f-transport"><option value="Oui">Abonné</option><option value="Non">Non abonné</option></select></div>
-                <div class="form-group"><label>Statut Pédagogique</label><select id="f-statut-pedag"><option value="Régulier">Régulier</option><option value="En Conge">En Congé Académique</option></select></div>
+                <div class="form-group"><label>Bourse</label><select id="f-bourse"><option>Oui</option><option>Non</option></select></div>
+                <div class="form-group"><label>Hébergement</label><select id="f-residence"><option>Non</option><option>Oui</option></select></div>
+                <div class="form-group"><label>Transport</label><select id="f-transport"><option>Oui</option><option>Non</option></select></div>
+                <div class="form-group"><label>Statut Pédagogique</label><select id="f-statut-pedag"><option>Régulier</option><option>En Congé</option></select></div>
             </div></div>
         </div>
     </div>
 
-    <!-- OVERLAY RELEVÉ POUR RACHAT (depuis Délibération) -->
-    <div class="full-page-overlay" id="rachat-overlay">
+    <!-- OVERLAY RELEVÉ ÉLECTRONIQUE (Délibération) -->
+    <div class="full-page-overlay" id="electronic-releve-overlay">
         <header class="top-bar">
             <div class="header-left">
-                <img src="https://progres.mesrs.dz/webfve/images/logo2.png" class="logo" alt="Logo">
-                <div class="university-title" style="margin-left:20px;">Relevé Électronique - Opération de Rachat</div>
+                <img src="https://progres.mesrs.dz/webfve/images/logo2.png" class="logo" onerror="this.src='https://progres.mesrs.dz/webetu/images/logo.png'">
+                <div class="university-title" style="margin-left:20px;">Relevé Électronique - Rachat de Notes</div>
             </div>
-            <button class="btn btn-secondary" onclick="closeRachatOverlay()"><i class="fa-solid fa-xmark"></i> Fermer</button>
+            <button class="btn btn-secondary" onclick="closeElectronicReleve()"><i class="fa-solid fa-xmark"></i> Fermer</button>
         </header>
-        <div style="padding:30px; max-width:1000px; margin:0 auto;" id="rachat-content"></div>
+        <div style="padding:30px;max-width:1000px;margin:0 auto;" id="electronic-releve-content"></div>
+    </div>
+
+    <!-- MODAL TRANSFERT -->
+    <div id="transfer-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:600;align-items:center;justify-content:center;">
+        <div style="background:#fff;padding:25px;border-radius:8px;width:90%;max-width:500px;">
+            <h3 style="margin-bottom:15px;">Nouvelle Demande de Transfert</h3>
+            <div class="form-group" style="margin-bottom:10px;"><label>Nom</label><input type="text" id="tr-nom"></div>
+            <div class="form-group" style="margin-bottom:10px;"><label>Prénom</label><input type="text" id="tr-prenom"></div>
+            <div class="form-group" style="margin-bottom:10px;"><label>Type</label><select id="tr-type"><option>Nouveau</option><option>Ancien étudiant</option></select></div>
+            <div class="form-group" style="margin-bottom:10px;"><label>Établissement d'origine</label><input type="text" id="tr-origin"></div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:15px;">
+                <button class="btn btn-secondary" onclick="document.getElementById('transfer-modal').style.display='none'">Annuler</button>
+                <button class="btn btn-blue" onclick="submitTransfer()">Enregistrer</button>
+            </div>
+        </div>
     </div>
 
     <div id="toast-container"></div>
 
     <script>
         // ========== DONNÉES ==========
-        const firstNamesFR = ["Mohamed","Amina","Yassine","Meryem","Hamza","Sarah","Abderrahmane","Fatima","Oussama","Nour","Bilal","Imene","Khaled","Houda","Walid","Chaimaa","Riad","Soumia","Omar","Kawtar","Karim","Lina","Youcef","Amel","Sami","Imane","Sofiane","Nassima","Tarek","Samira","Anis","Dounia","Farid","Leila","Nassim","Yasmine","Reda","Salima","Hichem","Nadia"];
-        const lastNamesFR = ["Benali","Saadi","Brahimi","Bouhafs","Mansouri","Zerrouki","Osmani","Belhadj","Chennafi","Kasmi","Bouazza","Alaoui","Haddad","Taheri","Rahmani","Hamdani","Mzahia","Allaoui","Benmoussa","Cherif","Abdeddaim","Benaissa","Khelifi","Slimani","Bouzidi","Amrani","Touati","Gherbi","Meziane","Larbi"];
+        const firstNamesFR = ["Mohamed","Amina","Yassine","Meryem","Hamza","Sarah","Abderrahmane","Fatima","Oussama","Nour","Bilal","Imene","Khaled","Houda","Walid","Chaimaa","Riad","Soumia","Omar","Kawtar","Karim","Lina","Youcef","Amel","Sami","Rania","Anis","Nesrine","Sofiane","Dalia","Mehdi","Sabrina","Tarek","Yasmine","Adel","Salima","Nabil","Farah","Ilyes","Nadia","Reda","Samira","Wassim","Hiba","Zaki","Ines","Ryad","Lamia"];
+        const lastNamesFR = ["Benali","Saadi","Brahimi","Bouhafs","Mansouri","Zerrouki","Osmani","Belhadj","Chennafi","Kasmi","Bouazza","Alaoui","Haddad","Taheri","Rahmani","Hamdani","Mzahia","Allaoui","Benmoussa","Cherif","Abdeddaim","Benaissa","Khelifi","Slimani","Amrani","Touati","Djebbar","Meziane","Guerroudj","Boudiaf","Ferhat","Lakhdar","Mebarki","Saidi","Yahiaoui","Boukhalfa","Dahmani","Gacem","Hamidi","Kaci"];
 
         const modulesS3 = [
-            {id:"m3_1", nameFr:"Linguistique Générale", nameAr:"اللسانيات العامة", coeff:3, credit:5},
-            {id:"m3_2", nameFr:"Phonétique et Phonologie", nameAr:"الصوتيات وعلم الأصوات", coeff:2, credit:4},
-            {id:"m3_3", nameFr:"Morphologie", nameAr:"علم الصرف", coeff:2, credit:4},
-            {id:"m3_4", nameFr:"Syntaxe", nameAr:"علم النحو", coeff:2, credit:4},
-            {id:"m3_5", nameFr:"Sémantique", nameAr:"علم الدلالة", coeff:2, credit:3},
-            {id:"m3_6", nameFr:"Introduction à la Linguistique Appliquée", nameAr:"مقدمة في اللسانيات التطبيقية", coeff:2, credit:3},
-            {id:"m3_7", nameFr:"Langue Française", nameAr:"اللغة الفرنسية", coeff:1, credit:2},
-            {id:"m3_8", nameFr:"Informatique", nameAr:"الإعلام الآلي", coeff:1, credit:2}
+            {id:"m3_1",nameFr:"Phonétique et Phonologie",nameAr:"علم الأصوات",coeff:3,credit:5},
+            {id:"m3_2",nameFr:"Morphologie",nameAr:"علم الصرف",coeff:3,credit:5},
+            {id:"m3_3",nameFr:"Syntaxe",nameAr:"علم النحو",coeff:2,credit:4},
+            {id:"m3_4",nameFr:"Sémantique",nameAr:"علم الدلالة",coeff:2,credit:4},
+            {id:"m3_5",nameFr:"Linguistique Générale",nameAr:"اللسانيات العامة",coeff:2,credit:3},
+            {id:"m3_6",nameFr:"Méthodologie",nameAr:"مناهج البحث",coeff:1,credit:2},
+            {id:"m3_7",nameFr:"Langue Étrangère",nameAr:"اللغة الأجنبية",coeff:1,credit:1},
+            {id:"m3_8",nameFr:"Informatique",nameAr:"الإعلام الآلي",coeff:1,credit:1}
         ];
         const modulesS4 = [
-            {id:"m4_1", nameFr:"Linguistique Contrastive", nameAr:"اللسانيات التقابلية", coeff:3, credit:5},
-            {id:"m4_2", nameFr:"Pragmatique", nameAr:"التداولية", coeff:2, credit:4},
-            {id:"m4_3", nameFr:"Analyse Conversationnelle", nameAr:"تحليل المحادثة", coeff:2, credit:4},
-            {id:"m4_4", nameFr:"Lexicologie", nameAr:"علم المعجم", coeff:2, credit:3},
-            {id:"m4_5", nameFr:"Sociolinguistique Introductive", nameAr:"مقدمة في علم الاجتماع اللغوي", coeff:2, credit:3},
-            {id:"m4_6", nameFr:"Didactique des Langues", nameAr:"تعليمية اللغات", coeff:2, credit:3},
-            {id:"m4_7", nameFr:"Langue Anglaise", nameAr:"اللغة الإنجليزية", coeff:1, credit:2},
-            {id:"m4_8", nameFr:"Méthodologie", nameAr:"مناهج البحث", coeff:1, credit:2}
+            {id:"m4_1",nameFr:"Sociolinguistique L2",nameAr:"علم الاجتماع اللغوي",coeff:3,credit:5},
+            {id:"m4_2",nameFr:"Psycholinguistique L2",nameAr:"علم النفس اللغوي",coeff:3,credit:5},
+            {id:"m4_3",nameFr:"Analyse du Discours L2",nameAr:"تحليل الخطاب",coeff:2,credit:4},
+            {id:"m4_4",nameFr:"Didactique L2",nameAr:"الديداكتيك",coeff:2,credit:4},
+            {id:"m4_5",nameFr:"Traduction L2",nameAr:"الترجمة",coeff:2,credit:3},
+            {id:"m4_6",nameFr:"Méthodologie Avancée",nameAr:"مناهج متقدمة",coeff:1,credit:2},
+            {id:"m4_7",nameFr:"Langue Étrangère S4",nameAr:"اللغة الأجنبية",coeff:1,credit:1},
+            {id:"m4_8",nameFr:"TIC",nameAr:"تكنولوجيا الإعلام",coeff:1,credit:1}
         ];
         const modulesS5 = [
-            {id:"m5_1", nameFr:"Linguistique Appliquée", nameAr:"علم اللغة التطبيقي", coeff:3, credit:6},
-            {id:"m5_2", nameFr:"Didactique de la langue Arabe", nameAr:"تعليمية اللغة العربية", coeff:3, credit:5},
-            {id:"m5_3", nameFr:"Psycholinguistique", nameAr:"علم النفس اللغوي", coeff:2, credit:4},
-            {id:"m5_4", nameFr:"Sociolinguistique", nameAr:"علم الاجتماع اللغوي", coeff:2, credit:4},
-            {id:"m5_5", nameFr:"Acquisition du Langage", nameAr:"اكتساب اللغة", coeff:2, credit:3},
-            {id:"m5_6", nameFr:"Analyse du Discours", nameAr:"تحليل الخطاب", coeff:2, credit:3},
-            {id:"m5_7", nameFr:"Traduction", nameAr:"الترجمة", coeff:1, credit:2},
-            {id:"m5_8", nameFr:"Méthodologie de la Recherche", nameAr:"مناهج البحث العلمي", coeff:1, credit:2},
-            {id:"m5_9", nameFr:"Langue Étrangère", nameAr:"اللغة الأجنبية", coeff:1, credit:1},
-            {id:"m5_10", nameFr:"TIC et Communication", nameAr:"تقنيات الإعلام والاتصال", coeff:1, credit:1}
+            {id:"m5_1",nameFr:"Linguistique Appliquée",nameAr:"علم اللغة التطبيقي",coeff:3,credit:6},
+            {id:"m5_2",nameFr:"Didactique de la langue Arabe",nameAr:"تعليمية اللغة العربية",coeff:3,credit:5},
+            {id:"m5_3",nameFr:"Psycholinguistique",nameAr:"علم النفس اللغوي",coeff:2,credit:4},
+            {id:"m5_4",nameFr:"Sociolinguistique",nameAr:"علم الاجتماع اللغوي",coeff:2,credit:4},
+            {id:"m5_5",nameFr:"Acquisition du Langage",nameAr:"اكتساب اللغة",coeff:2,credit:3},
+            {id:"m5_6",nameFr:"Analyse du Discours",nameAr:"تحليل الخطاب",coeff:2,credit:3},
+            {id:"m5_7",nameFr:"Traduction",nameAr:"الترجمة",coeff:1,credit:2},
+            {id:"m5_8",nameFr:"Méthodologie de la Recherche",nameAr:"مناهج البحث العلمي",coeff:1,credit:2},
+            {id:"m5_9",nameFr:"Langue Étrangère",nameAr:"اللغة الأجنبية",coeff:1,credit:1},
+            {id:"m5_10",nameFr:"TIC et Communication",nameAr:"تقنيات الإعلام والاتصال",coeff:1,credit:1}
         ];
         const modulesS6 = [
-            {id:"m6_1", nameFr:"Linguistique Appliquée S6", nameAr:"اللسانيات التطبيقية", coeff:3, credit:6},
-            {id:"m6_2", nameFr:"Didactique de la Langue Arabe S6", nameAr:"تعليمية اللغة العربية", coeff:3, credit:5},
-            {id:"m6_3", nameFr:"Didactique des Langues", nameAr:"تعليمية اللغات", coeff:2, credit:4},
-            {id:"m6_4", nameFr:"Évaluation et Mesure Linguistique", nameAr:"التقويم والقياس اللغوي", coeff:2, credit:4},
-            {id:"m6_5", nameFr:"Psycholinguistique S6", nameAr:"علم النفس اللغوي", coeff:2, credit:3},
-            {id:"m6_6", nameFr:"Sociolinguistique S6", nameAr:"علم الاجتماع اللغوي", coeff:2, credit:3},
-            {id:"m6_7", nameFr:"Traduction S6", nameAr:"الترجمة", coeff:1, credit:2},
-            {id:"m6_8", nameFr:"Analyse du Discours S6", nameAr:"تحليل الخطاب", coeff:1, credit:1},
-            {id:"m6_9", nameFr:"Méthodes et Techniques de Recherche", nameAr:"مناهج وتقنيات البحث", coeff:1, credit:1},
-            {id:"m6_10", nameFr:"Langue Étrangère S6", nameAr:"اللغة الأجنبية", coeff:1, credit:1}
+            {id:"m6_1",nameFr:"Linguistique Appliquée S6",nameAr:"اللسانيات التطبيقية",coeff:3,credit:6},
+            {id:"m6_2",nameFr:"Didactique de la Langue Arabe S6",nameAr:"تعليمية اللغة العربية",coeff:3,credit:5},
+            {id:"m6_3",nameFr:"Didactique des Langues",nameAr:"تعليمية اللغات",coeff:2,credit:4},
+            {id:"m6_4",nameFr:"Évaluation et Mesure",nameAr:"التقويم والقياس",coeff:2,credit:4},
+            {id:"m6_5",nameFr:"Psycholinguistique S6",nameAr:"علم النفس اللغوي",coeff:2,credit:3},
+            {id:"m6_6",nameFr:"Sociolinguistique S6",nameAr:"علم الاجتماع اللغوي",coeff:2,credit:3},
+            {id:"m6_7",nameFr:"Traduction S6",nameAr:"الترجمة",coeff:1,credit:2},
+            {id:"m6_8",nameFr:"Analyse du Discours S6",nameAr:"تحليل الخطاب",coeff:1,credit:1},
+            {id:"m6_9",nameFr:"Méthodes de Recherche",nameAr:"مناهج وتقنيات البحث",coeff:1,credit:1},
+            {id:"m6_10",nameFr:"Langue Étrangère S6",nameAr:"اللغة الأجنبية",coeff:1,credit:1}
         ];
 
-        const professorsSeed = [
-            {id:1, nom:"Boukhalfa", prenom:"Ahmed", grade:"Professeur"},
-            {id:2, nom:"Benamara", prenom:"Samira", grade:"Maître de Conférences A"},
-            {id:3, nom:"Khelil", prenom:"Yacine", grade:"Maître de Conférences B"},
-            {id:4, nom:"Amrani", prenom:"Leila", grade:"Maître Assistant A"},
-            {id:5, nom:"Touati", prenom:"Karim", grade:"Maître Assistant B"},
-            {id:6, nom:"Gherbi", prenom:"Nadia", grade:"Professeur"},
-            {id:7, nom:"Meziane", prenom:"Sofiane", grade:"Maître de Conférences A"},
-            {id:8, nom:"Larbi", prenom:"Amina", grade:"Maître de Conférences B"},
-            {id:9, nom:"Ziani", prenom:"Rachid", grade:"Maître Assistant A"},
-            {id:10, nom:"Bouzidi", prenom:"Fatima", grade:"Maître Assistant B"},
-            {id:11, nom:"Hamidi", prenom:"Omar", grade:"Professeur"},
-            {id:12, nom:"Saidi", prenom:"Houda", grade:"Maître de Conférences A"},
-            {id:13, nom:"Cherif", prenom:"Nassim", grade:"Maître de Conférences B"},
-            {id:14, nom:"Boudiaf", prenom:"Salima", grade:"Maître Assistant A"},
-            {id:15, nom:"Mekki", prenom:"Farid", grade:"Maître Assistant B"},
-            {id:16, nom:"Abbas", prenom:"Dounia", grade:"Professeur"},
-            {id:17, nom:"Rahal", prenom:"Tarek", grade:"Maître de Conférences A"},
-            {id:18, nom:"Slimani", prenom:"Yasmine", grade:"Maître de Conférences B"},
-            {id:19, nom:"Boualem", prenom:"Anis", grade:"Maître Assistant A"},
-            {id:20, nom:"Dahmani", prenom:"Nassima", grade:"Maître Assistant B"}
+        const teacherNames = [
+            {nom:"Bouzid",prenom:"Karim",grade:"Professeur"},
+            {nom:"Benali",prenom:"Samira",grade:"MCA"},
+            {nom:"Haddad",prenom:"Youcef",grade:"MCB"},
+            {nom:"Mansouri",prenom:"Nadia",grade:"MAA"},
+            {nom:"Zerrouki",prenom:"Omar",grade:"MAB"},
+            {nom:"Saadi",prenom:"Fatima",grade:"Professeur"},
+            {nom:"Rahmani",prenom:"Amine",grade:"MCA"},
+            {nom:"Cherif",prenom:"Leila",grade:"MCB"},
+            {nom:"Osmani",prenom:"Rachid",grade:"MAA"},
+            {nom:"Belhadj",prenom:"Sabrina",grade:"MAB"},
+            {nom:"Kasmi",prenom:"Mehdi",grade:"Professeur"},
+            {nom:"Bouazza",prenom:"Houda",grade:"MCA"},
+            {nom:"Alaoui",prenom:"Tarek",grade:"MCB"},
+            {nom:"Taheri",prenom:"Amel",grade:"MAA"},
+            {nom:"Hamdani",prenom:"Nabil",grade:"MAB"},
+            {nom:"Mzahia",prenom:"Yasmine",grade:"Professeur"},
+            {nom:"Allaoui",prenom:"Sofiane",grade:"MCA"},
+            {nom:"Benmoussa",prenom:"Rania",grade:"MCB"},
+            {nom:"Abdeddaim",prenom:"Walid",grade:"MAA"},
+            {nom:"Khelifi",prenom:"Dalia",grade:"MAB"}
         ];
 
         let db = {
             currentYear: "2026-2027",
             closedYears: ["2025-2026"],
+            gradeLocks: {"2025-2026": true, "2026-2027": false},
             students: [],
             grades: {},
-            professors: [],
-            messages: [],
+            teachers: [],
             transfers: [],
-            gradeLocks: { "2025-2026": true, "2026-2027": false }
+            messages: []
         };
 
         let currentPage = 1;
         const pageSize = 15;
         let activeStudentEditing = null;
+        let currentGradeModuleId = null;
         let indexedDBInstance = null;
 
         // ========== INIT ==========
@@ -732,8 +755,8 @@
                 request.onerror = () => reject("Erreur IndexedDB");
                 request.onsuccess = (e) => { indexedDBInstance = e.target.result; resolve(indexedDBInstance); };
                 request.onupgradeneeded = (e) => {
-                    const dbComp = e.target.result;
-                    if (!dbComp.objectStoreNames.contains("app_state")) dbComp.createObjectStore("app_state", { keyPath: "id" });
+                    const d = e.target.result;
+                    if (!d.objectStoreNames.contains("app_state")) d.createObjectStore("app_state", {keyPath:"id"});
                 };
             });
         }
@@ -742,7 +765,7 @@
             localStorage.setItem('progres_db_v5', JSON.stringify(db));
             if (indexedDBInstance) {
                 const tx = indexedDBInstance.transaction(["app_state"], "readwrite");
-                tx.objectStore("app_state").put({ id: "main_data", payload: db });
+                tx.objectStore("app_state").put({id:"main_data", payload: db});
             }
             updateTotalStats();
             updateGroupCounts();
@@ -759,11 +782,11 @@
                     else {
                         const local = localStorage.getItem('progres_db_v5');
                         if (local) db = JSON.parse(local);
-                        else generateSeedData();
+                        else { generateSeedData(); }
                     }
                     finalizeInit();
                 };
-            } catch (e) {
+            } catch(e) {
                 const local = localStorage.getItem('progres_db_v5');
                 if (local) db = JSON.parse(local);
                 else generateSeedData();
@@ -774,24 +797,22 @@
         function finalizeInit() {
             if (!db.currentYear) db.currentYear = "2026-2027";
             if (!db.closedYears) db.closedYears = ["2025-2026"];
-            if (!db.professors || db.professors.length === 0) {
-                db.professors = professorsSeed.map(p => ({...p, modules: [], groupes: []}));
-            }
-            if (!db.messages) db.messages = [];
+            if (!db.gradeLocks) db.gradeLocks = {"2025-2026":true,"2026-2027":false};
+            if (!db.teachers || db.teachers.length === 0) generateTeachers();
             if (!db.transfers) db.transfers = [];
-            if (!db.gradeLocks) db.gradeLocks = { "2025-2026": true, "2026-2027": false };
-
+            if (!db.messages) db.messages = [];
             populateYearDropdowns();
             renderModuleTables();
             updateModuleDropdown();
             renderStudentsTable();
             renderTimetable();
             updateGroupCounts();
-            renderProfessorsTable();
-            populateMsgTo();
-            renderMessages();
-            renderTransfers();
             checkYearLockUI();
+            renderTeachersTable();
+            renderTransfersTable();
+            populateMessageTeachers();
+            populateReleveStudentDropdown();
+            populateCertStudentDropdown();
             saveDatabaseToStorage();
         }
 
@@ -800,43 +821,33 @@
             db.grades = {};
             db.currentYear = "2026-2027";
             db.closedYears = ["2025-2026"];
-            db.professors = professorsSeed.map(p => ({...p, modules: [], groupes: []}));
-            db.messages = [];
-            db.transfers = [];
-            db.gradeLocks = { "2025-2026": true, "2026-2027": false };
-
+            db.gradeLocks = {"2025-2026": true, "2026-2027": false};
             let count = 1;
-            const usedNames = new Set();
+            // 15 étudiants par groupe pour L3 2026-2027
             for (let g = 1; g <= 3; g++) {
                 for (let i = 1; i <= 15; i++) {
-                    let fn, ln, full;
-                    do {
-                        fn = firstNamesFR[(count + i) % firstNamesFR.length];
-                        ln = lastNamesFR[(count * 3 + i) % lastNamesFR.length];
-                        full = `${ln.toLowerCase()} ${fn.toLowerCase()}`;
-                    } while (usedNames.has(full));
-                    usedNames.add(full);
-
-                    const mat = `2023350${(1000 + count).toString()}`;
+                    const fnIdx = (count - 1) % firstNamesFR.length;
+                    const lnIdx = Math.floor((count - 1) / firstNamesFR.length) % lastNamesFR.length;
+                    const mat = `2026350${(1000 + count).toString()}`;
                     const student = {
                         matricule: mat,
-                        nomFr: ln,
-                        prenomFr: fn,
-                        dateNaiss: `2003-0${(i % 9) + 1}-15`,
+                        nomFr: lastNamesFR[lnIdx],
+                        prenomFr: firstNamesFR[fnIdx],
+                        dateNaiss: `2003-0${(i % 9) + 1}-${10 + (i % 18)}`,
                         lieuNaiss: "Alger",
                         sexe: (i % 2 === 0) ? "F" : "M",
                         nationalite: "Algérienne",
                         situation: "Célibataire",
                         acteNaiss: `${100 + count}`,
                         wilayaNaiss: "16 - Alger",
-                        nin: `1000200398700${count}`,
+                        nin: `10002003987${String(count).padStart(4,'0')}`,
                         cni: `987654${count}`,
                         cniDate: "2020-05-12 / DGSN Alger",
                         adresse: "Cité 1000 Logements, Bouzaréah",
                         wilayaContact: "16 - Alger",
                         communeContact: "Bouzaréah",
                         phone: `0661${100000 + count}`,
-                        email: `${fn.toLowerCase()}.${ln.toLowerCase()}${count}@univ-alger2.dz`,
+                        email: `${firstNamesFR[fnIdx].toLowerCase()}.${lastNamesFR[lnIdx].toLowerCase()}${count}@univ-alger2.dz`,
                         bacNum: `350${2000 + count}`,
                         bacYear: "2023",
                         bacSerie: "Lettres et Philosophie",
@@ -844,41 +855,88 @@
                         bacLycee: "Lycée El Idrissi",
                         bacWilaya: "16 - Alger",
                         anneeUniv: "2026-2027",
+                        niveau: "L3",
                         groupe: `Groupe ${g}`,
                         typeInscr: "Réinscription",
                         statut: "Régulier",
-                        compteActif: "Oui"
+                        compteActif: true
                     };
                     db.students.push(student);
                     db.grades[mat] = {};
-
-                    // Notes L3 (2026-2027) aléatoires
-                    modulesS5.forEach(m => {
-                        const cc = (8 + Math.random() * 10).toFixed(2);
-                        const exam = (7 + Math.random() * 11).toFixed(2);
-                        db.grades[mat][m.id] = { cc, exam, rattrapage: "" };
-                    });
-                    modulesS6.forEach(m => {
-                        const cc = (8 + Math.random() * 10).toFixed(2);
-                        const exam = (7 + Math.random() * 11).toFixed(2);
-                        db.grades[mat][m.id] = { cc, exam, rattrapage: "" };
-                    });
-
-                    // Notes L2 (2025-2026) avec statuts
-                    modulesS3.forEach(m => {
-                        const cc = (9 + Math.random() * 9).toFixed(2);
-                        const exam = (8 + Math.random() * 10).toFixed(2);
-                        db.grades[mat][m.id] = { cc, exam, rattrapage: Math.random() > 0.7 ? (10 + Math.random() * 5).toFixed(2) : "" };
-                    });
-                    modulesS4.forEach(m => {
-                        const cc = (9 + Math.random() * 9).toFixed(2);
-                        const exam = (8 + Math.random() * 10).toFixed(2);
-                        db.grades[mat][m.id] = { cc, exam, rattrapage: Math.random() > 0.7 ? (10 + Math.random() * 5).toFixed(2) : "" };
-                    });
-
                     count++;
                 }
             }
+            // Quelques étudiants L2 2025-2026 (clôturés)
+            for (let g = 1; g <= 2; g++) {
+                for (let i = 1; i <= 10; i++) {
+                    const fnIdx = (count - 1) % firstNamesFR.length;
+                    const lnIdx = Math.floor((count - 1) / firstNamesFR.length) % lastNamesFR.length;
+                    const mat = `2025350${(1000 + count).toString()}`;
+                    const student = {
+                        matricule: mat,
+                        nomFr: lastNamesFR[lnIdx],
+                        prenomFr: firstNamesFR[fnIdx],
+                        dateNaiss: `2004-0${(i % 9) + 1}-15`,
+                        lieuNaiss: "Alger",
+                        sexe: (i % 2 === 0) ? "F" : "M",
+                        nationalite: "Algérienne",
+                        situation: "Célibataire",
+                        acteNaiss: `${200 + count}`,
+                        wilayaNaiss: "16 - Alger",
+                        nin: `10002004987${String(count).padStart(4,'0')}`,
+                        cni: `876543${count}`,
+                        cniDate: "2021-03-10 / DGSN Alger",
+                        adresse: "Hydra, Alger",
+                        wilayaContact: "16 - Alger",
+                        communeContact: "Hydra",
+                        phone: `0555${100000 + count}`,
+                        email: `${firstNamesFR[fnIdx].toLowerCase()}.${lastNamesFR[lnIdx].toLowerCase()}${count}@univ-alger2.dz`,
+                        bacNum: `350${3000 + count}`,
+                        bacYear: "2022",
+                        bacSerie: "Lettres",
+                        bacMoyenne: (12 + (count % 5) * 0.7).toFixed(2),
+                        bacLycee: "Lycée Emir Abdelkader",
+                        bacWilaya: "16 - Alger",
+                        anneeUniv: "2025-2026",
+                        niveau: "L2",
+                        groupe: `Groupe ${g}`,
+                        typeInscr: "Réinscription",
+                        statut: "Régulier",
+                        compteActif: true
+                    };
+                    db.students.push(student);
+                    // Notes L2 pré-remplies avec décisions
+                    db.grades[mat] = {};
+                    modulesS3.forEach(m => {
+                        const cc = (8 + Math.random() * 10).toFixed(2);
+                        const exam = (7 + Math.random() * 11).toFixed(2);
+                        db.grades[mat][m.id] = {cc, exam, rattrapage: ""};
+                    });
+                    modulesS4.forEach(m => {
+                        const cc = (8 + Math.random() * 10).toFixed(2);
+                        const exam = (7 + Math.random() * 11).toFixed(2);
+                        db.grades[mat][m.id] = {cc, exam, rattrapage: Math.random() > 0.7 ? (9 + Math.random()*4).toFixed(2) : ""};
+                    });
+                    count++;
+                }
+            }
+            generateTeachers();
+            // Quelques demandes de transfert
+            db.transfers = [
+                {id:1, nom:"Amrani", prenom:"Sofia", type:"Nouveau", origin:"Université de Constantine 1", date:"2026-08-15", statut:"En attente"},
+                {id:2, nom:"Guerroudj", prenom:"Yacine", type:"Ancien étudiant", origin:"Université d'Oran 2", date:"2026-08-20", statut:"En attente"}
+            ];
+        }
+
+        function generateTeachers() {
+            db.teachers = teacherNames.map((t, idx) => ({
+                id: idx + 1,
+                nom: t.nom,
+                prenom: t.prenom,
+                grade: t.grade,
+                modules: [],
+                groupes: []
+            }));
         }
 
         // ========== UI HELPERS ==========
@@ -903,70 +961,87 @@
             if (secId === 'students') renderStudentsTable();
             if (secId === 'duplicates') detectDuplicates();
             if (secId === 'reinscriptions') renderReinscriptionsTable();
-            if (secId === 'grades') { updateModuleDropdown(); loadGradeEntryTable(); updateGradeLockStatus(); }
+            if (secId === 'grades') { onGradeYearChange(); }
             if (secId === 'deliberation') renderDeliberationTable();
             if (secId === 'releve') populateReleveStudentDropdown();
             if (secId === 'groups') updateGroupCounts();
-            if (secId === 'professors') renderProfessorsTable();
-            if (secId === 'messaging') { populateMsgTo(); renderMessages(); }
-            if (secId === 'transfers') renderTransfers();
+            if (secId === 'teachers') renderTeachersTable();
+            if (secId === 'transfers') renderTransfersTable();
+            if (secId === 'messages') { populateMessageTeachers(); renderMessages(); }
             if (secId === 'certificate') populateCertStudentDropdown();
-            if (secId === 'search') document.getElementById('search-tbody').innerHTML = '';
+            if (secId === 'search') document.getElementById('search-input').focus();
         }
 
-        // ========== YEAR MANAGEMENT ==========
+        function updateTotalStats() {
+            document.getElementById('stat-total').innerText = db.students.filter(s => s.anneeUniv === db.currentYear).length;
+            document.getElementById('stat-annee').innerText = db.currentYear;
+            document.getElementById('stat-transfers').innerText = db.transfers.filter(t => t.statut === 'En attente').length;
+        }
+
         function populateYearDropdowns() {
             const filterSelect = document.getElementById('filter-year');
+            const reYear = document.getElementById('re-year');
+            const gradeYear = document.getElementById('grade-year');
+            const delibYear = document.getElementById('delib-year');
             filterSelect.innerHTML = '';
-            const yearList = Array.from(new Set([...db.closedYears, db.currentYear])).sort().reverse();
-            yearList.forEach(y => {
+            reYear.innerHTML = '';
+            const years = Array.from(new Set([...db.closedYears, db.currentYear])).sort().reverse();
+            years.forEach(y => {
                 const isClosed = db.closedYears.includes(y);
                 const opt = document.createElement('option');
                 opt.value = y;
-                opt.innerText = `${y} ${isClosed ? '(Clôturée)' : '(Active)'}`;
+                opt.textContent = `${y} ${isClosed ? '(Clôturée)' : '(Active)'}`;
                 if (y === db.currentYear) opt.selected = true;
-                filterSelect.appendChild(opt);
+                filterSelect.appendChild(opt.cloneNode(true));
+                reYear.appendChild(opt.cloneNode(true));
             });
+            // grade-year déjà géré dans le HTML + onGradeYearChange
             renderClosedYearsListUI();
         }
 
         function renderClosedYearsListUI() {
-            const listUl = document.getElementById('closed-years-list');
-            listUl.innerHTML = '';
+            const list = document.getElementById('closed-years-list');
+            list.innerHTML = '';
             if (db.closedYears.length === 0) {
-                listUl.innerHTML = '<li style="font-size:0.85rem;color:var(--text-muted);">Aucune année clôturée.</li>';
+                list.innerHTML = '<li style="font-size:0.85rem;color:var(--text-muted);">Aucune année clôturée.</li>';
                 return;
             }
             db.closedYears.forEach(y => {
-                listUl.innerHTML += `<li><span class="closed-badge"><i class="fa-solid fa-lock"></i> ${y}</span></li>`;
+                list.innerHTML += `<li><span class="closed-badge"><i class="fa-solid fa-lock"></i> ${y}</span></li>`;
             });
         }
 
         function isSelectedYearClosed() {
-            const selected = document.getElementById('filter-year')?.value || db.currentYear;
-            return db.closedYears.includes(selected);
+            const sel = document.getElementById('filter-year');
+            if (!sel) return false;
+            return db.closedYears.includes(sel.value);
         }
 
         function checkYearLockUI() {
             const isClosed = isSelectedYearClosed();
-            const lockable = ['btn-add-student','btn-clear-grades','btn-clear-grades-2','btn-exec-re','btn-auto-assign','btn-save-grades','btn-save-fiche'];
-            lockable.forEach(id => { const b = document.getElementById(id); if (b) b.disabled = isClosed; });
-            document.querySelectorAll('#grade-entry-tbody input').forEach(i => i.disabled = isClosed || isGradeLocked());
-            const statusBadge = document.getElementById('year-lock-status');
+            ['btn-add-student','btn-clear-grades','btn-clear-grades-2','btn-exec-re','btn-auto-assign','btn-save-grades','btn-save-fiche'].forEach(id => {
+                const b = document.getElementById(id);
+                if (b) b.disabled = isClosed;
+            });
+            const status = document.getElementById('year-lock-status');
             if (isClosed) {
-                statusBadge.className = 'closed-badge';
-                statusBadge.innerHTML = `<i class="fa-solid fa-lock"></i> Année clôturée (modification interdite)`;
+                status.className = 'closed-badge';
+                status.innerHTML = `<i class="fa-solid fa-lock"></i> Année Clôturée`;
             } else {
-                statusBadge.className = 'active-badge';
-                statusBadge.innerHTML = `<i class="fa-solid fa-lock-open"></i> Année active (${db.currentYear})`;
+                status.className = 'active-badge';
+                status.innerHTML = `<i class="fa-solid fa-lock-open"></i> Année Active (${db.currentYear})`;
             }
             document.getElementById('stat-annee').innerText = db.currentYear;
         }
 
         function closeCurrentAcademicYear() {
-            if (db.closedYears.includes(db.currentYear)) { showToast("Cette année est déjà clôturée."); return; }
-            if (confirm(`Confirmez-vous la clôture définitive de l'année ${db.currentYear} ?`)) {
+            if (db.closedYears.includes(db.currentYear)) {
+                showToast("Cette année est déjà clôturée.");
+                return;
+            }
+            if (confirm(`Confirmer la clôture définitive de l'année ${db.currentYear} ?`)) {
                 db.closedYears.push(db.currentYear);
+                db.gradeLocks[db.currentYear] = true;
                 saveDatabaseToStorage();
                 populateYearDropdowns();
                 checkYearLockUI();
@@ -977,58 +1052,57 @@
         function createNewAcademicYear() {
             const parts = db.currentYear.split('-');
             const next = `${parseInt(parts[0])+1}-${parseInt(parts[1])+1}`;
-            if (confirm(`Ouvrir la nouvelle année ${next} ?`)) {
+            if (confirm(`Ouvrir la nouvelle année universitaire ${next} ?`)) {
                 if (!db.closedYears.includes(db.currentYear)) db.closedYears.push(db.currentYear);
                 db.currentYear = next;
-                db.students.forEach(s => s.anneeUniv = next);
+                db.gradeLocks[next] = false;
+                db.students.forEach(s => { if (s.anneeUniv === parts.join('-')) s.anneeUniv = next; });
                 saveDatabaseToStorage();
                 populateYearDropdowns();
                 document.getElementById('filter-year').value = next;
                 renderStudentsTable();
                 checkYearLockUI();
-                showToast(`Nouvelle année ${next} activée.`);
+                showToast(`Année ${next} activée.`);
             }
         }
 
         function reopenPreviousYear() {
-            if (db.closedYears.length === 0) { showToast("Aucune année précédente à rouvrir."); return; }
-            const lastClosed = db.closedYears[db.closedYears.length - 1];
-            if (confirm(`Rouvrir l'année ${lastClosed} ?`)) {
-                db.closedYears = db.closedYears.filter(y => y !== lastClosed);
-                db.currentYear = lastClosed;
+            if (db.closedYears.length === 0) {
+                showToast("Aucune année clôturée à rouvrir.");
+                return;
+            }
+            const y = db.closedYears[db.closedYears.length - 1];
+            if (confirm(`Rouvrir l'année ${y} (permettre les modifications) ?`)) {
+                db.closedYears = db.closedYears.filter(x => x !== y);
+                db.gradeLocks[y] = false;
                 saveDatabaseToStorage();
                 populateYearDropdowns();
-                document.getElementById('filter-year').value = lastClosed;
-                renderStudentsTable();
                 checkYearLockUI();
-                showToast(`Année ${lastClosed} rouverte.`);
+                showToast(`Année ${y} rouverte.`);
             }
         }
 
-        // ========== STUDENTS ==========
-        function updateTotalStats() {
-            document.getElementById('stat-total').innerText = db.students.length;
-        }
-
+        // ========== ÉTUDIANTS ==========
         function renderStudentsTable() {
             const tbody = document.getElementById('students-tbody');
             tbody.innerHTML = '';
-            const selectedYear = document.getElementById('filter-year').value;
-            const filtered = db.students.filter(s => s.anneeUniv === selectedYear);
-            const startIdx = (currentPage - 1) * pageSize;
-            const pageData = filtered.slice(startIdx, startIdx + pageSize);
+            const year = document.getElementById('filter-year').value;
+            const filtered = db.students.filter(s => s.anneeUniv === year);
+            const start = (currentPage - 1) * pageSize;
+            const pageData = filtered.slice(start, start + pageSize);
             pageData.forEach(s => {
                 const tr = document.createElement('tr');
-                const actif = s.compteActif === "Oui";
                 tr.innerHTML = `
                     <td style="font-weight:600;">${s.matricule}</td>
                     <td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td>
                     <td>${s.dateNaiss}</td>
                     <td><span style="background:#e0f2fe;color:#0369a1;padding:3px 8px;border-radius:4px;font-weight:600;">${s.groupe}</span></td>
-                    <td>${actif ? '<span style="color:#10b981;font-weight:600;">Activé</span>' : '<span style="color:#ef4444;font-weight:600;">Désactivé</span>'}</td>
+                    <td>${s.niveau || 'L3'}</td>
+                    <td>${s.compteActif !== false ? '<span style="color:green;font-weight:600;">Actif</span>' : '<span style="color:red;font-weight:600;">Désactivé</span>'}</td>
+                    <td><span style="color:#10b981;font-weight:600;">${s.statut}</span></td>
                     <td>
-                        <button class="btn btn-secondary" style="padding:4px 8px;font-size:0.75rem;" onclick="openStudentFiche('${s.matricule}')"><i class="fa-solid fa-pen-to-square"></i> Fiche</button>
-                        <button class="btn ${actif ? 'btn-warning' : 'btn-success'}" style="padding:4px 8px;font-size:0.75rem;margin-left:4px;" onclick="toggleStudentAccount('${s.matricule}')">${actif ? 'Désactiver' : 'Activer'}</button>
+                        <button class="btn btn-secondary btn-sm" onclick="openStudentFiche('${s.matricule}')"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="btn btn-sm ${s.compteActif !== false ? 'btn-warning' : 'btn-success'}" onclick="toggleStudentAccount('${s.matricule}')">${s.compteActif !== false ? 'Désactiver' : 'Activer'}</button>
                     </td>`;
                 tbody.appendChild(tr);
             });
@@ -1042,18 +1116,18 @@
         function filterStudents() { currentPage = 1; renderStudentsTable(); }
         function prevPage() { if (currentPage > 1) { currentPage--; renderStudentsTable(); } }
         function nextPage() {
-            const selectedYear = document.getElementById('filter-year').value;
-            const filtered = db.students.filter(s => s.anneeUniv === selectedYear);
+            const year = document.getElementById('filter-year').value;
+            const filtered = db.students.filter(s => s.anneeUniv === year);
             if (currentPage * pageSize < filtered.length) { currentPage++; renderStudentsTable(); }
         }
 
         function toggleStudentAccount(mat) {
             const s = db.students.find(x => x.matricule === mat);
             if (!s) return;
-            s.compteActif = s.compteActif === "Oui" ? "Non" : "Oui";
+            s.compteActif = !(s.compteActif !== false);
             saveDatabaseToStorage();
             renderStudentsTable();
-            showToast(`Compte ${s.compteActif === "Oui" ? "activé" : "désactivé"} pour ${s.nomFr} ${s.prenomFr}`);
+            showToast(s.compteActif ? "Compte activé." : "Compte désactivé.");
         }
 
         function performSearch() {
@@ -1062,100 +1136,17 @@
             tbody.innerHTML = '';
             if (!q) return;
             const results = db.students.filter(s =>
-                s.matricule.includes(q) ||
+                s.matricule.toLowerCase().includes(q) ||
                 s.nomFr.toLowerCase().includes(q) ||
                 s.prenomFr.toLowerCase().includes(q) ||
                 `${s.nomFr} ${s.prenomFr}`.toLowerCase().includes(q)
             );
             results.forEach(s => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${s.matricule}</td><td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td><td>${s.groupe}</td><td>${s.anneeUniv}</td>
-                    <td><button class="btn btn-secondary" style="padding:4px 8px;font-size:0.75rem;" onclick="openStudentFiche('${s.matricule}')">Voir Fiche</button></td>`;
+                tr.innerHTML = `<td style="font-weight:600;">${s.matricule}</td><td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td><td>${s.anneeUniv}</td><td>${s.groupe}</td><td>${s.niveau||'L3'}</td>
+                <td><button class="btn btn-secondary btn-sm" onclick="openStudentFiche('${s.matricule}')">Fiche</button></td>`;
                 tbody.appendChild(tr);
             });
-            if (results.length === 0) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);">Aucun résultat</td></tr>';
-        }
-
-        // ========== DUPLICATES ==========
-        function detectDuplicates() {
-            const tbody = document.getElementById('duplicates-tbody');
-            tbody.innerHTML = '';
-            const seen = new Map();
-            const dups = [];
-            db.students.forEach(s => {
-                const key = `${s.nomFr.toLowerCase().trim()} ${s.prenomFr.toLowerCase().trim()}`;
-                if (seen.has(key)) {
-                    dups.push({student: s, reason: "Nom et prénom identiques"});
-                    const orig = seen.get(key);
-                    if (!dups.some(d => d.student.matricule === orig.matricule)) dups.push({student: orig, reason: "Nom et prénom identiques"});
-                } else seen.set(key, s);
-            });
-            if (dups.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">Aucun doublon détecté.</td></tr>';
-                return;
-            }
-            const isClosed = isSelectedYearClosed();
-            dups.forEach(item => {
-                const s = item.student;
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td style="font-weight:600;">${s.matricule}</td><td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td><td>${s.dateNaiss}</td><td>${s.groupe}</td>
-                    <td><span style="color:#ef4444;font-weight:bold;">${item.reason}</span></td>
-                    <td><button class="btn btn-danger" ${isClosed?'disabled':''} style="padding:4px 8px;font-size:0.75rem;" onclick="deleteDuplicateStudent('${s.matricule}')"><i class="fa-solid fa-trash"></i></button></td>`;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function deleteDuplicateStudent(mat) {
-            if (isSelectedYearClosed()) return;
-            if (confirm(`Supprimer définitivement l'étudiant ${mat} ?`)) {
-                db.students = db.students.filter(s => s.matricule !== mat);
-                delete db.grades[mat];
-                saveDatabaseToStorage();
-                detectDuplicates();
-                renderStudentsTable();
-                showToast("Étudiant supprimé.");
-            }
-        }
-
-        // ========== GROUPES ==========
-        function autoAssignGroups() {
-            if (isSelectedYearClosed()) return;
-            db.students.sort((a,b) => a.nomFr.localeCompare(b.nomFr));
-            const total = db.students.length;
-            const base = Math.floor(total / 3);
-            let rem = total % 3;
-            let idx = 0;
-            for (let g = 1; g <= 3; g++) {
-                const size = base + (rem > 0 ? 1 : 0);
-                if (rem > 0) rem--;
-                for (let i = 0; i < size && idx < total; i++) {
-                    db.students[idx].groupe = `Groupe ${g}`;
-                    idx++;
-                }
-            }
-            saveDatabaseToStorage();
-            updateGroupCounts();
-            showToast("Répartition équitable effectuée (15 max/groupe).");
-        }
-
-        function updateGroupCounts() {
-            document.getElementById('g1-count').innerText = db.students.filter(s => s.groupe === 'Groupe 1').length;
-            document.getElementById('g2-count').innerText = db.students.filter(s => s.groupe === 'Groupe 2').length;
-            document.getElementById('g3-count').innerText = db.students.filter(s => s.groupe === 'Groupe 3').length;
-        }
-
-        function printGroupLists() {
-            const container = document.getElementById('group-lists-container');
-            container.innerHTML = '';
-            [1,2,3].forEach(g => {
-                const list = db.students.filter(s => s.groupe === `Groupe ${g}`);
-                let html = `<div style="page-break-after:always;margin-top:20px;"><h3 style="margin-bottom:10px;color:var(--primary-blue);">Liste Groupe ${g} (${list.length} étudiants)</h3>
-                    <table><thead><tr><th>N°</th><th>Matricule</th><th>Nom & Prénom</th><th>Date Naiss.</th></tr></thead><tbody>`;
-                list.forEach((s,i) => { html += `<tr><td>${i+1}</td><td>${s.matricule}</td><td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td><td>${s.dateNaiss}</td></tr>`; });
-                html += `</tbody></table></div>`;
-                container.innerHTML += html;
-            });
-            window.print();
         }
 
         // ========== FICHE ÉTUDIANT ==========
@@ -1170,45 +1161,46 @@
             document.getElementById('f-nom-lat').value = s.nomFr;
             document.getElementById('f-prenom-lat').value = s.prenomFr;
             document.getElementById('f-date-naiss').value = s.dateNaiss;
-            document.getElementById('f-lieu-naiss').value = s.lieuNaiss;
-            document.getElementById('f-sexe').value = s.sexe;
-            document.getElementById('f-nationalite').value = s.nationalite;
-            document.getElementById('f-situation').value = s.situation;
-            document.getElementById('f-acte-naiss').value = s.acteNaiss;
-            document.getElementById('f-wilaya-naiss').value = s.wilayaNaiss;
-            document.getElementById('f-nin').value = s.nin;
-            document.getElementById('f-cni').value = s.cni;
-            document.getElementById('f-cni-date').value = s.cniDate;
+            document.getElementById('f-lieu-naiss').value = s.lieuNaiss || '';
+            document.getElementById('f-sexe').value = s.sexe || 'M';
+            document.getElementById('f-nationalite').value = s.nationalite || 'Algérienne';
+            document.getElementById('f-situation').value = s.situation || 'Célibataire';
+            document.getElementById('f-acte-naiss').value = s.acteNaiss || '';
+            document.getElementById('f-wilaya-naiss').value = s.wilayaNaiss || '16 - Alger';
+            document.getElementById('f-nin').value = s.nin || '';
+            document.getElementById('f-cni').value = s.cni || '';
+            document.getElementById('f-cni-date').value = s.cniDate || '';
             document.getElementById('f-mat-interne').value = `INT-${s.matricule}`;
-            document.getElementById('f-adresse').value = s.adresse;
-            document.getElementById('f-wilaya-contact').value = s.wilayaContact;
-            document.getElementById('f-commune-contact').value = s.communeContact;
-            document.getElementById('f-phone').value = s.phone;
-            document.getElementById('f-email').value = s.email;
-            document.getElementById('f-bac-num').value = s.bacNum;
-            document.getElementById('f-bac-year').value = s.bacYear;
-            document.getElementById('f-bac-serie').value = s.bacSerie;
-            document.getElementById('f-bac-moyenne').value = s.bacMoyenne;
-            document.getElementById('f-bac-lycee').value = s.bacLycee;
-            document.getElementById('f-bac-wilaya').value = s.bacWilaya;
-            document.getElementById('f-type-inscr').value = s.typeInscr;
-            document.getElementById('f-groupe-assigned').value = s.groupe;
-            document.getElementById('f-compte-actif').value = s.compteActif || "Oui";
-            const isClosed = isSelectedYearClosed();
-            document.querySelectorAll('#student-fiche-overlay input, #student-fiche-overlay select').forEach(e => e.disabled = isClosed);
+            document.getElementById('f-adresse').value = s.adresse || '';
+            document.getElementById('f-wilaya-contact').value = s.wilayaContact || '16 - Alger';
+            document.getElementById('f-commune-contact').value = s.communeContact || '';
+            document.getElementById('f-phone').value = s.phone || '';
+            document.getElementById('f-email').value = s.email || '';
+            document.getElementById('f-bac-num').value = s.bacNum || '';
+            document.getElementById('f-bac-year').value = s.bacYear || '2023';
+            document.getElementById('f-bac-serie').value = s.bacSerie || '';
+            document.getElementById('f-bac-moyenne').value = s.bacMoyenne || '';
+            document.getElementById('f-bac-lycee').value = s.bacLycee || '';
+            document.getElementById('f-bac-wilaya').value = s.bacWilaya || '16 - Alger';
+            document.getElementById('f-type-inscr').value = s.typeInscr || 'Nouveau';
+            document.getElementById('f-groupe-assigned').value = s.groupe || 'Groupe 1';
+            document.getElementById('f-niveau').value = s.niveau || 'L3';
+            document.getElementById('f-compte-actif').value = (s.compteActif !== false) ? 'true' : 'false';
+            const isClosed = db.closedYears.includes(s.anneeUniv);
+            document.querySelectorAll('#student-fiche-overlay input, #student-fiche-overlay select').forEach(el => el.disabled = isClosed);
             document.getElementById('student-fiche-overlay').style.display = 'flex';
         }
 
         function openNewStudentModal() {
             if (isSelectedYearClosed()) return;
-            const newMat = `2023350${1000 + db.students.length + 1}`;
+            const newMat = `2026350${1000 + db.students.length + 1}`;
             const ns = {
-                matricule: newMat, nomFr: "Nouveau", prenomFr: "Etudiant", dateNaiss: "2003-01-01", lieuNaiss: "Alger",
-                sexe: "M", nationalite: "Algérienne", situation: "Célibataire", acteNaiss: "1", wilayaNaiss: "16 - Alger",
-                nin: "", cni: "", cniDate: "", adresse: "", wilayaContact: "16 - Alger", communeContact: "Alger",
-                phone: "", email: "", bacNum: "", bacYear: "2023", bacSerie: "Lettres", bacMoyenne: "10.00",
-                bacLycee: "", bacWilaya: "16 - Alger", anneeUniv: db.currentYear, groupe: "Groupe 1",
-                typeInscr: "Nouveau", statut: "Régulier", compteActif: "Oui"
+                matricule: newMat, nomFr: "Nouveau", prenomFr: "Etudiant", dateNaiss: "2004-01-01",
+                lieuNaiss: "Alger", sexe: "M", nationalite: "Algérienne", situation: "Célibataire",
+                acteNaiss: "1", wilayaNaiss: "16 - Alger", nin: "", cni: "", cniDate: "",
+                adresse: "", wilayaContact: "16 - Alger", communeContact: "Alger", phone: "", email: "",
+                bacNum: "", bacYear: "2023", bacSerie: "Lettres", bacMoyenne: "10.00", bacLycee: "", bacWilaya: "16 - Alger",
+                anneeUniv: db.currentYear, niveau: "L3", groupe: "Groupe 1", typeInscr: "Nouveau", statut: "Régulier", compteActif: true
             };
             db.students.push(ns);
             db.grades[newMat] = {};
@@ -1218,7 +1210,8 @@
         }
 
         function saveStudentFicheChanges() {
-            if (isSelectedYearClosed() || !activeStudentEditing) return;
+            if (!activeStudentEditing) return;
+            if (db.closedYears.includes(activeStudentEditing.anneeUniv)) return;
             activeStudentEditing.nomFr = document.getElementById('f-nom-lat').value;
             activeStudentEditing.prenomFr = document.getElementById('f-prenom-lat').value;
             activeStudentEditing.dateNaiss = document.getElementById('f-date-naiss').value;
@@ -1232,14 +1225,18 @@
             activeStudentEditing.email = document.getElementById('f-email').value;
             activeStudentEditing.typeInscr = document.getElementById('f-type-inscr').value;
             activeStudentEditing.groupe = document.getElementById('f-groupe-assigned').value;
-            activeStudentEditing.compteActif = document.getElementById('f-compte-actif').value;
+            activeStudentEditing.niveau = document.getElementById('f-niveau').value;
+            activeStudentEditing.compteActif = document.getElementById('f-compte-actif').value === 'true';
             saveDatabaseToStorage();
             renderStudentsTable();
             showToast("Modifications enregistrées.");
             closeStudentFiche();
         }
 
-        function closeStudentFiche() { document.getElementById('student-fiche-overlay').style.display = 'none'; }
+        function closeStudentFiche() {
+            document.getElementById('student-fiche-overlay').style.display = 'none';
+        }
+
         function switchFicheTab(idx, elem) {
             document.querySelectorAll('#student-fiche-overlay .tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('#student-fiche-overlay .tab-content').forEach(c => c.classList.remove('active'));
@@ -1249,10 +1246,13 @@
 
         // ========== MODULES ==========
         function renderModuleTables() {
-            [['s3', modulesS3], ['s4', modulesS4], ['s5', modulesS5], ['s6', modulesS6]].forEach(([id, list]) => {
-                const tbody = document.getElementById(`${id}-modules-tbody`);
-                tbody.innerHTML = '';
-                list.forEach(m => { tbody.innerHTML += `<tr><td style="font-weight:600;">${m.nameFr}</td><td>${m.nameAr}</td><td>${m.coeff}</td><td>${m.credit}</td></tr>`; });
+            [['s3',modulesS3],['s4',modulesS4],['s5',modulesS5],['s6',modulesS6]].forEach(([id, list]) => {
+                const tb = document.getElementById(`${id}-modules-tbody`);
+                if (!tb) return;
+                tb.innerHTML = '';
+                list.forEach(m => {
+                    tb.innerHTML += `<tr><td style="font-weight:600;">${m.nameFr}</td><td>${m.nameAr}</td><td>${m.coeff}</td><td>${m.credit}</td></tr>`;
+                });
             });
         }
 
@@ -1271,83 +1271,211 @@
                 <tr><td><strong>Mercredi</strong></td><td>Méthodologie (Salle 08)</td><td>Langue Étrangère (Salle 08)</td><td>TIC (Labo 02)</td><td>---</td></tr>`;
         }
 
+        // ========== GROUPES ==========
+        function updateGroupCounts() {
+            const g1 = db.students.filter(s => s.groupe === 'Groupe 1' && s.anneeUniv === db.currentYear).length;
+            const g2 = db.students.filter(s => s.groupe === 'Groupe 2' && s.anneeUniv === db.currentYear).length;
+            const g3 = db.students.filter(s => s.groupe === 'Groupe 3' && s.anneeUniv === db.currentYear).length;
+            if (document.getElementById('g1-count')) document.getElementById('g1-count').innerText = g1;
+            if (document.getElementById('g2-count')) document.getElementById('g2-count').innerText = g2;
+            if (document.getElementById('g3-count')) document.getElementById('g3-count').innerText = g3;
+        }
+
+        function autoAssignGroups() {
+            if (isSelectedYearClosed()) return;
+            const yearStudents = db.students.filter(s => s.anneeUniv === db.currentYear);
+            yearStudents.sort((a,b) => a.nomFr.localeCompare(b.nomFr));
+            const total = yearStudents.length;
+            const base = Math.floor(total / 3);
+            let rem = total % 3;
+            let idx = 0;
+            for (let g = 1; g <= 3; g++) {
+                const size = base + (rem > 0 ? 1 : 0);
+                if (rem > 0) rem--;
+                for (let i = 0; i < size; i++) {
+                    if (idx < total) { yearStudents[idx].groupe = `Groupe ${g}`; idx++; }
+                }
+            }
+            saveDatabaseToStorage();
+            updateGroupCounts();
+            showToast("Répartition équitable effectuée (15 max/groupe recommandé).");
+        }
+
+        function printGroupLists() {
+            const container = document.getElementById('group-lists-container');
+            container.innerHTML = '';
+            [1,2,3].forEach(g => {
+                const sts = db.students.filter(s => s.groupe === `Groupe ${g}` && s.anneeUniv === db.currentYear);
+                let html = `<div style="page-break-after:always;margin-top:20px;"><h3 style="margin-bottom:10px;color:var(--primary-blue);">Groupe ${g} (${sts.length} étudiants)</h3><table><thead><tr><th>N°</th><th>Matricule</th><th>Nom & Prénom</th><th>Date Naiss.</th></tr></thead><tbody>`;
+                sts.forEach((s,i) => { html += `<tr><td>${i+1}</td><td>${s.matricule}</td><td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td><td>${s.dateNaiss}</td></tr>`; });
+                html += `</tbody></table></div>`;
+                container.innerHTML += html;
+            });
+            window.print();
+        }
+
+        // ========== DUPLICATES ==========
+        function detectDuplicates() {
+            const tbody = document.getElementById('duplicates-tbody');
+            tbody.innerHTML = '';
+            const seen = new Map();
+            const dups = [];
+            db.students.forEach(s => {
+                const key = `${s.nomFr.toLowerCase().trim()}|${s.prenomFr.toLowerCase().trim()}`;
+                if (seen.has(key)) {
+                    dups.push({student:s, reason:"Nom et prénom identiques"});
+                    const orig = seen.get(key);
+                    if (!dups.some(d => d.student.matricule === orig.matricule)) dups.push({student:orig, reason:"Nom et prénom identiques"});
+                } else seen.set(key, s);
+            });
+            if (dups.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">Aucun doublon détecté.</td></tr>`;
+                return;
+            }
+            dups.forEach(item => {
+                const s = item.student;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td style="font-weight:600;">${s.matricule}</td><td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td><td>${s.dateNaiss}</td><td>${s.groupe}</td>
+                <td style="color:#ef4444;font-weight:bold;">${item.reason}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="deleteDuplicateStudent('${s.matricule}')"><i class="fa-solid fa-trash"></i></button></td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function deleteDuplicateStudent(mat) {
+            if (confirm(`Supprimer définitivement ${mat} ?`)) {
+                db.students = db.students.filter(s => s.matricule !== mat);
+                delete db.grades[mat];
+                saveDatabaseToStorage();
+                detectDuplicates();
+                renderStudentsTable();
+                showToast("Étudiant supprimé.");
+            }
+        }
+
         // ========== RÉINSCRIPTIONS ==========
         function renderReinscriptionsTable() {
             const tbody = document.getElementById('reinscription-tbody');
             tbody.innerHTML = '';
-            const isClosed = isSelectedYearClosed();
-            db.students.forEach(s => {
+            db.students.filter(s => s.anneeUniv === db.currentYear).forEach(s => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td><input type="checkbox" class="re-check" ${isClosed?'disabled':''} value="${s.matricule}"></td>
-                    <td>${s.matricule}</td><td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td><td>${s.anneeUniv}</td><td>L3</td><td>${s.groupe}</td>`;
+                tr.innerHTML = `<td><input type="checkbox" class="re-check" value="${s.matricule}"></td>
+                <td>${s.matricule}</td><td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td><td>${s.anneeUniv}</td><td>${s.niveau||'L3'}</td><td>${s.groupe}</td>`;
                 tbody.appendChild(tr);
             });
         }
 
         function toggleSelectAllRe(master) {
-            if (isSelectedYearClosed()) return;
             document.querySelectorAll('.re-check').forEach(cb => cb.checked = master.checked);
         }
 
         function executeBatchReinscription() {
-            if (isSelectedYearClosed()) return;
             const checked = document.querySelectorAll('.re-check:checked');
             if (checked.length === 0) { showToast("Sélectionnez au moins un étudiant."); return; }
-            const year = document.getElementById('re-year').value;
-            const group = document.getElementById('re-group').value;
+            const targetYear = document.getElementById('re-year').value;
+            const targetGroup = document.getElementById('re-group').value;
+            const targetLevel = document.getElementById('re-level').value;
             checked.forEach(cb => {
                 const s = db.students.find(x => x.matricule === cb.value);
-                if (s) { s.anneeUniv = year; s.groupe = group; s.typeInscr = "Réinscription"; }
+                if (s) { s.anneeUniv = targetYear; s.groupe = targetGroup; s.niveau = targetLevel; s.typeInscr = "Réinscription"; }
             });
             saveDatabaseToStorage();
             showToast(`${checked.length} étudiants réinscrits.`);
             renderReinscriptionsTable();
         }
 
-        // ========== GRADES ==========
-        function isGradeLocked() {
-            const y = document.getElementById('grade-year')?.value || db.currentYear;
-            return db.gradeLocks[y] === true;
+        // ========== SAISIE DES NOTES ==========
+        function onGradeYearChange() {
+            const year = document.getElementById('grade-year').value;
+            const semSelect = document.getElementById('grade-semestre');
+            if (year === '2025-2026') {
+                semSelect.innerHTML = '<option value="S3">Semestre 3</option><option value="S4">Semestre 4</option>';
+            } else if (year === '2026-2027') {
+                semSelect.innerHTML = '<option value="S5">Semestre 5</option><option value="S6">Semestre 6</option>';
+            } else {
+                semSelect.innerHTML = '';
+            }
+            updateGradeLockStatus();
+            loadGradeModulesTable();
+            document.getElementById('grade-entry-container').style.display = 'none';
         }
 
         function updateGradeLockStatus() {
-            const locked = isGradeLocked();
+            const year = document.getElementById('grade-year').value;
             const el = document.getElementById('grade-lock-status');
-            if (el) el.innerHTML = locked
-                ? '<span class="closed-badge"><i class="fa-solid fa-lock"></i> Saisie des notes verrouillée pour cette année</span>'
-                : '<span class="active-badge"><i class="fa-solid fa-lock-open"></i> Saisie des notes ouverte</span>';
-            document.querySelectorAll('#grade-entry-tbody input').forEach(i => i.disabled = locked || isSelectedYearClosed());
+            if (!year) { el.innerHTML = ''; return; }
+            const locked = db.gradeLocks[year] === true;
+            el.innerHTML = locked
+                ? `<span class="closed-badge"><i class="fa-solid fa-lock"></i> Saisie des notes verrouillée pour ${year}</span>`
+                : `<span class="active-badge"><i class="fa-solid fa-lock-open"></i> Saisie des notes ouverte pour ${year}</span>`;
         }
 
         function toggleGradeLock() {
-            const y = document.getElementById('grade-year').value;
-            if (!y) { showToast("Choisissez d'abord une année."); return; }
-            db.gradeLocks[y] = !db.gradeLocks[y];
+            const year = document.getElementById('grade-year').value;
+            if (!year) { showToast("Choisissez d'abord une année."); return; }
+            db.gradeLocks[year] = !db.gradeLocks[year];
             saveDatabaseToStorage();
             updateGradeLockStatus();
-            loadGradeEntryTable();
-            showToast(db.gradeLocks[y] ? "Saisie verrouillée." : "Saisie déverrouillée.");
+            loadGradeModulesTable();
+            showToast(db.gradeLocks[year] ? "Saisie verrouillée." : "Saisie déverrouillée.");
         }
 
-        function onGradeYearChange() {
-            updateModuleDropdown();
-            loadGradeEntryTable();
-            updateGradeLockStatus();
+        function getModulesForSem(sem) {
+            if (sem === 'S3') return modulesS3;
+            if (sem === 'S4') return modulesS4;
+            if (sem === 'S5') return modulesS5;
+            if (sem === 'S6') return modulesS6;
+            return [];
         }
 
-        function updateModuleDropdown() {
+        function updateModuleDropdown() { /* conservé pour compatibilité */ }
+
+        function loadGradeModulesTable() {
+            const year = document.getElementById('grade-year').value;
             const sem = document.getElementById('grade-semestre').value;
-            const select = document.getElementById('grade-module');
-            select.innerHTML = '';
-            let list = modulesS5;
-            if (sem === 'S6') list = modulesS6;
-            else if (sem === 'S3') list = modulesS3;
-            else if (sem === 'S4') list = modulesS4;
-            list.forEach(m => {
-                const opt = document.createElement('option');
-                opt.value = m.id;
-                opt.innerText = `${m.nameFr} (${m.nameAr})`;
-                select.appendChild(opt);
+            const group = document.getElementById('grade-groupe').value;
+            const tbody = document.getElementById('grade-modules-tbody');
+            tbody.innerHTML = '';
+            if (!year || !sem) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:20px;">Veuillez sélectionner une année universitaire.</td></tr>`;
+                return;
+            }
+            const mods = getModulesForSem(sem);
+            const locked = db.gradeLocks[year] === true;
+            mods.forEach(m => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td style="font-weight:600;">${m.nameFr}</td><td>${sem}</td><td>${group}</td>
+                <td><button class="btn btn-blue btn-sm" ${locked ? 'disabled' : ''} onclick="openGradeEntry('${m.id}','${m.nameFr}')"><i class="fa-solid fa-pen"></i> Introduire les notes</button></td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openGradeEntry(modId, modName) {
+            currentGradeModuleId = modId;
+            const year = document.getElementById('grade-year').value;
+            const group = document.getElementById('grade-groupe').value;
+            const locked = db.gradeLocks[year] === true;
+            document.getElementById('grade-entry-title').innerText = `Saisie des notes – ${modName} (${group})`;
+            document.getElementById('grade-entry-container').style.display = 'block';
+            const tbody = document.getElementById('grade-entry-tbody');
+            tbody.innerHTML = '';
+            const students = db.students.filter(s => s.groupe === group && s.anneeUniv === year);
+            students.forEach((s, idx) => {
+                if (!db.grades[s.matricule]) db.grades[s.matricule] = {};
+                if (!db.grades[s.matricule][modId]) db.grades[s.matricule][modId] = {cc:"", exam:"", rattrapage:""};
+                const g = db.grades[s.matricule][modId];
+                const moy = calculateModuleAvg(g.cc, g.exam, g.rattrapage);
+                const moyClass = moy === null ? '' : (moy >= 10 ? 'grade-green' : 'grade-red');
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${idx+1}</td>
+                    <td style="font-weight:600;">${s.matricule}</td>
+                    <td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td>
+                    <td><input type="number" ${locked?'disabled':''} step="0.25" min="0" max="20" value="${g.cc}" onchange="updateLiveGrade('${s.matricule}','${modId}','cc',this.value)" class="${g.cc!==''?(parseFloat(g.cc)>=10?'grade-green':'grade-red'):''}"></td>
+                    <td><input type="number" ${locked?'disabled':''} step="0.25" min="0" max="20" value="${g.exam}" onchange="updateLiveGrade('${s.matricule}','${modId}','exam',this.value)" class="${g.exam!==''?(parseFloat(g.exam)>=10?'grade-green':'grade-red'):''}"></td>
+                    <td><input type="number" ${locked?'disabled':''} step="0.25" min="0" max="20" value="${g.rattrapage}" onchange="updateLiveGrade('${s.matricule}','${modId}','rattrapage',this.value)"></td>
+                    <td class="note-cell ${moyClass}" id="avg-${s.matricule}">${moy !== null ? moy.toFixed(2) : '--'}</td>`;
+                tbody.appendChild(tr);
             });
         }
 
@@ -1358,77 +1486,54 @@
             return ((parseFloat(cc) || 0) * 0.4) + (effExam * 0.6);
         }
 
-        function gradeClass(val) {
-            if (val === null || val === undefined || val === '') return '';
-            return parseFloat(val) >= 10 ? 'grade-good' : 'grade-bad';
-        }
-
-        function loadGradeEntryTable() {
-            const tbody = document.getElementById('grade-entry-tbody');
-            tbody.innerHTML = '';
-            const group = document.getElementById('grade-groupe').value;
-            const moduleId = document.getElementById('grade-module').value;
-            const locked = isGradeLocked() || isSelectedYearClosed();
-            const groupStudents = db.students.filter(s => s.groupe === group);
-            groupStudents.forEach((s, idx) => {
-                if (!db.grades[s.matricule]) db.grades[s.matricule] = {};
-                if (!db.grades[s.matricule][moduleId]) db.grades[s.matricule][moduleId] = {cc:"", exam:"", rattrapage:""};
-                const g = db.grades[s.matricule][moduleId];
-                const moy = calculateModuleAvg(g.cc, g.exam, g.rattrapage);
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${idx+1}</td>
-                    <td style="font-weight:600;">${s.matricule}</td>
-                    <td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td>
-                    <td><input type="number" ${locked?'disabled':''} step="0.25" min="0" max="20" value="${g.cc}" onchange="updateLiveGrade('${s.matricule}','${moduleId}','cc',this.value)"></td>
-                    <td><input type="number" ${locked?'disabled':''} step="0.25" min="0" max="20" value="${g.exam}" onchange="updateLiveGrade('${s.matricule}','${moduleId}','exam',this.value)"></td>
-                    <td><input type="number" ${locked?'disabled':''} step="0.25" min="0" max="20" value="${g.rattrapage}" onchange="updateLiveGrade('${s.matricule}','${moduleId}','rattrapage',this.value)"></td>
-                    <td class="${gradeClass(moy)}" id="avg-${s.matricule}">${moy !== null ? moy.toFixed(2) : '--'}</td>`;
-                tbody.appendChild(tr);
-            });
-        }
-
         function updateLiveGrade(mat, modId, type, val) {
-            if (isGradeLocked() || isSelectedYearClosed()) return;
+            if (!db.grades[mat]) db.grades[mat] = {};
+            if (!db.grades[mat][modId]) db.grades[mat][modId] = {cc:"",exam:"",rattrapage:""};
             db.grades[mat][modId][type] = val;
             const g = db.grades[mat][modId];
             const moy = calculateModuleAvg(g.cc, g.exam, g.rattrapage);
             const td = document.getElementById(`avg-${mat}`);
             if (td) {
                 td.innerText = moy !== null ? moy.toFixed(2) : '--';
-                td.className = gradeClass(moy);
+                td.className = 'note-cell ' + (moy === null ? '' : (moy >= 10 ? 'grade-green' : 'grade-red'));
             }
         }
 
         function saveAllGrades() {
-            if (isGradeLocked() || isSelectedYearClosed()) return;
+            const year = document.getElementById('grade-year').value;
+            if (db.gradeLocks[year]) { showToast("Saisie verrouillée."); return; }
             saveDatabaseToStorage();
-            showToast("Notes sauvegardées.");
+            showToast("Notes enregistrées avec succès.");
         }
 
         function clearAllGrades() {
-            if (isSelectedYearClosed() || isGradeLocked()) { showToast("Impossible : année ou saisie verrouillée."); return; }
-            if (confirm("Vider toutes les notes ? Action irréversible.")) {
-                db.students.forEach(s => db.grades[s.matricule] = {});
+            const year = document.getElementById('grade-year')?.value || db.currentYear;
+            if (db.gradeLocks[year]) { showToast("Impossible : saisie verrouillée."); return; }
+            if (confirm("Vider toutes les notes de l'année sélectionnée ?")) {
+                db.students.filter(s => s.anneeUniv === year).forEach(s => { db.grades[s.matricule] = {}; });
                 saveDatabaseToStorage();
-                loadGradeEntryTable();
-                showToast("Toutes les notes ont été effacées.");
+                loadGradeModulesTable();
+                document.getElementById('grade-entry-container').style.display = 'none';
+                showToast("Notes effacées.");
             }
         }
 
         function exportGradesToExcel() {
+            const year = document.getElementById('grade-year').value;
             const group = document.getElementById('grade-groupe').value;
-            const moduleId = document.getElementById('grade-module').value;
-            const data = db.students.filter(s => s.groupe === group).map(s => {
-                const g = db.grades[s.matricule]?.[moduleId] || {cc:"",exam:"",rattrapage:""};
+            const modId = currentGradeModuleId;
+            if (!modId) { showToast("Ouvrez d'abord une matière."); return; }
+            const students = db.students.filter(s => s.groupe === group && s.anneeUniv === year);
+            const data = students.map(s => {
+                const g = db.grades[s.matricule]?.[modId] || {cc:"",exam:"",rattrapage:""};
                 const moy = calculateModuleAvg(g.cc, g.exam, g.rattrapage);
-                return {Matricule: s.matricule, Nom: s.nomFr, Prénom: s.prenomFr, "Note CC": g.cc, "Note Examen": g.exam, Rattrapage: g.rattrapage, Moyenne: moy !== null ? moy.toFixed(2) : '--'};
+                return {Matricule:s.matricule, Nom:s.nomFr, Prénom:s.prenomFr, "Note CC":g.cc, "Note Examen":g.exam, Rattrapage:g.rattrapage, Moyenne: moy!==null?moy.toFixed(2):'--'};
             });
             const ws = XLSX.utils.json_to_sheet(data);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "Notes");
-            XLSX.writeFile(wb, `Notes_${group}_${moduleId}.xlsx`);
-            showToast("Fichier Excel généré.");
+            XLSX.writeFile(wb, `Notes_${group}_${modId}.xlsx`);
+            showToast("Export Excel généré.");
         }
 
         // ========== DÉLIBÉRATION ==========
@@ -1442,89 +1547,98 @@
             return (has && totalC > 0) ? totalW / totalC : null;
         }
 
+        function getDecision(moy, pass, rachat) {
+            if (moy === null) return {text:'Non calculé', cls:''};
+            if (moy >= pass) return {text:'Admis(e) session normale', cls:'grade-green'};
+            if (moy >= rachat) return {text:'Admis(e) par rachat', cls:'grade-green'};
+            // Simulation dettes / rattrapage
+            if (moy >= 8) return {text:'Admis(e) avec dettes', cls:'grade-red'};
+            return {text:'Ajourné(e)', cls:'grade-red'};
+        }
+
         function renderDeliberationTable() {
             const tbody = document.getElementById('delib-tbody');
             tbody.innerHTML = '';
             const group = document.getElementById('delib-group').value;
-            const passMoy = parseFloat(document.getElementById('delib-pass').value) || 10;
-            const rachatMoy = parseFloat(document.getElementById('delib-rachat').value) || 9.5;
-            db.students.filter(s => s.groupe === group).forEach(s => {
-                const moyS5 = computeSemesterAvg(s.matricule, modulesS5);
-                const moyS6 = computeSemesterAvg(s.matricule, modulesS6);
-                let moyAnn = null;
-                if (moyS5 !== null || moyS6 !== null) moyAnn = ((moyS5||0) + (moyS6||0)) / (moyS5 !== null && moyS6 !== null ? 2 : 1);
-                let status = '<span style="color:var(--text-muted);">Non calculé</span>';
-                if (moyAnn !== null) {
-                    if (moyAnn >= passMoy) status = '<span style="color:green;font-weight:bold;"><i class="fa-solid fa-check"></i> Admis(e)</span>';
-                    else if (moyAnn >= rachatMoy) status = '<span style="color:#d97706;font-weight:bold;"><i class="fa-solid fa-hand-holding-heart"></i> Admis par Rachat</span>';
-                    else status = '<span style="color:red;font-weight:bold;"><i class="fa-solid fa-xmark"></i> Ajourné(e)</span>';
-                }
+            const year = document.getElementById('delib-year').value;
+            const pass = parseFloat(document.getElementById('delib-pass').value) || 10;
+            const rachat = parseFloat(document.getElementById('delib-rachat').value) || 9.5;
+            const isL2 = year === '2025-2026';
+            const list1 = isL2 ? modulesS3 : modulesS5;
+            const list2 = isL2 ? modulesS4 : modulesS6;
+            const students = db.students.filter(s => s.groupe === group && s.anneeUniv === year);
+            students.forEach(s => {
+                const m1 = computeSemesterAvg(s.matricule, list1);
+                const m2 = computeSemesterAvg(s.matricule, list2);
+                let ann = null;
+                if (m1 !== null || m2 !== null) ann = ((m1||0) + (m2||0)) / ((m1!==null && m2!==null) ? 2 : 1);
+                const dec = getDecision(ann, pass, rachat);
                 const tr = document.createElement('tr');
                 tr.style.cursor = 'pointer';
-                tr.onclick = () => openRachatOverlay(s.matricule);
-                tr.innerHTML = `<td style="font-weight:600;">${s.matricule}</td>
+                tr.onclick = () => openElectronicReleve(s.matricule, year);
+                tr.innerHTML = `
+                    <td style="font-weight:600;">${s.matricule}</td>
                     <td>${s.nomFr.toUpperCase()} ${s.prenomFr}</td>
-                    <td class="${gradeClass(moyS5)}">${moyS5 !== null ? moyS5.toFixed(2) : '--'}</td>
-                    <td class="${gradeClass(moyS6)}">${moyS6 !== null ? moyS6.toFixed(2) : '--'}</td>
-                    <td class="${gradeClass(moyAnn)}" style="font-weight:700;font-size:0.95rem;">${moyAnn !== null ? moyAnn.toFixed(2) : '--'}</td>
-                    <td>${status}</td>`;
+                    <td class="${m1!==null?(m1>=10?'grade-green':'grade-red'):''}">${m1!==null?m1.toFixed(2):'--'}</td>
+                    <td class="${m2!==null?(m2>=10?'grade-green':'grade-red'):''}">${m2!==null?m2.toFixed(2):'--'}</td>
+                    <td class="note-cell ${ann!==null?(ann>=10?'grade-green':'grade-red'):''}">${ann!==null?ann.toFixed(2):'--'}</td>
+                    <td class="${dec.cls}" style="font-weight:600;">${dec.text}</td>`;
                 tbody.appendChild(tr);
             });
         }
 
-        function calculateDeliberation() { renderDeliberationTable(); showToast("Délibérations mises à jour."); }
+        function calculateDeliberation() {
+            renderDeliberationTable();
+            showToast("Délibérations mises à jour.");
+        }
 
-        function openRachatOverlay(mat) {
+        function openElectronicReleve(mat, year) {
             const s = db.students.find(x => x.matricule === mat);
             if (!s) return;
-            const moyS5 = computeSemesterAvg(mat, modulesS5);
-            const moyS6 = computeSemesterAvg(mat, modulesS6);
-            let moyAnn = null;
-            if (moyS5 !== null || moyS6 !== null) moyAnn = ((moyS5||0)+(moyS6||0))/(moyS5!==null&&moyS6!==null?2:1);
-            let html = `
-                <div class="releve-box">
-                    <div class="releve-header">RELEVÉ ÉLECTRONIQUE - OPÉRATION DE RACHAT<br>Université d'Alger 2 - Linguistique Appliquée L3</div>
-                    <p><strong>${s.nomFr.toUpperCase()} ${s.prenomFr}</strong> - Matricule: ${s.matricule}</p>
-                    <p>Moyenne S5: <strong class="${gradeClass(moyS5)}">${moyS5?.toFixed(2)||'--'}</strong> | Moyenne S6: <strong class="${gradeClass(moyS6)}">${moyS6?.toFixed(2)||'--'}</strong> | Annuelle: <strong class="${gradeClass(moyAnn)}">${moyAnn?.toFixed(2)||'--'}</strong></p>
-                    <table style="width:100%;border:1px solid #000;font-size:0.85rem;margin-top:15px;">
-                        <thead><tr style="background:#f1f5f9;"><th style="border:1px solid #000;">Module</th><th style="border:1px solid #000;">Coeff</th><th style="border:1px solid #000;">Note Module</th><th style="border:1px solid #000;">Action Rachat</th></tr></thead>
-                        <tbody>`;
-            modulesS5.forEach((m,i) => {
-                const g5 = db.grades[mat]?.[m.id];
-                const g6 = db.grades[mat]?.[modulesS6[i]?.id];
-                const moy5 = g5 ? calculateModuleAvg(g5.cc,g5.exam,g5.rattrapage) : null;
-                const moy6 = g6 ? calculateModuleAvg(g6.cc,g6.exam,g6.rattrapage) : null;
-                let moyM = null;
-                if (moy5!==null||moy6!==null) moyM = ((moy5||0)+(moy6||0))/(moy5!==null&&moy6!==null?2:1);
-                html += `<tr>
-                    <td style="border:1px solid #000;">${m.nameFr}</td>
-                    <td style="border:1px solid #000;text-align:center;">${m.coeff}</td>
-                    <td style="border:1px solid #000;text-align:center;" class="${gradeClass(moyM)}">${moyM?.toFixed(2)||'--'}</td>
-                    <td style="border:1px solid #000;text-align:center;">
-                        <button class="btn btn-success" style="padding:2px 8px;font-size:0.75rem;" onclick="applyRachat('${mat}','${m.id}',${m.coeff})">Racheter (+0.5)</button>
-                    </td></tr>`;
+            const isL2 = year === '2025-2026';
+            const list1 = isL2 ? modulesS3 : modulesS5;
+            const list2 = isL2 ? modulesS4 : modulesS6;
+            const m1 = computeSemesterAvg(mat, list1);
+            const m2 = computeSemesterAvg(mat, list2);
+            let ann = null;
+            if (m1 !== null || m2 !== null) ann = ((m1||0)+(m2||0))/((m1!==null&&m2!==null)?2:1);
+            let html = `<div class="releve-box">
+                <div class="releve-header">RELEVÉ ÉLECTRONIQUE – RACHAT DE NOTES<br>Université d'Alger 2 – ${year}</div>
+                <p><strong>${s.nomFr.toUpperCase()} ${s.prenomFr}</strong> – Matricule : ${s.matricule}</p>
+                <p>Moyenne annuelle actuelle : <strong class="${ann!==null?(ann>=10?'grade-green':'grade-red'):''}">${ann!==null?ann.toFixed(2):'--'}</strong></p>
+                <h4 style="margin:15px 0 8px;">Modules – Possibilité de rachat</h4>
+                <table style="width:100%;border:1px solid #000;font-size:0.85rem;">
+                <thead><tr style="background:#f1f5f9;"><th style="border:1px solid #000;">Module</th><th style="border:1px solid #000;">Moyenne</th><th style="border:1px solid #000;">Action</th></tr></thead><tbody>`;
+            [...list1, ...list2].forEach(m => {
+                const g = db.grades[mat]?.[m.id];
+                const moy = g ? calculateModuleAvg(g.cc, g.exam, g.rattrapage) : null;
+                html += `<tr><td style="border:1px solid #000;">${m.nameFr}</td>
+                <td style="border:1px solid #000;" class="${moy!==null?(moy>=10?'grade-green':'grade-red'):''}">${moy!==null?moy.toFixed(2):'--'}</td>
+                <td style="border:1px solid #000;"><button class="btn btn-sm btn-warning" onclick="applyRachat('${mat}','${m.id}')">Racheter (+0.5)</button></td></tr>`;
             });
             html += `</tbody></table>
-                <div style="margin-top:20px;">
-                    <button class="btn btn-blue" onclick="closeRachatOverlay();renderDeliberationTable();">Valider et Fermer</button>
-                </div></div>`;
-            document.getElementById('rachat-content').innerHTML = html;
-            document.getElementById('rachat-overlay').style.display = 'flex';
+                <p style="margin-top:20px;"><button class="btn btn-blue" onclick="closeElectronicReleve();renderDeliberationTable();">Fermer et actualiser</button></p>
+            </div>`;
+            document.getElementById('electronic-releve-content').innerHTML = html;
+            document.getElementById('electronic-releve-overlay').style.display = 'flex';
         }
 
-        function applyRachat(mat, modId, coeff) {
-            // Simulation simple de rachat : on augmente légèrement la note d'examen
-            if (!db.grades[mat][modId]) db.grades[mat][modId] = {cc:"10", exam:"9", rattrapage:""};
+        function applyRachat(mat, modId) {
+            if (!db.grades[mat]) db.grades[mat] = {};
+            if (!db.grades[mat][modId]) db.grades[mat][modId] = {cc:"10",exam:"10",rattrapage:""};
             const g = db.grades[mat][modId];
-            let exam = parseFloat(g.exam) || 0;
-            exam = Math.min(20, exam + 0.5);
-            g.exam = exam.toFixed(2);
+            let moy = calculateModuleAvg(g.cc, g.exam, g.rattrapage) || 0;
+            moy = Math.min(20, moy + 0.5);
+            // Ajuster l'examen pour refléter le rachat
+            g.exam = ((moy - (parseFloat(g.cc)||0)*0.4)/0.6).toFixed(2);
             saveDatabaseToStorage();
-            openRachatOverlay(mat);
-            showToast("Rachat appliqué (+0.5 sur la note d'examen).");
+            showToast("Rachat de +0.5 appliqué.");
+            openElectronicReleve(mat, document.getElementById('delib-year').value);
         }
 
-        function closeRachatOverlay() { document.getElementById('rachat-overlay').style.display = 'none'; }
+        function closeElectronicReleve() {
+            document.getElementById('electronic-releve-overlay').style.display = 'none';
+        }
 
         function printCombinedReleve() {
             switchSection('releve', document.querySelectorAll('.nav-item')[15]);
@@ -1533,15 +1647,15 @@
 
         // ========== RELEVÉ ==========
         function populateReleveStudentDropdown() {
-            const select = document.getElementById('releve-student-select');
-            select.innerHTML = '';
-            db.students.forEach(s => {
-                const opt = document.createElement('option');
-                opt.value = s.matricule;
-                opt.innerText = `${s.matricule} - ${s.nomFr.toUpperCase()} ${s.prenomFr}`;
-                select.appendChild(opt);
+            const sel = document.getElementById('releve-student-select');
+            sel.innerHTML = '';
+            db.students.filter(s => s.anneeUniv === db.currentYear).forEach(s => {
+                const o = document.createElement('option');
+                o.value = s.matricule;
+                o.textContent = `${s.matricule} - ${s.nomFr.toUpperCase()} ${s.prenomFr}`;
+                sel.appendChild(o);
             });
-            renderStudentReleve();
+            if (sel.options.length) renderStudentReleve();
         }
 
         function renderStudentReleve() {
@@ -1549,257 +1663,305 @@
             const s = db.students.find(x => x.matricule === mat);
             if (!s) return;
             document.getElementById('releve-student-info').innerHTML = `
-                <div><strong>Nom & Prénom:</strong> ${s.nomFr.toUpperCase()} ${s.prenomFr}<br>
-                <strong>Date & Lieu Naiss:</strong> ${s.dateNaiss} à ${s.lieuNaiss}<br>
-                <strong>Matricule:</strong> ${s.matricule}</div>
-                <div style="text-align:right;"><strong>Domaine:</strong> Langue et Littérature Arabes<br>
-                <strong>Filière:</strong> Études Linguistiques<br>
-                <strong>Spécialité:</strong> Linguistique Appliquée (L3)</div>`;
+                <div><strong>Nom & Prénom :</strong> ${s.nomFr.toUpperCase()} ${s.prenomFr}<br>
+                <strong>Date & Lieu Naiss. :</strong> ${s.dateNaiss} à ${s.lieuNaiss}<br>
+                <strong>Matricule :</strong> ${s.matricule}</div>
+                <div style="text-align:right;"><strong>Domaine :</strong> Langue et Littérature Arabes<br>
+                <strong>Spécialité :</strong> Linguistique Appliquée (${s.niveau||'L3'})</div>`;
             const tbody = document.getElementById('releve-tbody');
             tbody.innerHTML = '';
-            for (let i = 0; i < modulesS5.length; i++) {
-                const m5 = modulesS5[i], m6 = modulesS6[i];
+            const list1 = modulesS5, list2 = modulesS6;
+            for (let i = 0; i < list1.length; i++) {
+                const m5 = list1[i], m6 = list2[i];
                 const g5 = db.grades[mat]?.[m5.id], g6 = db.grades[mat]?.[m6.id];
                 const moy5 = g5 ? calculateModuleAvg(g5.cc,g5.exam,g5.rattrapage) : null;
                 const moy6 = g6 ? calculateModuleAvg(g6.cc,g6.exam,g6.rattrapage) : null;
                 let moyM = null;
-                if (moy5!==null||moy6!==null) moyM = ((moy5||0)+(moy6||0))/(moy5!==null&&moy6!==null?2:1);
+                if (moy5!==null || moy6!==null) moyM = ((moy5||0)+(moy6||0))/((moy5!==null&&moy6!==null)?2:1);
                 tbody.innerHTML += `<tr>
                     <td style="border:1px solid #000;">${m5.nameFr} / ${m6.nameFr}</td>
                     <td style="border:1px solid #000;text-align:center;">${m5.coeff}</td>
                     <td style="border:1px solid #000;text-align:center;">${m5.credit}</td>
-                    <td style="border:1px solid #000;text-align:center;" class="${gradeClass(moy5)}">${moy5?.toFixed(2)||'--'}</td>
-                    <td style="border:1px solid #000;text-align:center;" class="${gradeClass(moy6)}">${moy6?.toFixed(2)||'--'}</td>
-                    <td style="border:1px solid #000;text-align:center;font-weight:bold;" class="${gradeClass(moyM)}">${moyM?.toFixed(2)||'--'}</td></tr>`;
+                    <td style="border:1px solid #000;text-align:center;" class="${moy5!==null?(moy5>=10?'grade-green':'grade-red'):''}">${moy5!==null?moy5.toFixed(2):'--'}</td>
+                    <td style="border:1px solid #000;text-align:center;" class="${moy6!==null?(moy6>=10?'grade-green':'grade-red'):''}">${moy6!==null?moy6.toFixed(2):'--'}</td>
+                    <td style="border:1px solid #000;text-align:center;font-weight:bold;" class="${moyM!==null?(moyM>=10?'grade-green':'grade-red'):''}">${moyM!==null?moyM.toFixed(2):'--'}</td></tr>`;
             }
-            const moyS5 = computeSemesterAvg(mat, modulesS5);
-            const moyS6 = computeSemesterAvg(mat, modulesS6);
-            let moyAnn = null;
-            if (moyS5!==null||moyS6!==null) moyAnn = ((moyS5||0)+(moyS6||0))/(moyS5!==null&&moyS6!==null?2:1);
+            const mS5 = computeSemesterAvg(mat, modulesS5);
+            const mS6 = computeSemesterAvg(mat, modulesS6);
+            let ann = null;
+            if (mS5!==null || mS6!==null) ann = ((mS5||0)+(mS6||0))/((mS5!==null&&mS6!==null)?2:1);
             document.getElementById('releve-summary').innerHTML = `
-                <div>Moyenne S5: <strong class="${gradeClass(moyS5)}">${moyS5?.toFixed(2)||'--'}</strong> | Moyenne S6: <strong class="${gradeClass(moyS6)}">${moyS6?.toFixed(2)||'--'}</strong><br>
-                <strong>Moyenne Générale Annuelle: <span class="${gradeClass(moyAnn)}">${moyAnn?.toFixed(2)||'--'} / 20</span></strong></div>
-                <div style="text-align:right;">Décision: <strong>${moyAnn===null?'EN COURS':(moyAnn>=10?'ADMIS(E)':(moyAnn>=9.5?'ADMIS PAR RACHAT':'AJOURNÉ(E)'))}</strong><br>
+                <div>Moyenne S5 : <strong>${mS5!==null?mS5.toFixed(2):'--'}</strong> | Moyenne S6 : <strong>${mS6!==null?mS6.toFixed(2):'--'}</strong><br>
+                <strong>Moyenne Générale Annuelle : ${ann!==null?ann.toFixed(2):'--'} / 20</strong></div>
+                <div style="text-align:right;">Décision : <strong>${ann===null?'EN COURS':(ann>=10?'ADMIS(E)':(ann>=9.5?'ADMIS PAR RACHAT':'AJOURNÉ(E)'))}</strong><br>
                 Fait à Alger, le ${new Date().toLocaleDateString('fr-FR')}</div>`;
         }
 
         // ========== CERTIFICAT ==========
         function populateCertStudentDropdown() {
-            const select = document.getElementById('cert-student-select');
-            select.innerHTML = '';
-            db.students.forEach(s => {
-                const opt = document.createElement('option');
-                opt.value = s.matricule;
-                opt.innerText = `${s.matricule} - ${s.nomFr.toUpperCase()} ${s.prenomFr}`;
-                select.appendChild(opt);
+            const sel = document.getElementById('cert-student-select');
+            sel.innerHTML = '';
+            db.students.filter(s => s.anneeUniv === '2026-2027').forEach(s => {
+                const o = document.createElement('option');
+                o.value = s.matricule;
+                o.textContent = `${s.matricule} - ${s.nomFr.toUpperCase()} ${s.prenomFr}`;
+                sel.appendChild(o);
             });
-            renderCertificate();
+            if (sel.options.length) renderCertificate();
         }
 
         function renderCertificate() {
             const mat = document.getElementById('cert-student-select').value;
             const s = db.students.find(x => x.matricule === mat);
             if (!s) return;
-            const container = document.getElementById('cert-container');
+            const container = document.getElementById('certificat-container');
             container.innerHTML = `
                 <div class="cert-header">
-                    <img src="https://progres.mesrs.dz/webfve/images/logo2.png" class="cert-logo" alt="Logo" onerror="this.style.display='none'">
-                    <div class="cert-titles">
-                        <h1>الجمهورية الجزائرية الديمقراطية الشعبية</h1>
-                        <h2>وزارة التعليم العالي والبحث العلمي</h2>
-                        <h2>جامعة الجزائر 2 أبو القاسم سعد الله</h2>
-                        <h3>كلية اللغة العربية وآدابها واللغات الشرقية - قسم علوم اللسان</h3>
-                        <hr style="margin:10px 0;">
-                        <h1>RÉPUBLIQUE ALGÉRIENNE DÉMOCRATIQUE ET POPULAIRE</h1>
-                        <h2>MINISTÈRE DE L'ENSEIGNEMENT SUPÉRIEUR ET DE LA RECHERCHE SCIENTIFIQUE</h2>
-                        <h2>Université d'Alger 2 Abou El Kacem Saadallah</h2>
-                        <h3>Faculté de Langue Arabe, Littérature et Langues Orientales - Département des Sciences du Langage</h3>
+                    <img src="https://progres.mesrs.dz/webfve/images/logo2.png" class="cert-logo" onerror="this.style.display='none'">
+                    <div style="font-size:0.95rem;font-weight:bold;line-height:1.4;">
+                        الجمهورية الجزائرية الديمقراطية الشعبية<br>
+                        وزارة التعليم العالي والبحث العلمي<br>
+                        RÉPUBLIQUE ALGÉRIENNE DÉMOCRATIQUE ET POPULAIRE<br>
+                        MINISTÈRE DE L'ENSEIGNEMENT SUPÉRIEUR ET DE LA RECHERCHE SCIENTIFIQUE
                     </div>
-                    <div style="width:80px;"></div>
+                    <div style="margin-top:12px;font-size:1.05rem;font-weight:bold;">
+                        جامعة الجزائر 2 أبو القاسم سعد الله<br>
+                        Université d'Alger 2 Abou El Kacem Saadallah
+                    </div>
+                    <div style="margin-top:8px;font-size:0.9rem;">
+                        كلية اللغة العربية وآدابها واللغات الشرقية – قسم علوم اللسان<br>
+                        Faculté de Langue Arabe, Littérature et Langues Orientales – Département des Sciences du Langage
+                    </div>
                 </div>
-                <div style="text-align:center; margin:25px 0;">
-                    <h2 style="text-decoration:underline; font-size:16px;">شهادة مدرسية / CERTIFICAT DE SCOLARITÉ</h2>
-                    <h3 style="font-size:14px;">Année Universitaire 2026-2027</h3>
-                </div>
+                <div class="cert-title">شهادة تسجيل / CERTIFICAT D'INSCRIPTION<br>السنة الجامعية 2026-2027</div>
                 <div class="cert-body">
-                    <p>Le Doyen de la Faculté de Langue Arabe, Littérature et Langues Orientales certifie que l'étudiant(e) :</p>
-                    <p style="margin:15px 0; font-size:14px;"><strong>Nom et Prénom :</strong> ${s.nomFr.toUpperCase()} ${s.prenomFr}</p>
-                    <p><strong>Né(e) le :</strong> ${s.dateNaiss} à ${s.lieuNaiss}</p>
-                    <p><strong>Matricule :</strong> ${s.matricule}</p>
-                    <p><strong>Est régulièrement inscrit(e) en :</strong> Troisième Année Licence (L3) - Spécialité Linguistique Appliquée</p>
-                    <p><strong>Groupe pédagogique :</strong> ${s.groupe}</p>
-                    <p><strong>Année universitaire :</strong> 2026-2027</p>
-                    <p style="margin-top:20px;">Cette attestation est délivrée à l'intéressé(e) pour servir et valoir ce que de droit.</p>
-                    <p style="margin-top:15px; direction:rtl; text-align:right;">
-                        يشهد عميد كلية اللغة العربية وآدابها واللغات الشرقية بأن الطالب(ة) المذكور(ة) أعلاه مسجل(ة) بصفة نظامية في السنة الثالثة ليسانس تخصص لسانيات تطبيقية للسنة الجامعية 2026-2027.
-                    </p>
+                    <p style="text-align:center;margin-bottom:20px;">يشهد السيد عميد الكلية أن الطالب(ة) الآتي(ة) بيانه(ا) :</p>
+                    <p style="text-align:center;margin-bottom:20px;">Le Doyen de la Faculté certifie que l'étudiant(e) ci-dessous :</p>
+                    <p><strong>Nom / اللقب :</strong> ${s.nomFr.toUpperCase()} &nbsp;&nbsp;&nbsp; <strong>Prénom / الاسم :</strong> ${s.prenomFr}</p>
+                    <p><strong>Date de naissance / تاريخ الميلاد :</strong> ${s.dateNaiss} à ${s.lieuNaiss || 'Alger'}</p>
+                    <p><strong>Matricule / رقم التسجيل :</strong> ${s.matricule}</p>
+                    <p><strong>Niveau / المستوى :</strong> ${s.niveau || 'L3'} – Linguistique Appliquée / لسانيات تطبيقية</p>
+                    <p><strong>Groupe / الفوج :</strong> ${s.groupe}</p>
+                    <p style="margin-top:25px;">est régulièrement inscrit(e) à l'Université d'Alger 2 pour l'année universitaire <strong>2026-2027</strong>.</p>
+                    <p style="margin-top:10px;text-align:right;direction:rtl;">مسجل(ة) بصفة نظامية بجامعة الجزائر 2 للسنة الجامعية <strong>2026-2027</strong>.</p>
+                    <p style="margin-top:30px;text-align:center;">Fait à Alger, le ${new Date().toLocaleDateString('fr-FR')} / حرر بالجزائر في ${new Date().toLocaleDateString('ar-DZ')}</p>
                 </div>
                 <div class="cert-footer">
-                    <div>
-                        <p>Fait à Alger, le ${new Date().toLocaleDateString('fr-FR')}</p>
+                    <div style="text-align:center;width:45%;">
+                        <p>Le Chef de Département</p>
+                        <p style="margin-top:50px;">_________________</p>
                     </div>
-                    <div style="text-align:center;">
-                        <p><strong>Le Doyen</strong></p>
-                        <p style="margin-top:40px;">_________________</p>
+                    <div style="text-align:center;width:45%;">
+                        <p>Le Doyen de la Faculté</p>
+                        <p style="margin-top:50px;">_________________</p>
                     </div>
                 </div>
             `;
         }
 
-        // ========== PROFESSEURS ==========
-        function renderProfessorsTable() {
-            const tbody = document.getElementById('professors-tbody');
+        // ========== ENSEIGNANTS ==========
+        function renderTeachersTable() {
+            const tbody = document.getElementById('teachers-tbody');
             tbody.innerHTML = '';
-            db.professors.forEach((p, i) => {
+            db.teachers.forEach((t, idx) => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${i+1}</td>
-                    <td>${p.nom.toUpperCase()} ${p.prenom}</td>
-                    <td>${p.grade}</td>
-                    <td>${(p.modules||[]).join(', ') || '-'}</td>
-                    <td>${(p.groupes||[]).join(', ') || '-'}</td>
-                    <td><button class="btn btn-secondary" style="padding:4px 8px;font-size:0.75rem;" onclick="assignProfModules(${p.id})">Affecter</button></td>`;
+                tr.innerHTML = `<td>${idx+1}</td>
+                <td>${t.nom.toUpperCase()} ${t.prenom}</td>
+                <td>${t.grade}</td>
+                <td>${t.modules.length ? t.modules.join(', ') : '<em>Aucun</em>'}</td>
+                <td>${t.groupes.length ? t.groupes.join(', ') : '<em>Aucun</em>'}</td>
+                <td>
+                    <button class="btn btn-secondary btn-sm" onclick="assignModuleToTeacher(${t.id})">Modules</button>
+                    <button class="btn btn-secondary btn-sm" onclick="assignGroupToTeacher(${t.id})">Groupes</button>
+                </td>`;
                 tbody.appendChild(tr);
             });
         }
 
-        function assignProfModules(id) {
-            const p = db.professors.find(x => x.id === id);
-            if (!p) return;
-            const mod = prompt("Modules à affecter (séparés par virgule) :", (p.modules||[]).join(', '));
-            const grp = prompt("Groupes (ex: Groupe 1, Groupe 2) :", (p.groupes||[]).join(', '));
-            if (mod !== null) p.modules = mod.split(',').map(x => x.trim()).filter(Boolean);
-            if (grp !== null) p.groupes = grp.split(',').map(x => x.trim()).filter(Boolean);
-            saveDatabaseToStorage();
-            renderProfessorsTable();
-            showToast("Affectation mise à jour.");
+        function assignModuleToTeacher(id) {
+            const t = db.teachers.find(x => x.id === id);
+            if (!t) return;
+            const mod = prompt("Entrez le nom du module à assigner (ex: Linguistique Appliquée) :");
+            if (mod && mod.trim()) {
+                if (!t.modules.includes(mod.trim())) t.modules.push(mod.trim());
+                saveDatabaseToStorage();
+                renderTeachersTable();
+                showToast("Module assigné.");
+            }
+        }
+
+        function assignGroupToTeacher(id) {
+            const t = db.teachers.find(x => x.id === id);
+            if (!t) return;
+            const g = prompt("Entrez le groupe (Groupe 1, Groupe 2 ou Groupe 3) :");
+            if (g && ['Groupe 1','Groupe 2','Groupe 3'].includes(g.trim())) {
+                if (!t.groupes.includes(g.trim())) t.groupes.push(g.trim());
+                saveDatabaseToStorage();
+                renderTeachersTable();
+                showToast("Groupe assigné.");
+            }
         }
 
         // ========== MESSAGERIE ==========
-        function populateMsgTo() {
-            const sel = document.getElementById('msg-to');
-            sel.innerHTML = '<option value="">-- Choisir un enseignant --</option>';
-            db.professors.forEach(p => {
-                const opt = document.createElement('option');
-                opt.value = p.id;
-                opt.innerText = `${p.nom} ${p.prenom} (${p.grade})`;
-                sel.appendChild(opt);
+        function populateMessageTeachers() {
+            const sel = document.getElementById('msg-teacher');
+            sel.innerHTML = '';
+            db.teachers.forEach(t => {
+                const o = document.createElement('option');
+                o.value = t.id;
+                o.textContent = `${t.nom} ${t.prenom} (${t.grade})`;
+                sel.appendChild(o);
             });
         }
 
         function sendMessage() {
-            const toId = document.getElementById('msg-to').value;
-            const subject = document.getElementById('msg-subject').value;
+            const tid = document.getElementById('msg-teacher').value;
+            const subj = document.getElementById('msg-subject').value;
             const body = document.getElementById('msg-body').value;
-            if (!toId || !subject || !body) { showToast("Remplissez tous les champs."); return; }
-            const p = db.professors.find(x => x.id == toId);
+            if (!subj || !body) { showToast("Remplissez sujet et message."); return; }
+            const t = db.teachers.find(x => x.id == tid);
             db.messages.unshift({
                 id: Date.now(),
-                from: "Admin",
-                to: `${p.nom} ${p.prenom}`,
-                subject,
-                body,
+                to: `${t.nom} ${t.prenom}`,
+                subject: subj,
+                body: body,
                 date: new Date().toLocaleString('fr-FR'),
-                type: "admin"
+                type: 'message'
             });
-            saveDatabaseToStorage();
             document.getElementById('msg-subject').value = '';
             document.getElementById('msg-body').value = '';
+            saveDatabaseToStorage();
             renderMessages();
             showToast("Message envoyé.");
+        }
+
+        function sendGradeSheet() {
+            const tid = document.getElementById('msg-teacher').value;
+            const t = db.teachers.find(x => x.id == tid);
+            db.messages.unshift({
+                id: Date.now(),
+                to: `${t.nom} ${t.prenom}`,
+                subject: "Fiche de saisie des notes",
+                body: "Veuillez trouver ci-joint la fiche de saisie des notes pour vos modules et groupes assignés. Merci de la renseigner dans les délais.",
+                date: new Date().toLocaleString('fr-FR'),
+                type: 'document'
+            });
+            saveDatabaseToStorage();
+            renderMessages();
+            showToast("Fiche de notes envoyée à l'enseignant.");
         }
 
         function renderMessages() {
             const list = document.getElementById('messages-list');
             list.innerHTML = '';
             if (db.messages.length === 0) {
-                list.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;">Aucun message.</p>';
+                list.innerHTML = '<p style="color:var(--text-muted);padding:10px;">Aucun message.</p>';
                 return;
             }
-            db.messages.slice(0, 20).forEach(m => {
-                list.innerHTML += `<div class="msg-box ${m.type}">
-                    <div style="font-size:0.8rem;color:var(--text-muted);">${m.date} - De: ${m.from} → ${m.to}</div>
-                    <div style="font-weight:600;margin:4px 0;">${m.subject}</div>
-                    <div style="font-size:0.85rem;">${m.body}</div>
+            db.messages.forEach(m => {
+                list.innerHTML += `<div style="border-bottom:1px solid var(--border-color);padding:10px;">
+                    <div style="font-weight:600;">${m.subject} <span style="font-size:0.75rem;color:var(--text-muted);">→ ${m.to}</span></div>
+                    <div style="font-size:0.85rem;margin-top:4px;">${m.body}</div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">${m.date} ${m.type==='document'?'📎 Document':''}</div>
                 </div>`;
             });
         }
 
         // ========== TRANSFERTS ==========
-        function renderTransfers() {
+        function renderTransfersTable() {
             const tbody = document.getElementById('transfers-tbody');
             tbody.innerHTML = '';
-            if (db.transfers.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:20px;">Aucune demande de transfert.</td></tr>';
-                return;
-            }
-            db.transfers.forEach((t, i) => {
+            db.transfers.forEach((t, idx) => {
+                const statusColor = t.statut === 'Accepté' ? 'green' : (t.statut === 'Rejeté' ? 'red' : '#d97706');
                 const tr = document.createElement('tr');
-                let actions = '';
-                if (t.statut === 'En attente') {
-                    actions = `
-                        <button class="btn btn-success" style="padding:3px 8px;font-size:0.75rem;" onclick="processTransfer(${i},'Accepté')">Accepter</button>
-                        <button class="btn btn-danger" style="padding:3px 8px;font-size:0.75rem;" onclick="processTransfer(${i},'Rejeté')">Rejeter</button>
-                        <button class="btn btn-warning" style="padding:3px 8px;font-size:0.75rem;" onclick="processTransfer(${i},'Réservé')">Réserver</button>`;
-                } else actions = `<span style="font-weight:600;">${t.statut}</span>`;
-                tr.innerHTML = `<td>${t.nom.toUpperCase()} ${t.prenom}</td><td>${t.type}</td><td>${t.origine}</td><td>${t.destination}</td>
-                    <td>${t.date}</td><td>${t.statut}</td><td>${actions}</td>`;
+                tr.innerHTML = `<td>${idx+1}</td>
+                <td>${t.nom.toUpperCase()} ${t.prenom}</td>
+                <td>${t.type}</td>
+                <td>${t.origin}</td>
+                <td>${t.date}</td>
+                <td style="color:${statusColor};font-weight:600;">${t.statut}</td>
+                <td>
+                    ${t.statut === 'En attente' ? `
+                    <button class="btn btn-success btn-sm" onclick="processTransfer(${t.id},'Accepté')">Accepter</button>
+                    <button class="btn btn-danger btn-sm" onclick="processTransfer(${t.id},'Rejeté')">Rejeter</button>
+                    <button class="btn btn-warning btn-sm" onclick="processTransfer(${t.id},'En attente (réserve)')">Réserver</button>` : '-'}
+                </td>`;
                 tbody.appendChild(tr);
             });
+            updateTotalStats();
         }
 
-        function addSampleTransfer() {
-            const used = new Set(db.students.map(s => `${s.nomFr.toLowerCase()} ${s.prenomFr.toLowerCase()}`));
-            db.transfers.forEach(t => used.add(`${t.nom.toLowerCase()} ${t.prenom.toLowerCase()}`));
-            let fn, ln, full;
-            let attempts = 0;
-            do {
-                fn = firstNamesFR[Math.floor(Math.random()*firstNamesFR.length)];
-                ln = lastNamesFR[Math.floor(Math.random()*lastNamesFR.length)];
-                full = `${ln.toLowerCase()} ${fn.toLowerCase()}`;
-                attempts++;
-            } while (used.has(full) && attempts < 50);
-            db.transfers.unshift({
-                nom: ln, prenom: fn,
-                type: Math.random() > 0.5 ? "Nouveau" : "Ancien",
-                origine: "Université de Blida 2",
-                destination: "Université d'Alger 2 - Linguistique Appliquée",
-                date: new Date().toLocaleDateString('fr-FR'),
-                statut: "En attente"
+        function openNewTransferModal() {
+            document.getElementById('transfer-modal').style.display = 'flex';
+            document.getElementById('tr-nom').value = '';
+            document.getElementById('tr-prenom').value = '';
+            document.getElementById('tr-origin').value = '';
+        }
+
+        function submitTransfer() {
+            const nom = document.getElementById('tr-nom').value.trim();
+            const prenom = document.getElementById('tr-prenom').value.trim();
+            const type = document.getElementById('tr-type').value;
+            const origin = document.getElementById('tr-origin').value.trim();
+            if (!nom || !prenom) { showToast("Nom et prénom obligatoires."); return; }
+            // Vérifier doublon
+            const exists = db.students.some(s => s.nomFr.toLowerCase() === nom.toLowerCase() && s.prenomFr.toLowerCase() === prenom.toLowerCase())
+                || db.transfers.some(t => t.nom.toLowerCase() === nom.toLowerCase() && t.prenom.toLowerCase() === prenom.toLowerCase() && t.statut === 'En attente');
+            if (exists) { showToast("Un étudiant ou une demande avec ce nom/prénom existe déjà."); return; }
+            db.transfers.push({
+                id: Date.now(),
+                nom, prenom, type, origin,
+                date: new Date().toISOString().slice(0,10),
+                statut: 'En attente'
             });
+            document.getElementById('transfer-modal').style.display = 'none';
             saveDatabaseToStorage();
-            renderTransfers();
-            showToast("Nouvelle demande de transfert ajoutée.");
+            renderTransfersTable();
+            showToast("Demande de transfert enregistrée.");
         }
 
-        function processTransfer(idx, decision) {
-            const t = db.transfers[idx];
-            t.statut = decision;
-            if (decision === 'Accepté') {
-                // Créer automatiquement l'étudiant
-                const exists = db.students.some(s => s.nomFr.toLowerCase() === t.nom.toLowerCase() && s.prenomFr.toLowerCase() === t.prenom.toLowerCase());
-                if (exists) {
-                    showToast("Doublon détecté : ce nom existe déjà. Transfert non intégré.");
-                } else {
-                    const newMat = `2026TR${1000 + db.students.length + 1}`;
-                    const ns = {
-                        matricule: newMat, nomFr: t.nom, prenomFr: t.prenom, dateNaiss: "2004-05-12", lieuNaiss: "Alger",
-                        sexe: "M", nationalite: "Algérienne", situation: "Célibataire", acteNaiss: "999", wilayaNaiss: "16 - Alger",
-                        nin: "", cni: "", cniDate: "", adresse: "Adresse à compléter", wilayaContact: "16 - Alger", communeContact: "Alger",
-                        phone: "", email: `${t.prenom.toLowerCase()}.${t.nom.toLowerCase()}@univ-alger2.dz`,
-                        bacNum: "", bacYear: "2024", bacSerie: "Lettres", bacMoyenne: "12.00", bacLycee: "", bacWilaya: "16 - Alger",
-                        anneeUniv: db.currentYear, groupe: "Groupe 1", typeInscr: "Nouveau", statut: "Régulier", compteActif: "Oui"
-                    };
-                    db.students.push(ns);
-                    db.grades[newMat] = {};
-                    showToast(`Transfert accepté. Étudiant ${t.nom} ${t.prenom} ajouté automatiquement aux dossiers.`);
-                }
+        function processTransfer(id, status) {
+            const t = db.transfers.find(x => x.id === id);
+            if (!t) return;
+            t.statut = status;
+            if (status === 'Accepté') {
+                // Créer l'étudiant automatiquement
+                const newMat = `2026350${1000 + db.students.length + 1}`;
+                const ns = {
+                    matricule: newMat,
+                    nomFr: t.nom,
+                    prenomFr: t.prenom,
+                    dateNaiss: "2004-01-01",
+                    lieuNaiss: "Alger",
+                    sexe: "M",
+                    nationalite: "Algérienne",
+                    situation: "Célibataire",
+                    acteNaiss: "",
+                    wilayaNaiss: "16 - Alger",
+                    nin: "", cni: "", cniDate: "",
+                    adresse: "",
+                    wilayaContact: "16 - Alger",
+                    communeContact: "Alger",
+                    phone: "", email: "",
+                    bacNum: "", bacYear: "2023", bacSerie: "Lettres", bacMoyenne: "12.00",
+                    bacLycee: t.origin, bacWilaya: "",
+                    anneeUniv: db.currentYear,
+                    niveau: "L3",
+                    groupe: "Groupe 1",
+                    typeInscr: "Transfert",
+                    statut: "Régulier",
+                    compteActif: true
+                };
+                db.students.push(ns);
+                db.grades[newMat] = {};
+                showToast(`Transfert accepté. ${t.nom} ${t.prenom} ajouté aux dossiers étudiants.`);
             }
             saveDatabaseToStorage();
-            renderTransfers();
+            renderTransfersTable();
             renderStudentsTable();
         }
 
-        // ========== DB EXPORT / IMPORT ==========
+        // ========== EXPORT / IMPORT ==========
         function exportDatabase() {
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
             const a = document.createElement('a');
@@ -1813,7 +1975,7 @@
 
         function importDatabase(e) {
             const reader = new FileReader();
-            reader.onload = ev => {
+            reader.onload = function(ev) {
                 try {
                     const imp = JSON.parse(ev.target.result);
                     if (imp.students && imp.grades) {
@@ -1823,24 +1985,26 @@
                         renderStudentsTable();
                         showToast("Base restaurée.");
                     } else showToast("Fichier invalide.");
-                } catch { showToast("Erreur de lecture."); }
+                } catch(err) { showToast("Erreur de lecture."); }
             };
             reader.readAsText(e.target.files[0]);
         }
 
         function importExcelStudents(e) {
             const reader = new FileReader();
-            reader.onload = ev => {
+            reader.onload = function(ev) {
                 const data = new Uint8Array(ev.target.result);
                 const wb = XLSX.read(data, {type:'array'});
                 const json = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
-                if (json.length > 0) showToast(`${json.length} lignes détectées (intégration manuelle requise).`);
+                showToast(`${json.length} lignes détectées dans Excel.`);
             };
             reader.readAsArrayBuffer(e.target.files[0]);
         }
 
         // ========== START ==========
-        window.addEventListener('DOMContentLoaded', () => initDatabase());
+        window.addEventListener('DOMContentLoaded', () => {
+            initDatabase();
+        });
     </script>
 </body>
 </html>
